@@ -1,0 +1,35 @@
+{
+  "name": "capstone_design-portfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "seed:dev": "nodemon ./server/db/seed.js",
+    "seed": "node ./server/db/seed.js",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "## Introduction",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.0.3",
+    "uuid": "^9.0.1",
+    "bcrypt": "^5.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laiyoung/Unit4CareerSim-Juicebox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/laiyoung/Unit4CareerSim-Juicebox/issues"
+  },
+  "homepage": "https://github.com/laiyoung/Unit4CareerSim-Juicebox#readme"
+}
