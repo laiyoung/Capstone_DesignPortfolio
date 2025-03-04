@@ -77,7 +77,7 @@ async function createTables() {
   }
 }
 
-// Creating initial users:
+// Creating initial admins:
 async function createInitialUsers() {
   try {
     console.log("Starting to create users...");
@@ -108,7 +108,7 @@ async function createInitialUsers() {
   }
 }
 
-// Creating initial posts:
+// Creating initial pieces:
 async function createInitialPosts() {
   try {
     const [albert, sandra, glamgal] = await getAllUsers();
@@ -149,6 +149,7 @@ async function createInitialPosts() {
     throw error;
   }
 }
+// Creating initial projects:
 
 // Database function:
 async function rebuildDB() {
@@ -174,29 +175,11 @@ async function testDB() {
     const users = await getAllUsers();
     console.log("Result:", users);
 
-    console.log("Calling updateUser on users[0]");
-    const updateUserResult = await updateUser(users[0].id, {
-      name: "Newname Sogood",
-      location: "Lesterville, KY",
-    });
-    console.log("Result:", updateUserResult);
 
     console.log("Calling getAllPosts");
     const posts = await getAllPosts();
     console.log("Result:", posts);
 
-    console.log("Calling updatePost on posts[0]");
-    const updatePostResult = await updatePost(posts[0].id, {
-      title: "New Title",
-      content: "Updated Content",
-    });
-    console.log("Result:", updatePostResult);
-
-    console.log("Calling updatePost on posts[1], only updating tags");
-    const updatePostTagsResult = await updatePost(posts[1].id, {
-      tags: ["#youcandoanything", "#redfish", "#bluefish"],
-    });
-    console.log("Result:", updatePostTagsResult);
 
     console.log("Calling getUserById with 1");
     const albert = await getUserById(1);
