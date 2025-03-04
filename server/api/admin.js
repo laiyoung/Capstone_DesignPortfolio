@@ -1,37 +1,30 @@
 // Importing Express
-const express = require('express');
-// Importing the routes from ./api/index.js:
-const usersRouter = express.Router();
+const express = require("express");
+const apiRouter = express.Router();
+
 // You have to add the "/users" bit in Postman
 
 // JSON parser:
-usersRouter.use(express.json());
+apiRouter.use(express.json());
 
 // Middleware for printing information + errors:
-usersRouter.use(require("morgan")("dev"));
+apiRouter.use(require("morgan")("dev"));
 
 // Importing bcrypt for comparing passwords:
 const bcrypt = require("bcrypt");
 
-const { 
-  createUser,
-  getAllUsers,
-  getUserByUsername,
-} = require('../db');
-
-const { 
- isLoggedIn
-} = require('../index');
+// Function imports: 
+const { createUser, getAllUsers, getUserByUsername } = require("../db");
+const { isLoggedIn } = require("../index");
 
 // Token middleware:
 require("dotenv").config();
-const jwt = require('jsonwebtoken');
-const  JWT_SECRET = process.env.JWT || "shhh";
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT || "shhh";
 
-
-// Possible Routes: 
-// Get all admin 
-app.get("/api/users", async (req, res, next) => {
+// Possible Routes:
+// Get all admin
+apiRouter.get("/api/users", async (req, res, next) => {
   try {
     res.send(await fetchUsers());
   } catch (ex) {
@@ -40,7 +33,7 @@ app.get("/api/users", async (req, res, next) => {
 });
 
 // Admin registration
-app.post("/api/auth/register", async (req, res, next) => {
+apiRouter.post("/api/auth/register", async (req, res, next) => {
   try {
     res.send(await createUser(req.body));
   } catch (ex) {
@@ -48,7 +41,7 @@ app.post("/api/auth/register", async (req, res, next) => {
   }
 });
 // Admin login
-app.post("/api/auth/login", async (req, res, next) => {
+apiRouter.post("/api/auth/login", async (req, res, next) => {
   try {
     // console.log ("inside login")
     console.log(req.body);
@@ -59,7 +52,7 @@ app.post("/api/auth/login", async (req, res, next) => {
 });
 
 // Authorization
-app.get("/api/auth/me", isLoggedIn, (req, res, next) => {
+apiRouter.get("/api/auth/me", isLoggedIn, (req, res, next) => {
   try {
     res.send(req.user);
   } catch (ex) {
@@ -67,23 +60,26 @@ app.get("/api/auth/me", isLoggedIn, (req, res, next) => {
   }
 });
 
-
 // Add an art piece
-app.post("/api/users/:id/favorites", isLoggedIn, async (req, res, next) => {
-  try {
-    res.status(201).send(
-      await createFavorite({
-        user_id: req.params.id,
-        product_id: req.body.product_id,
-      })
-    );
-  } catch (ex) {
-    next(ex);
+apiRouter.post(
+  "/api/users/:id/favorites",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      res.status(201).send(
+        await createFavorite({
+          user_id: req.params.id,
+          product_id: req.body.product_id,
+        })
+      );
+    } catch (ex) {
+      next(ex);
+    }
   }
-});
+);
 
 // Delete an art piece
-app.delete(
+apiRouter.delete(
   "/api/users/:user_id/favorites/:id",
   isLoggedIn,
   async (req, res, next) => {
@@ -96,17 +92,14 @@ app.delete(
   }
 );
 
-
-
-
 // More possible routes:
-// So, you only have the '/' because usersRouter is defined as "/users" in the api/index.js. 
-usersRouter.get('/', async (req, res, next) => {
+// So, you only have the '/' because usersRouter is defined as "/users" in the api/index.js.
+apiRouter.get("/", async (req, res, next) => {
   try {
     const users = await getAllUsers();
-  
+
     res.send({
-      users
+      users,
     });
   } catch ({ name, message }) {
     next({ name, message });
@@ -114,53 +107,57 @@ usersRouter.get('/', async (req, res, next) => {
 });
 
 // Same here! You have to add "/users" in Postman
-usersRouter.post('/login', async (req, res, next) => {
+apiRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
 
   // request must have both
   if (!username || !password) {
     next({
       name: "MissingCredentialsError",
-      message: "Please supply both a username and password"
+      message: "Please supply both a username and password",
     });
   }
 
   try {
     const user = await getUserByUsername(username);
-    if (user && (await bcrypt.compare(password, user.password) == true)) {
-      const token = jwt.sign({ 
-        id: user.id, 
-        username
-      }, JWT_SECRET, {
-        expiresIn: '1w'
-      });
+    if (user && (await bcrypt.compare(password, user.password)) == true) {
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username,
+        },
+        JWT_SECRET,
+        {
+          expiresIn: "1w",
+        }
+      );
 
-      res.send({ 
+      res.send({
         message: "you're logged in!",
-        token 
+        token,
       });
     } else {
-      next({ 
-        name: 'IncorrectCredentialsError', 
-        message: 'Username or password is incorrect'
+      next({
+        name: "IncorrectCredentialsError",
+        message: "Username or password is incorrect",
       });
     }
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     next(error);
   }
 });
 
-usersRouter.post('/register', async (req, res, next) => {
+apiRouter.post("/register", async (req, res, next) => {
   const { username, password, name, location } = req.body;
 
   try {
     const _user = await getUserByUsername(username);
-  
+
     if (_user) {
       next({
-        name: 'UserExistsError',
-        message: 'A user by that username already exists'
+        name: "UserExistsError",
+        message: "A user by that username already exists",
       });
     }
 
@@ -171,20 +168,22 @@ usersRouter.post('/register', async (req, res, next) => {
       location,
     });
 
-    const token = jwt.sign({ 
-      id: user.id, 
-      username
-    }, JWT_SECRET, {
-      expiresIn: '1w'
-    });
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username,
+      },
+      JWT_SECRET,
+      {
+        expiresIn: "1w",
+      }
+    );
 
-    res.send({ 
+    res.send({
       message: "thank you for signing up",
-      token 
+      token,
     });
   } catch ({ name, message }) {
     next({ name, message });
-  } 
+  }
 });
-
-module.exports = usersRouter;

@@ -1,6 +1,5 @@
 /** Express + API Functions */
 
-
 // Express Imports:
 const express = require("express");
 const apiRouter = express.Router();
@@ -11,12 +10,6 @@ apiRouter.use(express.json());
 // Middleware for printing information + errors:
 apiRouter.use(require("morgan")("dev"));
 
-const { getUserById } = require("../db");
-
-//Token middleware:
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT || "shhh";
 
 // Importing findUserWithToken to build the user request:
 const { findUserWithToken } = require("../db");
@@ -41,7 +34,6 @@ apiRouter.get("/", (req, res) =>
 );
 
 // Exporting routes and functions:
-module.exports = apiRouter;
 
 module.exports = {
   requireUser,

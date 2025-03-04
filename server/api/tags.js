@@ -1,21 +1,20 @@
-// Express imports:
-const express = require('express');
-// Importing the routes from ./api/index.js:
-const tagsRouter = express.Router();
-// You have to add the "/tags" bit in Postman 
+// Importing Express
+const express = require("express");
+const apiRouter = express.Router();
+
 
 // JSON parser:
-tagsRouter.use(express.json());
+apiRouter.use(express.json());
 
 // Middleware for printing information + errors:
-tagsRouter.use(require("morgan")("dev"));
+apiRouter.use(require("morgan")("dev"));
 
 const { 
   getAllTags,
   getPostsByTagName
 } = require('../db');
 
-tagsRouter.get('/', async (req, res, next) => {
+apiRouter.get('/', async (req, res, next) => {
   try {
     const tags = await getAllTags();
   
@@ -27,7 +26,7 @@ tagsRouter.get('/', async (req, res, next) => {
   }
 });
 
-tagsRouter.get('/:tagName/posts', async (req, res, next) => {
+apiRouter.get('/:tagName/posts', async (req, res, next) => {
   let { tagName } = req.params;
   
   // decode %23happy to #happy
