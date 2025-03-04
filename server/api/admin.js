@@ -1,3 +1,4 @@
+/** Express + API Function Imports */
 // Importing Express
 const express = require("express");
 const apiRouter = express.Router();
@@ -21,7 +22,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT || "shhh";
 
-// Possible Routes:
+// Possible Admin Routes:
 // Get all admin
 apiRouter.get("/api/users", async (req, res, next) => {
   try {
@@ -59,6 +60,7 @@ apiRouter.get("/api/auth/me", isLoggedIn, (req, res, next) => {
   }
 });
 
+/** Art Piece API Routes */
 // Add an art piece
 apiRouter.post(
   "/api/users/:id/favorites",
@@ -91,7 +93,47 @@ apiRouter.delete(
   }
 );
 
-// More possible routes:
+// Change an art piece's info:
+postsRouter.patch('/:postId', requireUser, async (req, res, next) => {
+  const { postId } = req.params;
+  const { title, content, tags } = req.body;
+
+  const updateFields = {};
+
+  if (tags && tags.length > 0) {
+    updateFields.tags = tags.trim().split(/\s+/);
+  }
+
+  if (title) {
+    updateFields.title = title;
+  }
+
+  if (content) {
+    updateFields.content = content;
+  }
+
+  try {
+    const originalPost = await getPostById(postId);
+
+    if (originalPost.author.id === req.user.id) {
+      const updatedPost = await updatePost(postId, updateFields);
+      res.send({ post: updatedPost })
+    } else {
+      next({
+        name: 'UnauthorizedUserError',
+        message: 'You cannot update a post that is not yours'
+      })
+    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
+/** Project API Routes */
+// These will be the same as the 1s for the art pieces
+
+
+// More possible routes(these are more complex):
 // So, you only have the '/' because usersRouter is defined as "/users" in the api/index.js.
 apiRouter.get("/", async (req, res, next) => {
   try {

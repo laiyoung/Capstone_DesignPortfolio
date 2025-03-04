@@ -11,7 +11,7 @@ apiRouter.use(express.json());
 apiRouter.use(require("morgan")("dev"));
 
 
-// Importing findUserWithToken to build the user request:
+// Importing findUserWithToken to build the admin requests:
 const { findUserWithToken } = require("../db");
 
 const requireUser = async (req, res, next) => {

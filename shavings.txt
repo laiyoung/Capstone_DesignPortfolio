@@ -1,4 +1,4 @@
-I'm not sure the file paths are correct in the json package
+I'm not sure the file paths are correct in the json package...
 
 
 Only need this for the admin routes: 
@@ -6,3 +6,4 @@ Only need this for the admin routes:
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT || "shhh";
+
