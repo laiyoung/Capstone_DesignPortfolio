@@ -28,6 +28,7 @@ const createUser = async ({ username, password }) => {
   ]);
   return response.rows[0];
 };
+
 // Creating a product data function:
 const createProduct = async ({ name }) => {
   const SQL = `

@@ -2,7 +2,6 @@
 const express = require("express");
 const apiRouter = express.Router();
 
-// You have to add the "/users" bit in Postman
 
 // JSON parser:
 apiRouter.use(express.json());
