@@ -12,7 +12,7 @@ const {
   getAllPosts,
   getAllTags,
   getPostsByTagName,
-} = require("./index");
+} = require("./db");
 
 // Dropping tables function:
 async function dropTables() {

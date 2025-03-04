@@ -3,7 +3,7 @@
 // Client set up and pg import:
 const pg = require("pg");
 const client = new pg.Client(
-  process.env.DATABASE_URL || "postgres://localhost/acme_auth_store_db"
+  process.env.DATABASE_URL || "postgres://localhost/[]"
 );
 
 //Hashing Encryption + Unique Identifier + JWT Imports:
@@ -12,30 +12,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT || "shhh";
 
-// Table Creation:
-const createTables = async () => {
-  const SQL = `
-    DROP TABLE IF EXISTS favorites;
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS products;
-    CREATE TABLE users(
-      id UUID PRIMARY KEY,
-      username VARCHAR(20) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL
-    );
-    CREATE TABLE products(
-      id UUID PRIMARY KEY,
-      name VARCHAR(20)
-    );
-    CREATE TABLE favorites(
-      id UUID PRIMARY KEY,
-      user_id UUID REFERENCES users(id) NOT NULL,
-      product_id UUID REFERENCES products(id) NOT NULL,
-      CONSTRAINT unique_user_id_and_product_id UNIQUE (user_id, product_id)
-    );
-  `;
-  await client.query(SQL);
-};
+
 
 // Creating a user data function:
 const createUser = async ({ username, password }) => {
@@ -100,6 +77,7 @@ const authenticate = async ({ username, password }) => {
   console.log(token);
   return { token: token };
 };
+
 // Finding a user with a token data function:
 const findUserWithToken = async (token) => {
   try {
@@ -158,7 +136,6 @@ const fetchFavorites = async (user_id) => {
 // Exporting to the index.js file:
 module.exports = {
   client,
-  createTables,
   createUser,
   createProduct,
   fetchUsers,
