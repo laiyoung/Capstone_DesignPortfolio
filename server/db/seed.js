@@ -4,12 +4,13 @@
 const {
   client,
   createAdmin,
-  getAllUsers,
+  createArtPiece,
+  getAllAdmins,
   getAdminById,
-  createPiece,
   getAllPieces,
   getAllTags,
   getPiecesByTagName,
+  getAdminByUsername,
 } = require("./db");
 
 // Dropping tables function:
@@ -113,7 +114,7 @@ async function createInitialPieces() {
     const [laiyoung, instructor1] = await getAllAdmins();
 
     console.log("Starting to create posts...");
-    await createPiece({
+    await createArtPiece({
       authorId: laiyoung.id,
       title: "Pinhole Portrait 1",
       date:"2010-08-21",
@@ -123,7 +124,7 @@ async function createInitialPieces() {
       tags: ["#film", "#pin-hole", "#portrait"],
     });
 
-    await createPiece({
+    await createArtPiece({
       authorId: instructor1.id,
       title: "Pinhole Portrait 2",
       date:"2010-08-22",
@@ -133,19 +134,7 @@ async function createInitialPieces() {
       tags: ["#film", "#pin-hole", "#portrait"],
     });
 
-    await createPiece({
-      authorId: laiyoung.id,
-      title: "Why is tech so hard???",
-      content: "Still can't figure this out?",
-      tags: ["#happy", "#worst-day-ever"],
-    });
 
-    await createPiece({
-      authorId: laiyoung.id,
-      title: "Living the Glam Life",
-      content: "Do you even? I swear that half of you are posing.",
-      tags: ["#happy", "#youcandoanything", "#canmandoeverything"],
-    });
 
     console.log("Finished creating posts!");
   } catch (error) {
@@ -175,7 +164,7 @@ async function testDB() {
   try {
     console.log("Starting to test database...");
 
-    console.log("Calling getAllUsers");
+    console.log("Calling getAllAdmins");
     const admins = await getAllAdmins();
     console.log("Result:", admins);
 
@@ -183,17 +172,21 @@ async function testDB() {
     const pieces = await getAllPieces();
     console.log("Result:", pieces);
 
-    console.log("Calling getAdminById with 1");
-    const laiyoung = await getAdminById(1);
-    console.log("Result:", laiyoung);
+    console.log("Calling getAdminById with 2");
+    const instructor1 = await getAdminById(2);
+    console.log("Result:", instructor1);
+
+    console.log("Calling getAdminByUsername laiyoung");
+    const singleAdmin = await getAdminByUsername("laiyoung");
+    console.log("Result:", singleAdmin);
 
     console.log("Calling getAllTags");
     const allTags = await getAllTags();
     console.log("Result:", allTags);
 
-    console.log("Calling getPostsByTagName with #film");
-    const postsWithFilm = await getPiecesByTagName("#film");
-    console.log("Result:", postsWithFilm);
+    console.log("Calling getPiecesByTagName with #film");
+    const piecesWithFilm = await getPiecesByTagName("#film");
+    console.log("Result:", piecesWithFilm);
 
     console.log("Finished database tests!");
   } catch (error) {
