@@ -1,7 +1,7 @@
 /** Middleware and Listening Functionality */
 
 // Functon imports:
-const { client, findUserWithToken } = require("./db");
+const { client, findUserWithToken } = require("../db");
 
 // Express imports:
 const express = require("express");
@@ -12,6 +12,15 @@ app.use(express.json());
 
 // Middleware for printing information + errors:
 app.use(require("morgan")("dev"));
+
+// Middleware for linking frontend to backend:
+const cors = require('cors')
+
+app.use(cors({
+origin: "http://localhost:5173",
+method: "GET, POST, PUT, PATCH, DELETE",
+allowedHeaders: "Content-Type, Authorization"
+}))
 
 //For deployment only:
 const path = require("path");

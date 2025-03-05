@@ -3,7 +3,7 @@
 // Client set up and pg import:
 const pg = require("pg");
 const client = new pg.Client(
-  process.env.DATABASE_URL || "postgres://localhost/[]"
+  process.env.DATABASE_URL || "postgres://localhost/design_portfolio_db"
 );
 
 //Hashing Encryption + Unique Identifier + JWT Imports:

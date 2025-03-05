@@ -3,15 +3,13 @@
 // Imports from ./db/index.js:
 const {
   client,
-  createUser,
-  updateUser,
+  createAdmin,
   getAllUsers,
-  getUserById,
-  createPost,
-  updatePost,
-  getAllPosts,
+  getAdminById,
+  createPiece,
+  getAllPieces,
   getAllTags,
-  getPostsByTagName,
+  getPiecesByTagName,
 } = require("./db");
 
 // Dropping tables function:
@@ -19,12 +17,13 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables...");
 
-    // have to make sure to drop in correct order
+    // have to make sure to drop in correct order (children first, then parents)
     await client.query(`
-      DROP TABLE IF EXISTS post_tags;
+      DROP TABLE IF EXISTS piece_tags;
       DROP TABLE IF EXISTS tags;
-      DROP TABLE IF EXISTS posts;
-      DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS pieces;
+      DROP TABLE IF EXISTS projects;
+      DROP TABLE IF EXISTS admins;
     `);
 
     console.log("Finished dropping tables!");
@@ -38,35 +37,41 @@ async function dropTables() {
 async function createTables() {
   try {
     console.log("Starting to build tables...");
-
+    // create in  the reverse order of drop (parents first, then children)
     await client.query(`
-      CREATE TABLE users (
+      CREATE TABLE admins (
         id SERIAL PRIMARY KEY,
         username varchar(255) UNIQUE NOT NULL,
         password varchar(255) NOT NULL,
         name varchar(255) NOT NULL,
-        location varchar(255) NOT NULL,
         active boolean DEFAULT true
       );
 
-      CREATE TABLE posts (
+      CREATE TABLE projects (
         id SERIAL PRIMARY KEY,
-        "authorId" INTEGER REFERENCES users(id),
         title varchar(255) NOT NULL,
-        content TEXT NOT NULL,
-        active BOOLEAN DEFAULT true
+        description TEXT NOT NULL,
+      );
+
+      CREATE TABLE pieces (
+        id SERIAL PRIMARY KEY,
+        "authorId" INTEGER REFERENCES admins(id),
+        title varchar(255) NOT NULL,
+        date DATE NOT NULL,
+        photo TEXT NOT NULL,
+        description TEXT NOT NULL
       );
 
       CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
-        name varchar(255) UNIQUE NOT NULL
+        medium varchar(255) UNIQUE NOT NULL
       );
 
-      CREATE TABLE post_tags (
+      CREATE TABLE piece_tags (
         id SERIAL PRIMARY KEY,
-        "postId" INTEGER REFERENCES posts(id),
+        "pieceId" INTEGER REFERENCES pieces(id),
         "tagId" INTEGER REFERENCES tags(id),
-        CONSTRAINT unique_postId_and_tagId UNIQUE ("postId", "tagId")
+        CONSTRAINT unique_pieceId_and_tagId UNIQUE ("pieceId", "tagId")
       );
     `);
 
@@ -78,27 +83,20 @@ async function createTables() {
 }
 
 // Creating initial admins:
-async function createInitialUsers() {
+async function createInitialAdmins() {
   try {
     console.log("Starting to create users...");
 
-    await createUser({
-      username: "albert",
-      password: "bertie99",
-      name: "Al Bert",
-      location: "Sidney, Australia",
+    await createAdmin({
+      username: "laiyoung",
+      password: "hello",
+      name: "Laigha",
     });
-    await createUser({
-      username: "sandra",
-      password: "2sandy4me",
-      name: "Just Sandra",
-      location: "Ain't tellin'",
-    });
-    await createUser({
-      username: "glamgal",
-      password: "soglam",
-      name: "Joshua",
-      location: "Upper East Side",
+
+    await createAdmin({
+      username: "instructor1",
+      password: "grading",
+      name: "Insructor",
     });
 
     console.log("Finished creating users!");
@@ -109,35 +107,41 @@ async function createInitialUsers() {
 }
 
 // Creating initial pieces:
-async function createInitialPosts() {
+// Requires date format of: yyyy-mm-dd
+async function createInitialPieces() {
   try {
-    const [albert, sandra, glamgal] = await getAllUsers();
+    const [laiyoung, instructor1] = await getAllAdmins();
 
     console.log("Starting to create posts...");
-    await createPost({
-      authorId: albert.id,
-      title: "First Post",
-      content:
-        "This is my first post. I hope I love writing blogs as much as I love writing them.",
-      tags: ["#happy", "#youcandoanything"],
+    await createPiece({
+      authorId: laiyoung.id,
+      title: "Pinhole Portrait 1",
+      date:"2010-08-21",
+      photo: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
+      description:
+      "Portrait film photo, created using a handmade pinhole lightbox.",  
+      tags: ["#film", "#pin-hole", "#portrait"],
     });
 
-    await createPost({
-      authorId: sandra.id,
-      title: "How does this work?",
-      content: "Seriously, does this even do anything?",
-      tags: ["#happy", "#worst-day-ever"],
+    await createPiece({
+      authorId: instructor1.id,
+      title: "Pinhole Portrait 2",
+      date:"2010-08-22",
+      photo: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
+      description:
+      "Portrait film photo, created using a handmade pinhole lightbox.",  
+      tags: ["#film", "#pin-hole", "#portrait"],
     });
 
-    await createPost({
-      authorId: sandra.id,
+    await createPiece({
+      authorId: laiyoung.id,
       title: "Why is tech so hard???",
       content: "Still can't figure this out?",
       tags: ["#happy", "#worst-day-ever"],
     });
 
-    await createPost({
-      authorId: glamgal.id,
+    await createPiece({
+      authorId: laiyoung.id,
       title: "Living the Glam Life",
       content: "Do you even? I swear that half of you are posing.",
       tags: ["#happy", "#youcandoanything", "#canmandoeverything"],
@@ -158,8 +162,8 @@ async function rebuildDB() {
     // Running database creation functions
     await dropTables();
     await createTables();
-    await createInitialUsers();
-    await createInitialPosts();
+    await createInitialAdmins();
+    await createInitialPieces();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
@@ -172,26 +176,24 @@ async function testDB() {
     console.log("Starting to test database...");
 
     console.log("Calling getAllUsers");
-    const users = await getAllUsers();
-    console.log("Result:", users);
+    const admins = await getAllAdmins();
+    console.log("Result:", admins);
 
+    console.log("Calling getAllPieces");
+    const pieces = await getAllPieces();
+    console.log("Result:", pieces);
 
-    console.log("Calling getAllPosts");
-    const posts = await getAllPosts();
-    console.log("Result:", posts);
-
-
-    console.log("Calling getUserById with 1");
-    const albert = await getUserById(1);
-    console.log("Result:", albert);
+    console.log("Calling getAdminById with 1");
+    const laiyoung = await getAdminById(1);
+    console.log("Result:", laiyoung);
 
     console.log("Calling getAllTags");
     const allTags = await getAllTags();
     console.log("Result:", allTags);
 
-    console.log("Calling getPostsByTagName with #happy");
-    const postsWithHappy = await getPostsByTagName("#happy");
-    console.log("Result:", postsWithHappy);
+    console.log("Calling getPostsByTagName with #film");
+    const postsWithFilm = await getPiecesByTagName("#film");
+    console.log("Result:", postsWithFilm);
 
     console.log("Finished database tests!");
   } catch (error) {
