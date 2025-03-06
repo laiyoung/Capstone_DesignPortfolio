@@ -13,15 +13,17 @@ const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT || "shhh";
 
 
-/** Administrator data functions */
-// Creating an admin data function:
+/**
+ * Admin Methods
+ */
+// Creating an admin data function (testDB function):
 async function createAdmin({ username, password, name }) {
   try {
     const {
       rows: [admin],
     } = await client.query(
       `
-      INSERT INTO users(username, password, name) 
+      INSERT INTO admins(username, password, name) 
       VALUES($1, $2, $3) 
       ON CONFLICT (username) DO NOTHING 
       RETURNING *;
@@ -34,7 +36,7 @@ async function createAdmin({ username, password, name }) {
     throw error;
   }
 }
-// Getting admin by Username:
+// Getting admin by Username (testDB function):
 async function getAdminByUsername(username) {
   try {
     const {
@@ -51,7 +53,7 @@ async function getAdminByUsername(username) {
     if (!admin) {
       throw {
         name: "AdminNotFoundError",
-        message: "A admin with that username does not exist",
+        message: "An admin with that username does not exist",
       };
     }
 
@@ -61,7 +63,7 @@ async function getAdminByUsername(username) {
   }
 }
 
-// Getting an admin by ID:
+// Getting an admin by ID (testDB function):
 async function getAdminById(adminId) {
   try {
     const {
@@ -134,67 +136,291 @@ const findAdminWithToken = async (token) => {
   return response.rows[0];
 };
 
-/** Art Piece data functions */
-// Creating an art piece data function:
-const createArtPiece = async ({ name }) => {
-  const SQL = `
-    INSERT INTO products(id, name) 
-    VALUES($1, $2) 
-    RETURNING *
-  `;
-  const response = await client.query(SQL, [uuid.v4(), name]);
-  return response.rows[0];
-};
+/**
+ * Art Piece Methods
+ */
+// Creating an art piece data function (testDB function):
+async function createArtPiece({ authorId, title, date, imageURL, description, tags = [] }) {
+  try {
+    const {
+      rows: [piece],
+    } = await client.query(
+      `
+      INSERT INTO pieces("authorId", title, date, imageURL, description) 
+      VALUES($1, $2, $3, $4, $5)
+      RETURNING *;
+    `,
+      [authorId, title, date, imageURL, description]
+    );
+
+    const tagList = await createTags(tags);
+
+    return await addTagsToPiece(piece.id, tagList);
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Updating an art piece data function:
-const updateArtPiece = async ({ user_id, product_id }) => {
-  const SQL = `
-    INSERT INTO favorites(id, user_id, product_id) 
-    VALUES($1, $2, $3) 
-    RETURNING *
-  `;
-  const response = await client.query(SQL, [uuid.v4(), user_id, product_id]);
-  return response.rows[0];
-};
-// Deleting a favorite data function:
-const destroyArtPiece = async ({ user_id, id }) => {
-  const SQL = `
-    DELETE FROM favorites 
-    WHERE user_id=$1 AND id=$2
-  `;
-  await client.query(SQL, [user_id, id]);
+async function updateArtPiece(pieceId, fields = {}) {
+  // read off the tags & remove that field
+  const { tags } = fields; // might be undefined
+  delete fields.tags;
+
+  // build the set string
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  try {
+    // update any fields that need to be updated
+    if (setString.length > 0) {
+      await client.query(
+        `
+        UPDATE pieces
+        SET ${setString}
+        WHERE id=${pieceId}
+        RETURNING *;
+      `,
+        Object.values(fields)
+      );
+    }
+
+    // return early if there's no tags to update
+    if (tags === undefined) {
+      return await getPieceById(pieceId);
+    }
+
+    // make any new tags that need to be made
+    const tagList = await createTags(tags);
+    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
+
+    // delete any peice_tags from the database which aren't in that tagList
+    await client.query(
+      `
+      DELETE FROM piece_tags
+      WHERE "tagId"
+      NOT IN (${tagListIdString})
+      AND "pieceId"=$1;
+    `,
+      [pieceId]
+    );
+
+    // and create post_tags as necessary
+    await addTagsToPiece(pieceId, tagList);
+
+    return await getPieceById(pieceId);
+  } catch (error) {
+    throw error;
+  }
+}
+// Deleting an art piece data function:
+const destroyArtPiece = async ( id ) => {
+  try {
+  await client.query(`DELETE FROM piece_tags WHERE "pieceId"=$1`, [id]);
+  await client.query(`DELETE FROM pieces WHERE id=$1`, [id]);
+  console.log(id)
+
+  return id 
+  } catch (error) {
+    throw error;
+  }
 };
 
-/** Basic Fetching data functions */
-// Fetch All Admin:
+// Getting an art piece by its ID (testDB function):
+async function getPieceById(pieceId) {
+  try {
+    const {
+      rows: [piece],
+    } = await client.query(
+      `
+      SELECT *
+      FROM pieces
+      WHERE id=$1;
+    `,
+      [pieceId]
+    );
+
+    if (!piece) {
+      throw {
+        name: "PieceNotFoundError",
+        message: "Could not find an art piece with that pieceId",
+      };
+    }
+
+    const { rows: tags } = await client.query(
+      `
+      SELECT tags.*
+      FROM tags
+      JOIN piece_tags ON tags.id=piece_tags."tagId"
+      WHERE piece_tags."pieceId"=$1;
+    `,
+      [pieceId]
+    );
+
+    const {
+      rows: [author],
+    } = await client.query(
+      `
+      SELECT id, username, name
+      FROM admins
+      WHERE id=$1;
+    `,
+      [piece.authorId]
+    );
+
+    piece.tags = tags;
+    piece.author = author;
+
+    delete piece.authorId;
+
+    return piece;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+
+/**
+ * Project Methods
+ */
+// If we get here...LOL
+
+
+/**
+ * Tag Methods
+ */
+//Creating tags:
+async function createTags(tagList) {
+  if (tagList.length === 0) {
+    return;
+  }
+
+  const valuesStringInsert = tagList
+    .map((_, index) => `$${index + 1}`)
+    .join("), (");
+
+  const valuesStringSelect = tagList
+    .map((_, index) => `$${index + 1}`)
+    .join(", ");
+
+  try {
+    // insert all, ignoring duplicates
+    await client.query(
+      `
+      INSERT INTO tags(medium)
+      VALUES (${valuesStringInsert})
+      ON CONFLICT (medium) DO NOTHING;
+    `,
+      tagList
+    );
+
+    // grab all and return
+    const { rows } = await client.query(
+      `
+      SELECT * FROM tags
+      WHERE medium
+      IN (${valuesStringSelect});
+    `,
+      tagList
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createPieceTag(pieceId, tagId) {
+  try {
+    await client.query(
+      `
+      INSERT INTO piece_tags("pieceId", "tagId")
+      VALUES ($1, $2)
+      ON CONFLICT ("pieceId", "tagId") DO NOTHING;
+    `,
+      [pieceId, tagId]
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+//Adding tags to a piece
+async function addTagsToPiece(pieceId, tagList) {
+  try {
+    const createPieceTagPromises = tagList.map((tag) =>
+      createPieceTag(pieceId, tag.id)
+    );
+
+    await Promise.all(createPieceTagPromises);
+
+    return await getPieceById(pieceId);
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+/** 
+ * Basic Group-Fetching Data Functions  
+ */
+// Fetch All Admin (testDB function):
 const getAllAdmins = async () => {
   const SQL = `
     SELECT id, username 
-    FROM users;
+    FROM admins;
   `;
   const response = await client.query(SQL);
   return response.rows;
 };
-// Fetch All Art Pieces:
+// Fetch All Art Pieces (testDB function):
 const getAllPieces = async () => {
   const SQL = `
     SELECT * 
-    FROM products;
+    FROM pieces;
   `;
   const response = await client.query(SQL);
   return response.rows;
 };
-// Fetch All Tags:
-const getAllTags = async (user_id) => {
-  const SQL = `
-    SELECT * 
-    FROM favorites 
-    WHERE user_id = $1
-  `;
-  const response = await client.query(SQL, [user_id]);
-  return response.rows;
-};
-// Fetch Pieces by TagName:
+// Fetch All Tags (testDB function):
+async function getAllTags() {
+  try {
+    const { rows } = await client.query(`
+      SELECT * 
+      FROM tags;
+    `);
 
+    return { rows };
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Fetch Pieces by TagName (testDB function):
+async function getPiecesByTagName(tagName) {
+  try {
+    const { rows: pieceIds } = await client.query(
+      `
+      SELECT pieces.id
+      FROM pieces
+      JOIN piece_tags ON pieces.id=piece_tags."pieceId"
+      JOIN tags ON tags.id=piece_tags."tagId"
+      WHERE tags.medium=$1;
+    `,
+      [tagName]
+    );
+
+    return await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+// Fetch All Projects:
+// Again, if we get here...LOL
 
 
 // Exporting to the index.js file:
@@ -212,4 +438,5 @@ module.exports = {
   getAllPieces,
   getAllTags,
   getPiecesByTagName,
+  getPieceById,
 };

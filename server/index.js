@@ -17,10 +17,13 @@ app.use(require("morgan")("dev"));
 const cors = require('cors')
 
 app.use(cors({
-origin: "http://localhost:5173",
+origin: ['http://localhost:5173'],
 method: "GET, POST, PUT, PATCH, DELETE",
 allowedHeaders: "Content-Type, Authorization"
 }))
+// BTW: double-quote strings aren't accepted as JSONs, so on line 20, 
+// you have to use single quotes
+
 
 //For deployment only:
 const path = require("path");

@@ -11,6 +11,7 @@ const {
   getAllTags,
   getPiecesByTagName,
   getAdminByUsername,
+  getPieceById,
 } = require("./db");
 
 // Dropping tables function:
@@ -51,7 +52,7 @@ async function createTables() {
       CREATE TABLE projects (
         id SERIAL PRIMARY KEY,
         title varchar(255) NOT NULL,
-        description TEXT NOT NULL,
+        description TEXT NOT NULL
       );
 
       CREATE TABLE pieces (
@@ -59,7 +60,7 @@ async function createTables() {
         "authorId" INTEGER REFERENCES admins(id),
         title varchar(255) NOT NULL,
         date DATE NOT NULL,
-        photo TEXT NOT NULL,
+        imageURL TEXT NOT NULL,
         description TEXT NOT NULL
       );
 
@@ -86,7 +87,7 @@ async function createTables() {
 // Creating initial admins:
 async function createInitialAdmins() {
   try {
-    console.log("Starting to create users...");
+    console.log("Starting to create admins...");
 
     await createAdmin({
       username: "laiyoung",
@@ -100,9 +101,9 @@ async function createInitialAdmins() {
       name: "Insructor",
     });
 
-    console.log("Finished creating users!");
+    console.log("Finished creating admins!");
   } catch (error) {
-    console.error("Error creating users!");
+    console.error("Error creating admins!");
     throw error;
   }
 }
@@ -113,12 +114,12 @@ async function createInitialPieces() {
   try {
     const [laiyoung, instructor1] = await getAllAdmins();
 
-    console.log("Starting to create posts...");
+    console.log("Starting to create pieces...");
     await createArtPiece({
       authorId: laiyoung.id,
       title: "Pinhole Portrait 1",
       date:"2010-08-21",
-      photo: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
+      imageURL: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
       description:
       "Portrait film photo, created using a handmade pinhole lightbox.",  
       tags: ["#film", "#pin-hole", "#portrait"],
@@ -128,7 +129,7 @@ async function createInitialPieces() {
       authorId: instructor1.id,
       title: "Pinhole Portrait 2",
       date:"2010-08-22",
-      photo: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
+      imageURL: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
       description:
       "Portrait film photo, created using a handmade pinhole lightbox.",  
       tags: ["#film", "#pin-hole", "#portrait"],
@@ -136,9 +137,9 @@ async function createInitialPieces() {
 
 
 
-    console.log("Finished creating posts!");
+    console.log("Finished creating art pieces!");
   } catch (error) {
-    console.log("Error creating posts!");
+    console.log("Error creating art pieces!");
     throw error;
   }
 }
@@ -187,6 +188,10 @@ async function testDB() {
     console.log("Calling getPiecesByTagName with #film");
     const piecesWithFilm = await getPiecesByTagName("#film");
     console.log("Result:", piecesWithFilm);
+
+    console.log("Calling getPieceById with 1");
+    const artPiece1 = await getPieceById(1);
+    console.log("Result:", artPiece1);
 
     console.log("Finished database tests!");
   } catch (error) {
