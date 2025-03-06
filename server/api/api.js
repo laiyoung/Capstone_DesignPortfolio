@@ -7,8 +7,10 @@ const apiRouter = express.Router();
 // JSON parser:
 apiRouter.use(express.json());
 
-
+// Routes for api requests (each file needs it's own defined path):
+// File declararion:
 const admin = require("./admin")
+// Route declaration: 
 apiRouter.use("/admins", admin)
 
 const art = require("./art")
@@ -24,7 +26,7 @@ const tags = require("./tags")
 apiRouter.use("/tags", tags)
 
 
-// Exporting routes and functions:
+// Exporting express router to the various api files:
 
 module.exports = apiRouter
 

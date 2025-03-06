@@ -1,7 +1,7 @@
 /** Middleware and Listening Functionality */
 
 // Functon imports:
-const { client, findUserWithToken } = require("./db/db.js");
+const { client } = require("./db/db.js");
 
 // Express imports:
 const express = require("express");
@@ -14,18 +14,19 @@ app.use(express.json());
 app.use(require("morgan")("dev"));
 
 // Middleware for linking frontend to backend:
-const cors = require('cors')
+const cors = require("cors");
 
-app.use(cors({
-origin: ['http://localhost:5173'],
-method: "GET, POST, PUT, PATCH, DELETE",
-allowedHeaders: "Content-Type, Authorization"
-}))
-// BTW: double-quote strings aren't accepted as JSONs, so on line 20, you have to use single quotes 
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    method: "GET, POST, PUT, PATCH, DELETE",
+    allowedHeaders: "Content-Type, Authorization",
+  })
+);
+// BTW: double-quote strings aren't accepted as JSONs, so on line 20, you have to use single quotes
 
 const api = require("./api/api.js");
-app.use("/api", api)
-
+app.use("/api", api);
 
 //For deployment only:
 const path = require("path");
@@ -36,8 +37,6 @@ app.use(
   "/assets",
   express.static(path.join(__dirname, "../client/dist/assets"))
 );
-
-
 
 /**This little function produces a lovely print out of any error messages thrown by
  * any of the callback functions. It makes an object displayed in the console that
@@ -63,5 +62,3 @@ const init = async () => {
 
 // Init function invocation:
 init();
-
-

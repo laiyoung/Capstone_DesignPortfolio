@@ -3,7 +3,6 @@
 const express = require("express");
 const apiRouter = express.Router();
 
-
 // JSON parser:
 apiRouter.use(express.json());
 
@@ -13,9 +12,13 @@ apiRouter.use(require("morgan")("dev"));
 // Importing bcrypt for comparing passwords:
 const bcrypt = require("bcrypt");
 
-// Function imports: 
-const { createAdmin, getAllAdmins, getAdminByUsername, findAdminWithToken} = require("../db/db");
-
+// Function imports:
+const {
+  createAdmin,
+  getAllAdmins,
+  getAdminByUsername,
+  findAdminWithToken,
+} = require("../db/db");
 
 // Token middleware:
 require("dotenv").config();
@@ -52,7 +55,7 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
   }
 });
 
-/** Art Piece API Routes */
+/** Art Piece API Routes that Require a Token */
 // Add an art piece
 // apiRouter.post(
 //   "/api/users/:id/favorites",
@@ -121,9 +124,8 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 //   }
 // });
 
-/** Project API Routes */
+/** Project API Routes that Require a Token */
 // These will be the same as the 1s for the art pieces
-
 
 // More possible routes(these are more complex):
 // So, you only have the '/' because usersRouter is defined as "/users" in the api/index.js.
@@ -221,4 +223,4 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 //   }
 // });
 
-module.exports = apiRouter
+module.exports = apiRouter;
