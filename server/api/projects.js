@@ -2,17 +2,16 @@
 const express = require("express");
 const apiRouter = express.Router();
 
+// Get all projects
+apiRouter.get("/api/products", async (req, res, next) => {
+  try {
+    res.send(await fetchProducts());
+  } catch (ex) {
+    next(ex);
+  }
+});
 
-// Get all art pieces: 
-// apiRouter.get("/api/products", async (req, res, next) => {
-//         try {
-//           res.send(await fetchProducts());
-//         } catch (ex) {
-//           next(ex);
-//         }
-//       });
-
-// Get art piece details:
+// Get project details:
 // This put has the correct path set up
 // Change an employee's details
 // app.put("/api/employees/:id", async (req, res, next) => {

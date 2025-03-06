@@ -1,7 +1,7 @@
 /** Middleware and Listening Functionality */
 
 // Functon imports:
-const { client, findUserWithToken } = require("../db");
+const { client, findUserWithToken } = require("./db/db.js");
 
 // Express imports:
 const express = require("express");
@@ -21,8 +21,10 @@ origin: ['http://localhost:5173'],
 method: "GET, POST, PUT, PATCH, DELETE",
 allowedHeaders: "Content-Type, Authorization"
 }))
-// BTW: double-quote strings aren't accepted as JSONs, so on line 20, 
-// you have to use single quotes
+// BTW: double-quote strings aren't accepted as JSONs, so on line 20, you have to use single quotes 
+
+const api = require("./api/api.js");
+app.use("/api", api)
 
 
 //For deployment only:
@@ -35,15 +37,7 @@ app.use(
   express.static(path.join(__dirname, "../client/dist/assets"))
 );
 
-// Middleware for logging in:
-const isLoggedIn = async (req, res, next) => {
-  try {
-    req.user = await findUserWithToken(req.headers.authorization);
-    next();
-  } catch (ex) {
-    next(ex);
-  }
-};
+
 
 /**This little function produces a lovely print out of any error messages thrown by
  * any of the callback functions. It makes an object displayed in the console that
@@ -70,6 +64,4 @@ const init = async () => {
 // Init function invocation:
 init();
 
-module.exports = {
-  isLoggedIn,
-};
+

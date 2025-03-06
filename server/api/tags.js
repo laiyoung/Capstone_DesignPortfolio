@@ -12,7 +12,7 @@ apiRouter.use(require("morgan")("dev"));
 const { 
   getAllTags,
   getPostsByTagName
-} = require('../db');
+} = require("../db/db");
 
 apiRouter.get('/', async (req, res, next) => {
   try {
@@ -53,4 +53,4 @@ apiRouter.get('/:tagName/posts', async (req, res, next) => {
   }
 });
 
-module.exports = tagsRouter;
+module.exports = apiRouter

@@ -7,34 +7,24 @@ const apiRouter = express.Router();
 // JSON parser:
 apiRouter.use(express.json());
 
-// Middleware for printing information + errors:
-apiRouter.use(require("morgan")("dev"));
 
+const admin = require("./admin")
+apiRouter.use("/admins", admin)
 
-// Importing findUserWithToken to build the admin requests:
-const { findUserWithToken } = require("../db");
+const art = require("./art")
+apiRouter.use("/pieces", art)
 
-const requireUser = async (req, res, next) => {
-  try {
-    req.user = await findUserWithToken(req.headers.authorization);
-    next();
-  } catch (ex) {
-    next(ex);
-  }
-};
+const contact = require("./contact")
+apiRouter.use("/contact", contact)
 
-//Information for deployment:
-//Static route
-const path = require("node:path");
-apiRouter.use(express.static(path.join(__dirname, "../client/dist")));
-//GET endpoint to render static HTML
+const project = require("./projects")
+apiRouter.use("/projects", project)
 
-apiRouter.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"))
-);
+const tags = require("./tags")
+apiRouter.use("/tags", tags)
+
 
 // Exporting routes and functions:
 
-module.exports = {
-  requireUser,
-};
+module.exports = apiRouter
+
