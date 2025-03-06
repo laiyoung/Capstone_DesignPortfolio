@@ -1,6 +1,3 @@
-I'm not sure the file paths are correct in the json package...
-
-
 Only need this for the admin routes: 
 //Token middleware:
 require("dotenv").config();
@@ -17,12 +14,27 @@ apiRouter.post("/api/auth/register", async (req, res, next) => {
     next(ex);
   }
 });
+A more complex admin registration request:
 
-Deleting:
+
+
+A more complex getAllAdmin request (there was no message so I didn't use it):
+// apiRouter.get("/", async (req, res, next) => {
+//   try {
+//     const users = await getAllAdmins();
+
+//     res.send({
+//       admins,
+//     });
+//   } catch ({ name, message }) {
+//     next({ name, message });
+//   }
+// });
+
+Deleting unnecessary middleware:
+[
 // Middleware for printing information + errors:
 apiRouter.use(require("morgan")("dev"));
-
-
 // Importing findUserWithToken to build the admin requests:
 const { findUserWithToken } = require("../db/db.js");
 
@@ -34,7 +46,6 @@ const requireUser = async (req, res, next) => {
     next(ex);
   }
 };
-
 //Information for deployment:
 //Static route
 const path = require("node:path");
@@ -44,13 +55,12 @@ apiRouter.use(express.static(path.join(__dirname, "../client/dist")));
 apiRouter.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "../client/dist/index.html"))
 );
-
+]
 
 
 
 Removing pieces from the db/seed test: 
 //Removing change tests
-
   console.log("Calling updateUser on users[0]");
     const updateUserResult = await updateUser(users[0].id, {
       name: "Newname Sogood",
@@ -76,7 +86,7 @@ Removing pieces from the db/seed test:
 
 
 
-Entire db/seed test original setup: 
+The entire db/seed test original setup (for reference): 
 // Function for testing all database connections:
 async function testDB() {
   try {
@@ -129,7 +139,7 @@ async function testDB() {
   }
 }
 
-// Not sure what this is doing....:
+// Promise methods for the database rebuild:
 rebuildDB()
   .then(testDB)
   .catch(console.error)

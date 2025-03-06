@@ -200,7 +200,7 @@ async function testDB() {
   }
 }
 
-// Not sure what this is doing....:
+// Promise methods for the database rebuild:
 rebuildDB()
   .then(testDB)
   .catch(console.error)

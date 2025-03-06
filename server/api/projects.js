@@ -33,4 +33,7 @@ apiRouter.get("/api/products", async (req, res, next) => {
 //   }
 // });
 
+
+// All api route files need to export the router so that the api.js file can create a link:
 module.exports = apiRouter
+// This can't be in curlies like function exports

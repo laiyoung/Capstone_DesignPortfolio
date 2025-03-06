@@ -27,6 +27,7 @@ const JWT_SECRET = process.env.JWT || "shhh";
 
 // Possible Admin Routes:
 // Get all admin
+// So, you only have the '/' because usersRouter is defined as "/users" in the api/server.js.
 apiRouter.get("/", async (req, res, next) => {
   try {
     res.send(await getAllAdmins());
@@ -36,20 +37,52 @@ apiRouter.get("/", async (req, res, next) => {
 });
 
 // Admin login
-apiRouter.post("/api/auth/login", async (req, res, next) => {
+// Same here! You have to add "/admins" in Postman
+apiRouter.post("/login", async (req, res, next) => {
+  const { username, password } = req.body;
+
+  // request must have both
+  if (!username || !password) {
+    next({
+      name: "MissingCredentialsError",
+      message: "Please supply both a username and password",
+    });
+  }
+
   try {
-    // console.log ("inside login")
-    console.log(req.body);
-    res.send(await authenticate(req.body));
-  } catch (ex) {
-    next(ex);
+    const admin = await getAdminByUsername(username);
+    if (admin && (await bcrypt.compare(password, admin.password)) == true) {
+      const token = jwt.sign(
+        {
+          id: admin.id,
+          username,
+        },
+        JWT_SECRET,
+        {
+          expiresIn: "1w",
+        }
+      );
+
+      res.send({
+        message: "you're logged in!",
+        token,
+      });
+    } else {
+      next({
+        name: "IncorrectCredentialsError",
+        message: "Username or password is incorrect",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
 });
 
-// Authorization
-apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
+// Authorized action path for the front end
+apiRouter.get("/auth/me", findAdminWithToken, (req, res, next) => {
   try {
-    res.send(req.user);
+    res.send(req.admin);
   } catch (ex) {
     next(ex);
   }
@@ -110,7 +143,7 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 //   try {
 //     const originalPost = await getPostById(postId);
 
-//     if (originalPost.author.id === req.user.id) {
+//     if (originalPost.author.id === req.admin.id) {
 //       const updatedPost = await updatePost(postId, updateFields);
 //       res.send({ post: updatedPost })
 //     } else {
@@ -127,61 +160,7 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 /** Project API Routes that Require a Token */
 // These will be the same as the 1s for the art pieces
 
-// More possible routes(these are more complex):
-// So, you only have the '/' because usersRouter is defined as "/users" in the api/index.js.
-// apiRouter.get("/", async (req, res, next) => {
-//   try {
-//     const users = await getAllUsers();
-
-//     res.send({
-//       users,
-//     });
-//   } catch ({ name, message }) {
-//     next({ name, message });
-//   }
-// });
-
-// // Same here! You have to add "/users" in Postman
-// apiRouter.post("/login", async (req, res, next) => {
-//   const { username, password } = req.body;
-
-//   // request must have both
-//   if (!username || !password) {
-//     next({
-//       name: "MissingCredentialsError",
-//       message: "Please supply both a username and password",
-//     });
-//   }
-
-//   try {
-//     const user = await getUserByUsername(username);
-//     if (user && (await bcrypt.compare(password, user.password)) == true) {
-//       const token = jwt.sign(
-//         {
-//           id: user.id,
-//           username,
-//         },
-//         JWT_SECRET,
-//         {
-//           expiresIn: "1w",
-//         }
-//       );
-
-//       res.send({
-//         message: "you're logged in!",
-//         token,
-//       });
-//     } else {
-//       next({
-//         name: "IncorrectCredentialsError",
-//         message: "Username or password is incorrect",
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     next(error);
-//   }
-// });
+/** More possible routes(these are more complex) */
 
 // apiRouter.post("/register", async (req, res, next) => {
 //   const { username, password, name, location } = req.body;
@@ -192,11 +171,11 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 //     if (_user) {
 //       next({
 //         name: "UserExistsError",
-//         message: "A user by that username already exists",
+//         message: "A admin by that username already exists",
 //       });
 //     }
 
-//     const user = await createUser({
+//     const admin = await createUser({
 //       username,
 //       password,
 //       name,
@@ -205,7 +184,7 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 
 //     const token = jwt.sign(
 //       {
-//         id: user.id,
+//         id: admin.id,
 //         username,
 //       },
 //       JWT_SECRET,
@@ -223,4 +202,6 @@ apiRouter.get("/api/auth/me", findAdminWithToken, (req, res, next) => {
 //   }
 // });
 
+// All api route files need to export the router so that the api.js file can create a link:
 module.exports = apiRouter;
+// This can't be in curlies like function exports
