@@ -14,7 +14,6 @@ const bcrypt = require("bcrypt");
 
 // Function imports:
 const {
-  createAdmin,
   getAllAdmins,
   getAdminByUsername,
   findAdminWithToken,
@@ -160,47 +159,7 @@ apiRouter.get("/auth/me", findAdminWithToken, (req, res, next) => {
 /** Project API Routes that Require a Token */
 // These will be the same as the 1s for the art pieces
 
-/** More possible routes(these are more complex) */
 
-// apiRouter.post("/register", async (req, res, next) => {
-//   const { username, password, name, location } = req.body;
-
-//   try {
-//     const _user = await getUserByUsername(username);
-
-//     if (_user) {
-//       next({
-//         name: "UserExistsError",
-//         message: "A admin by that username already exists",
-//       });
-//     }
-
-//     const admin = await createUser({
-//       username,
-//       password,
-//       name,
-//       location,
-//     });
-
-//     const token = jwt.sign(
-//       {
-//         id: admin.id,
-//         username,
-//       },
-//       JWT_SECRET,
-//       {
-//         expiresIn: "1w",
-//       }
-//     );
-
-//     res.send({
-//       message: "thank you for signing up",
-//       token,
-//     });
-//   } catch ({ name, message }) {
-//     next({ name, message });
-//   }
-// });
 
 // All api route files need to export the router so that the api.js file can create a link:
 module.exports = apiRouter;

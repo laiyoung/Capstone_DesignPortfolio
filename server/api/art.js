@@ -2,15 +2,17 @@
 const express = require("express");
 const apiRouter = express.Router();
 
+// Function imports:
+const { getAllPieces, getPiecesByTagName, getPieceById } = require("../db/db");
 
-// Get all art pieces: 
-// apiRouter.get("/api/products", async (req, res, next) => {
-//         try {
-//           res.send(await fetchProducts());
-//         } catch (ex) {
-//           next(ex);
-//         }
-//       });
+// Get all art pieces:
+apiRouter.get("/", async (req, res, next) => {
+  try {
+    res.send(await getAllPieces());
+  } catch (ex) {
+    next(ex);
+  }
+});
 
 // Get art piece details:
 // This put has the correct path set up
@@ -34,7 +36,8 @@ const apiRouter = express.Router();
 //   }
 // });
 
+// Get art pieces by a specific tagname:
 
 // All api route files need to export the router so that the api.js file can create a link:
-module.exports = apiRouter
+module.exports = apiRouter;
 // This can't be in curlies like function exports

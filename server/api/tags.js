@@ -11,7 +11,7 @@ apiRouter.use(require("morgan")("dev"));
 
 const { 
   getAllTags,
-  getPostsByTagName
+  getPostsByTagName,
 } = require("../db/db");
 
 apiRouter.get('/', async (req, res, next) => {

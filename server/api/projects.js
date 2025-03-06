@@ -3,13 +3,13 @@ const express = require("express");
 const apiRouter = express.Router();
 
 // Get all projects
-apiRouter.get("/api/products", async (req, res, next) => {
-  try {
-    res.send(await fetchProducts());
-  } catch (ex) {
-    next(ex);
-  }
-});
+// apiRouter.get("/api/products", async (req, res, next) => {
+//   try {
+//     res.send(await fetchProducts());
+//   } catch (ex) {
+//     next(ex);
+//   }
+// });
 
 // Get project details:
 // This put has the correct path set up
