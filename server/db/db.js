@@ -12,7 +12,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT || "shhh";
 
-
 /**
  * Admin Methods
  */
@@ -87,7 +86,6 @@ async function getAdminById(adminId) {
   }
 }
 
-
 // Authentification data function:
 const authenticate = async ({ username, password }) => {
   const SQL = `
@@ -140,7 +138,14 @@ const findAdminWithToken = async (token) => {
  * Art Piece Methods
  */
 // Creating an art piece data function (testDB function):
-async function createArtPiece({ authorId, title, date, imageURL, description, tags = [] }) {
+async function createArtPiece({
+  authorId,
+  title,
+  date,
+  imageURL,
+  description,
+  tags = [],
+}) {
   try {
     const {
       rows: [piece],
@@ -215,13 +220,13 @@ async function updateArtPiece(pieceId, fields = {}) {
   }
 }
 // Deleting an art piece data function:
-const destroyArtPiece = async ( id ) => {
+const destroyArtPiece = async (id) => {
   try {
-  await client.query(`DELETE FROM piece_tags WHERE "pieceId"=$1`, [id]);
-  await client.query(`DELETE FROM pieces WHERE id=$1`, [id]);
-  console.log(id)
+    await client.query(`DELETE FROM piece_tags WHERE "pieceId"=$1`, [id]);
+    await client.query(`DELETE FROM pieces WHERE id=$1`, [id]);
+    console.log(id);
 
-  return id 
+    return id;
   } catch (error) {
     throw error;
   }
@@ -280,14 +285,10 @@ async function getPieceById(pieceId) {
   }
 }
 
-
-
-
 /**
  * Project Methods
  */
 // If we get here...LOL
-
 
 /**
  * Tag Methods
@@ -362,9 +363,8 @@ async function addTagsToPiece(pieceId, tagList) {
   }
 }
 
-
-/** 
- * Basic Group-Fetching Data Functions  
+/**
+ * Basic Group-Fetching Data Functions
  */
 // Fetch All Admin (testDB function):
 const getAllAdmins = async () => {
@@ -401,27 +401,28 @@ async function getAllTags() {
 // Fetch Pieces by TagName (testDB function):
 async function getPiecesByTagName(tagName) {
   try {
-    const { rows: pieceIds } = await client.query(
+    console.log("Inside method function-spot1", tagName);
+    const pieceIds = await client.query(
       `
-      SELECT pieces.id
-      FROM pieces
-      JOIN piece_tags ON pieces.id=piece_tags."pieceId"
-      JOIN tags ON tags.id=piece_tags."tagId"
-      WHERE tags.medium=$1;
+      SELECT *
+      FROM piece_tags
+      WHERE "tagId"=(SELECT tags.id FROM tags WHERE tags.medium=$1);
     `,
       [tagName]
     );
-
-    return await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
+    console.log("Inside method function-spot2", tagName);
+    console.log("Inside method function-rowArray", pieceIds);
+// await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
+    return pieceIds.rows
+    
+    
   } catch (error) {
     throw error;
   }
 }
 
-
 // Fetch All Projects:
 // Again, if we get here...LOL
-
 
 // Exporting to the index.js file:
 module.exports = {

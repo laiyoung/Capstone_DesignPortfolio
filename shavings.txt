@@ -31,6 +31,8 @@ A more complex getAllAdmin request (there was no message so I didn't use it):
 //   }
 // });
 
+WHERE "tagId" = (SELECT tags.id FROM tags WHERE tags.medium = $1)
+
 A more complex Register request (I only have admins and I'll provide the info for grading):
 apiRouter.post("/register", async (req, res, next) => {
   const { username, password, name, location } = req.body;

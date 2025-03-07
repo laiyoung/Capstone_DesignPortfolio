@@ -122,7 +122,7 @@ async function createInitialPieces() {
       imageURL: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
       description:
       "Portrait film photo, created using a handmade pinhole lightbox.",  
-      tags: ["#film", "#pin-hole", "#portrait"],
+      tags: ["film", "pin-hole", "portrait"],
     });
 
     await createArtPiece({
@@ -132,7 +132,7 @@ async function createInitialPieces() {
       imageURL: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
       description:
       "Portrait film photo, created using a handmade pinhole lightbox.",  
-      tags: ["#film", "#pin-hole", "#portrait"],
+      tags: ["film", "pin-hole", "portrait"],
     });
 
 
@@ -185,8 +185,8 @@ async function testDB() {
     const allTags = await getAllTags();
     console.log("Result:", allTags);
 
-    console.log("Calling getPiecesByTagName with #film");
-    const piecesWithFilm = await getPiecesByTagName("#film");
+    console.log("Calling getPiecesByTagName with film");
+    const piecesWithFilm = await getPiecesByTagName("film");
     console.log("Result:", piecesWithFilm);
 
     console.log("Calling getPieceById with 1");

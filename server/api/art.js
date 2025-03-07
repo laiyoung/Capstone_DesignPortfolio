@@ -3,7 +3,7 @@ const express = require("express");
 const apiRouter = express.Router();
 
 // Function imports:
-const { getAllPieces, getPiecesByTagName, getPieceById } = require("../db/db");
+const { getAllPieces, getPieceById } = require("../db/db");
 
 // Get all art pieces:
 apiRouter.get("/", async (req, res, next) => {
@@ -15,15 +15,13 @@ apiRouter.get("/", async (req, res, next) => {
 });
 
 // Get art piece details:
-apiRouter.get("/:postId", async (req, res, next) => {
+apiRouter.get("/:pieceId", async (req, res, next) => {
   try {
-    res.send(await getPieceById(req.params.postId));
+    res.send(await getPieceById(req.params.pieceId));
   } catch (ex) {
     next(ex);
   }
 });
-
-// Get art pieces by a specific tagname:
 
 
 

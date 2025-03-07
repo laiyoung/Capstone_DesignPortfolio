@@ -29,7 +29,7 @@ const JWT_SECRET = process.env.JWT || "shhh";
 // So, you only have the '/' because usersRouter is defined as "/users" in the api/server.js.
 apiRouter.get("/", async (req, res, next) => {
   try {
-    res.send(await getAllAdmins());
+   res.send (await getAllAdmins())
   } catch (ex) {
     next(ex);
   }
@@ -89,22 +89,31 @@ apiRouter.get("/auth/me", findAdminWithToken, (req, res, next) => {
 
 /** Art Piece API Routes that Require a Token */
 // Add an art piece
-// apiRouter.post(
-//   "/api/users/:id/favorites",
-//   findAdminWithToken,
-//   async (req, res, next) => {
-//     try {
-//       res.status(201).send(
-//         await createFavorite({
-//           user_id: req.params.id,
-//           product_id: req.body.product_id,
-//         })
-//       );
-//     } catch (ex) {
-//       next(ex);
-//     }
-//   }
-// );
+apiRouter.post('/', findAdminWithToken, async (req, res, next) => {
+  const { title, content = "", tags } = req.body;
+
+  const postData = {};
+
+  try {
+    postData.authorId = req.user.id;
+    postData.title = title;
+    postData.content = content;
+    postData.tags = tags
+
+    const post = await createPost(postData);
+
+    if (post) {
+      res.send(post);
+    } else {
+      next({
+        name: 'PostCreationError',
+        message: 'There was an error creating your post. Please try again.'
+      })
+    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 
 // Delete an art piece
 // apiRouter.delete(
