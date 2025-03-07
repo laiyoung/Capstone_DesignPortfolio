@@ -33,6 +33,9 @@ const apiRouter = express.Router();
 //   }
 // });
 
+/** Project API Routes that Require a Token */
+// These will be the same as the 1s for the art pieces
+
 
 // All api route files need to export the router so that the api.js file can create a link:
 module.exports = apiRouter

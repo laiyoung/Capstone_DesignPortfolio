@@ -16,8 +16,9 @@ const bcrypt = require("bcrypt");
 const {
   getAllAdmins,
   getAdminByUsername,
-  findAdminWithToken,
 } = require("../db/db");
+
+
 
 // Token middleware:
 require("dotenv").config();
@@ -79,7 +80,7 @@ apiRouter.post("/login", async (req, res, next) => {
 });
 
 // Authorized action path for the front end
-apiRouter.get("/auth/me", findAdminWithToken, (req, res, next) => {
+apiRouter.get("/auth/me", (req, res, next) => {
   try {
     res.send(req.admin);
   } catch (ex) {
@@ -87,86 +88,6 @@ apiRouter.get("/auth/me", findAdminWithToken, (req, res, next) => {
   }
 });
 
-/** Art Piece API Routes that Require a Token */
-// Add an art piece
-apiRouter.post('/', findAdminWithToken, async (req, res, next) => {
-  const { title, content = "", tags } = req.body;
-
-  const postData = {};
-
-  try {
-    postData.authorId = req.user.id;
-    postData.title = title;
-    postData.content = content;
-    postData.tags = tags
-
-    const post = await createPost(postData);
-
-    if (post) {
-      res.send(post);
-    } else {
-      next({
-        name: 'PostCreationError',
-        message: 'There was an error creating your post. Please try again.'
-      })
-    }
-  } catch ({ name, message }) {
-    next({ name, message });
-  }
-});
-
-// Delete an art piece
-// apiRouter.delete(
-//   "/api/users/:user_id/favorites/:id",
-//   findAdminWithToken,
-//   async (req, res, next) => {
-//     try {
-//       await destroyFavorite({ user_id: req.params.user_id, id: req.params.id });
-//       res.sendStatus(204);
-//     } catch (ex) {
-//       next(ex);
-//     }
-//   }
-// );
-
-// Change an art piece's info:
-// postsRouter.patch('/:postId', requireUser, async (req, res, next) => {
-//   const { postId } = req.params;
-//   const { title, content, tags } = req.body;
-
-//   const updateFields = {};
-
-//   if (tags && tags.length > 0) {
-//     updateFields.tags = tags.trim().split(/\s+/);
-//   }
-
-//   if (title) {
-//     updateFields.title = title;
-//   }
-
-//   if (content) {
-//     updateFields.content = content;
-//   }
-
-//   try {
-//     const originalPost = await getPostById(postId);
-
-//     if (originalPost.author.id === req.admin.id) {
-//       const updatedPost = await updatePost(postId, updateFields);
-//       res.send({ post: updatedPost })
-//     } else {
-//       next({
-//         name: 'UnauthorizedUserError',
-//         message: 'You cannot update a post that is not yours'
-//       })
-//     }
-//   } catch ({ name, message }) {
-//     next({ name, message });
-//   }
-// });
-
-/** Project API Routes that Require a Token */
-// These will be the same as the 1s for the art pieces
 
 
 

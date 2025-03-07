@@ -28,7 +28,7 @@ apiRouter.get("/", async (req, res, next) => {
 apiRouter.get("/:tagName/pieces", async (req, res, next) => {
   let { tagName } = req.params;
   console.log("Inside api router:", tagName);
-  
+
   // Ex: decodes %23film to #film
   tagName = decodeURIComponent(tagName);
   
@@ -36,8 +36,8 @@ apiRouter.get("/:tagName/pieces", async (req, res, next) => {
   try {
     let result = await getPiecesByTagName(tagName);
     res.send(result);
-  } catch ({ tagName, message }) {
-    next({ tagName, message });
+  } catch (ex) {
+    next(ex);
   }
 });
 

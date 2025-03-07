@@ -110,9 +110,14 @@ const authenticate = async ({ username, password }) => {
 
 // Finding an admin with a token data function:
 const findAdminWithToken = async (token) => {
+  console.log(token);
   try {
-    const payload = jwt.verify(token, JWT);
+    const tokenVal = token.split(" ")[1];
+    // console.log("Token:"+ tokenVal);
+    const payload = jwt.verify(tokenVal, JWT);
+    // console.log("Payload:" + payload);
     id = payload.id;
+
     console.log("id: ", id);
   } catch (ex) {
     const error = Error("not authorized");
@@ -157,7 +162,7 @@ async function createArtPiece({
     `,
       [authorId, title, date, imageURL, description]
     );
-
+    console.log(piece);
     const tagList = await createTags(tags);
 
     return await addTagsToPiece(piece.id, tagList);
@@ -412,10 +417,8 @@ async function getPiecesByTagName(tagName) {
     );
     console.log("Inside method function-spot2", tagName);
     console.log("Inside method function-rowArray", pieceIds);
-// await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
-    return pieceIds.rows
-    
-    
+    // await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
+    return pieceIds.rows;
   } catch (error) {
     throw error;
   }

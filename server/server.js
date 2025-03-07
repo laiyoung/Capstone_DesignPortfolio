@@ -49,6 +49,7 @@ app.use((err, req, res, next) => {
     .send({ error: err.message ? err.message : err });
 });
 
+
 // Init function declaration:
 const init = async () => {
   // Client connection and port creation:
