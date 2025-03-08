@@ -1,6 +1,7 @@
 // Importing Express
 const express = require("express");
 const apiRouter = express.Router();
+const {client} = require('../db/db');
 
 // Function imports:
 const {
@@ -11,7 +12,7 @@ const {
   destroyArtPiece,
 } = require("../db/db");
 
-const { requireUser } = require("./utils");
+const { requireAuth } = require("./utils");
 
 // Get all art pieces:
 apiRouter.get("/", async (req, res, next) => {
@@ -33,7 +34,7 @@ apiRouter.get("/:pieceId", async (req, res, next) => {
 
 /** Art Piece API Routes that Require a Token */
 // Add an art piece
-apiRouter.post("/", requireUser, async (req, res, next) => {
+apiRouter.post("/", requireAuth, async (req, res, next) => {
   const { title, date, imageURL, description = "", tags } = req.body;
 
   const pieceData = {};
@@ -54,8 +55,8 @@ apiRouter.post("/", requireUser, async (req, res, next) => {
       res.send(piece);
     } else {
       next({
-        name: "PostCreationError",
-        message: "There was an error creating your post. Please try again.",
+        name: "PieceCreationError",
+        message: "There was an error creating your piece. Please try again.",
       });
     }
   } catch ({ name, message }) {
@@ -64,7 +65,7 @@ apiRouter.post("/", requireUser, async (req, res, next) => {
 });
 
 // Delete an art piece
-apiRouter.delete("/:pieceId", requireUser, async (req, res, next) => {
+apiRouter.delete("/:pieceId", requireAuth, async (req, res, next) => {
   try {
     console.log(req.params);
     await destroyArtPiece(req.params.pieceId);
@@ -75,40 +76,76 @@ apiRouter.delete("/:pieceId", requireUser, async (req, res, next) => {
 });
 
 // Change an art piece's info:
-// postsRouter.patch('/:postId', requireUser, async (req, res, next) => {
-//   const { postId } = req.params;
-//   const { title, content, tags } = req.body;
+apiRouter.patch('/:pieceId', requireAuth, async (req, res, next) => {
+  const { pieceId } = req.params;
+  console.log(req.body);
+  try {
+    // Fetch current piece information
+    const currentPieceInfo = await client.query(
+      `SELECT * FROM pieces WHERE id = $1;`,
+      [pieceId]
+    );
+    const singlePiece = currentPieceInfo.rows[0];
+    if (!singlePiece) {
+      return next({
+        name: "PieceNotFoundError",
+        message: "No piece found with that ID."
+      });
+    }
+    // Destructure new values from req.body, falling back to existing values
+    const {
+      title = singlePiece.title,
+      date = singlePiece.date,
+      imageurl = singlePiece.imageurl,
+      description = singlePiece.description,
+      tags: newTags // new tags from request
+    } = req.body;
+    // Create updatedPiece based on the current piece
+    let updatedPiece = { ...singlePiece };
+    // Merge tags if new tags are provided
+    if (newTags) {
+      // Initialize an array for existing tags, whether stored as array or comma-separated string
+      let existingTagsArray = [];
+      if (singlePiece.tags) {
+        if (Array.isArray(singlePiece.tags)) {
+          existingTagsArray = singlePiece.tags;
+        } else if (typeof singlePiece.tags === 'string') {
+          existingTagsArray = singlePiece.tags.split(',').map(tag => tag.trim());
+        }
+      }
+      // Convert new tags into an array
+      let newTagsArray = [];
+      if (typeof newTags === 'string') {
+        newTagsArray = newTags.split(',').map(tag => tag.trim());
+      } else if (Array.isArray(newTags)) {
+        newTagsArray = newTags;
+      }
+      // Merge arrays and remove duplicates
+      const mergedTags = Array.from(new Set([...existingTagsArray, ...newTagsArray]));
+      // Set the merged tags as an array
+      updatedPiece.tags = mergedTags;
+    }
+    // Update other fields from request, if provided
+    updatedPiece.title = title;
+    updatedPiece.date = date;
+    updatedPiece.imageurl = imageurl;
+    updatedPiece.description = description;
+    // Update the database record with the merged data
+    const dbUpdate = await client.query(
+      `UPDATE pieces
+       SET title = $1, date = $2, imageurl = $3, description = $4, tags = $5
+       WHERE id = $6
+       RETURNING *;`,
+      [updatedPiece.title, updatedPiece.date, updatedPiece.imageurl, updatedPiece.description, updatedPiece.tags, pieceId]
+    );
+    res.status(201).json(dbUpdate.rows[0]);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
 
-//   const updateFields = {};
 
-//   if (tags && tags.length > 0) {
-//     updateFields.tags = tags.trim().split(/\s+/);
-//   }
-
-//   if (title) {
-//     updateFields.title = title;
-//   }
-
-//   if (content) {
-//     updateFields.content = content;
-//   }
-
-//   try {
-//     const originalPost = await getPostById(postId);
-
-//     if (originalPost.author.id === req.admin.id) {
-//       const updatedPost = await updatePost(postId, updateFields);
-//       res.send({ post: updatedPost })
-//     } else {
-//       next({
-//         name: 'UnauthorizedUserError',
-//         message: 'You cannot update a post that is not yours'
-//       })
-//     }
-//   } catch ({ name, message }) {
-//     next({ name, message });
-//   }
-// });
 
 // All api route files need to export the router so that the api.js file can create a link:
 module.exports = apiRouter;

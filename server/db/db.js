@@ -175,15 +175,16 @@ async function createArtPiece({
 async function updateArtPiece(pieceId, fields = {}) {
   // read off the tags & remove that field
   const { tags } = fields; // might be undefined
+  // console.log('TAGSSS',tags);
   delete fields.tags;
 
   // build the set string
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
-
+  
   try {
     // update any fields that need to be updated
+    const setString = Object.keys(fields)
+      .map((key, index) => `"${key}"=$${index + 1}`)
+      .join(", ");
     if (setString.length > 0) {
       await client.query(
         `
@@ -195,6 +196,9 @@ async function updateArtPiece(pieceId, fields = {}) {
         Object.values(fields)
       );
     }
+
+
+
 
     // return early if there's no tags to update
     if (tags === undefined) {
@@ -242,14 +246,11 @@ async function getPieceById(pieceId) {
   try {
     const {
       rows: [piece],
-    } = await client.query(
-      `
+    } = await client.query(`
       SELECT *
       FROM pieces
       WHERE id=$1;
-    `,
-      [pieceId]
-    );
+    `, [pieceId]);
 
     if (!piece) {
       throw {
@@ -258,33 +259,30 @@ async function getPieceById(pieceId) {
       };
     }
 
-    const { rows: tags } = await client.query(
-      `
+    
+    const { rows: tags } = await client.query(`
       SELECT tags.*
       FROM tags
       JOIN piece_tags ON tags.id=piece_tags."tagId"
       WHERE piece_tags."pieceId"=$1;
-    `,
-      [pieceId]
-    );
+    `, [pieceId]);
 
+    
     const {
       rows: [author],
-    } = await client.query(
-      `
+    } = await client.query(`
       SELECT id, username, name
       FROM admins
       WHERE id=$1;
-    `,
-      [piece.authorId]
-    );
+    `, [piece.authorId]);
 
     piece.tags = tags;
     piece.author = author;
+    delete piece.authorId;  
 
-    delete piece.authorId;
-
+    
     return piece;
+
   } catch (error) {
     throw error;
   }
@@ -300,6 +298,11 @@ async function getPieceById(pieceId) {
  */
 //Creating tags:
 async function createTags(tagList) {
+  // Ensure tagList is an array
+  if (!Array.isArray(tagList)) {
+    tagList = [tagList];
+  }
+
   if (tagList.length === 0) {
     return;
   }
@@ -307,13 +310,12 @@ async function createTags(tagList) {
   const valuesStringInsert = tagList
     .map((_, index) => `$${index + 1}`)
     .join("), (");
-
   const valuesStringSelect = tagList
     .map((_, index) => `$${index + 1}`)
     .join(", ");
-
+    
   try {
-    // insert all, ignoring duplicates
+    // Insert all tags, ignoring duplicates
     await client.query(
       `
       INSERT INTO tags(medium)
@@ -322,17 +324,14 @@ async function createTags(tagList) {
     `,
       tagList
     );
-
-    // grab all and return
+    // Grab all tags and return
     const { rows } = await client.query(
       `
       SELECT * FROM tags
-      WHERE medium
-      IN (${valuesStringSelect});
+      WHERE medium IN (${valuesStringSelect});
     `,
       tagList
     );
-
     return rows;
   } catch (error) {
     throw error;

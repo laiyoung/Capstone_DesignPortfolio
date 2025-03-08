@@ -3,7 +3,7 @@
 // Importing findUserWithToken to build the user request: 
 const { findAdminWithToken } = require("../db/db");
 
-const requireUser = async (req, res, next) => {
+const requireAuth = async (req, res, next) => {
   try {
     req.admin = await findAdminWithToken(req.headers.authorization);
     next();
@@ -14,5 +14,5 @@ const requireUser = async (req, res, next) => {
 
 // Function export (it's being used in the posts.js):
 module.exports = {
-  requireUser
+  requireAuth
 }

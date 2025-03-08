@@ -22,8 +22,8 @@ async function dropTables() {
     // have to make sure to drop in correct order (children first, then parents)
     await client.query(`
       DROP TABLE IF EXISTS piece_tags;
-      DROP TABLE IF EXISTS tags;
       DROP TABLE IF EXISTS pieces;
+      DROP TABLE IF EXISTS tags;
       DROP TABLE IF EXISTS projects;
       DROP TABLE IF EXISTS admins;
     `);
@@ -43,38 +43,40 @@ async function createTables() {
     await client.query(`
       CREATE TABLE admins (
         id SERIAL PRIMARY KEY,
-        username varchar(255) UNIQUE NOT NULL,
-        password varchar(255) NOT NULL,
-        name varchar(255) NOT NULL,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         active boolean DEFAULT true
       );
 
       CREATE TABLE projects (
         id SERIAL PRIMARY KEY,
-        title varchar(255) NOT NULL,
+        title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL
+      );
+      CREATE TABLE tags (
+        id SERIAL PRIMARY KEY,
+        medium VARCHAR(255) UNIQUE NOT NULL
       );
 
       CREATE TABLE pieces (
         id SERIAL PRIMARY KEY,
         "authorId" INTEGER REFERENCES admins(id),
-        title varchar(255) NOT NULL,
+        title TEXT NOT NULL,
         date DATE NOT NULL,
         imageURL TEXT NOT NULL,
-        description TEXT NOT NULL
+        description TEXT NOT NULL,
+        tags TEXT
+         
       );
 
-      CREATE TABLE tags (
-        id SERIAL PRIMARY KEY,
-        medium varchar(255) UNIQUE NOT NULL
-      );
 
       CREATE TABLE piece_tags (
-        id SERIAL PRIMARY KEY,
-        "pieceId" INTEGER REFERENCES pieces(id),
-        "tagId" INTEGER REFERENCES tags(id),
-        CONSTRAINT unique_pieceId_and_tagId UNIQUE ("pieceId", "tagId")
+        "pieceId" INTEGER REFERENCES pieces(id) ON DELETE CASCADE,
+        "tagId" INTEGER REFERENCES tags(id) ON DELETE CASCADE,
+        PRIMARY KEY ("pieceId", "tagId")
       );
+
     `);
 
     console.log("Finished building tables!");
