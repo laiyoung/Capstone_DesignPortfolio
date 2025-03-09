@@ -1,7 +1,7 @@
 // Importing Express
 const express = require("express");
 const apiRouter = express.Router();
-const {client} = require('../db/db');
+const { client } = require("../db/db");
 
 // Function imports:
 const {
@@ -76,74 +76,35 @@ apiRouter.delete("/:pieceId", requireAuth, async (req, res, next) => {
 });
 
 // Change an art piece's info:
-apiRouter.patch('/:pieceId', requireAuth, async (req, res, next) => {
+apiRouter.patch("/:pieceId", requireAuth, async (req, res, next) => {
   const { pieceId } = req.params;
-  console.log(req.body);
+  const { title, date, image_url, description = "", tags = [] } = req.body;
+
+  const updateFields = {};
+
+  if (title) {
+    updateFields.title = title;
+  }
+  if (date) {
+    updateFields.date = date;
+  }
+  if (image_url) {
+    updateFields.image_url = image_url;
+  }
+  if (description) {
+    updateFields.description = description;
+  }
+  if (tags) {
+    updateFields.tags = tags;
+  }
+
   try {
-    // Fetch current piece information
-    const currentPieceInfo = await getPieceById(pieceId);
-    console.log(currentPieceInfo);
-    const singlePiece = currentPieceInfo;
-    if (!singlePiece) {
-      return next({
-        name: "PieceNotFoundError",
-        message: "No piece found with that ID."
-      });
-    }
-    // Destructure new values from req.body, falling back to existing values
-    const {
-      title = singlePiece.title,
-      date = singlePiece.date,
-      image_url = singlePiece.image_url,
-      description = singlePiece.description,
-      tags: newTags // new tags from request
-    } = req.body;
-    // Create updatedPiece based on the current piece
-    let updatedPiece = { ...singlePiece };
-    // Merge tags if new tags are provided
-    if (newTags) {
-      // Initialize an array for existing tags, whether stored as array or comma-separated string
-      let existingTagsArray = [];
-      if (singlePiece.tags) {
-        if (Array.isArray(singlePiece.tags)) {
-          existingTagsArray = singlePiece.tags;
-        } else if (typeof singlePiece.tags === 'string') {
-          existingTagsArray = singlePiece.tags.split(',').map(tag => tag.trim());
-        }
-      }
-      // Convert new tags into an array
-      let newTagsArray = [];
-      if (typeof newTags === 'string') {
-        newTagsArray = newTags.split(',').map(tag => tag.trim());
-      } else if (Array.isArray(newTags)) {
-        newTagsArray = newTags;
-      }
-      // Merge arrays and remove duplicates
-      const mergedTags = Array.from(new Set([...existingTagsArray, ...newTagsArray]));
-      // Set the merged tags as an array
-      updatedPiece.tags = mergedTags;
-    }
-    // Update other fields from request, if provided
-    updatedPiece.title = title;
-    updatedPiece.date = date;
-    updatedPiece.image_url = image_url;
-    updatedPiece.description = description;
-    // Update the database record with the merged data
-    const dbUpdate = await client.query(
-      `UPDATE pieces
-       SET title = $1, date = $2, image_url = $3, description = $4, tags = $5
-       WHERE id = $6
-       RETURNING *;`,
-      [updatedPiece.title, updatedPiece.date, updatedPiece.image_url, updatedPiece.description, updatedPiece.tags, pieceId]
-    );
-    res.status(201).json(dbUpdate.rows[0]);
-  } catch (err) {
-    console.error(err);
-    next(err);
+    const updatedPiece = await updateArtPiece(pieceId, updateFields);
+    res.send({ piece: updatedPiece });
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
-
-
 
 // All api route files need to export the router so that the api.js file can create a link:
 module.exports = apiRouter;

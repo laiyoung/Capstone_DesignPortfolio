@@ -173,18 +173,18 @@ async function createArtPiece({
 
 // Updating an art piece data function:
 async function updateArtPiece(pieceId, fields = {}) {
-  // read off the tags & remove that field
+  // read off the tags & remove that field (they're replaced later)
   const { tags } = fields; // might be undefined
-  // console.log('TAGSSS',tags);
+  console.log (fields);
   delete fields.tags;
 
   // build the set string
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
 
   try {
     // update any fields that need to be updated
-    const setString = Object.keys(fields)
-      .map((key, index) => `"${key}"=$${index + 1}`)
-      .join(", ");
     if (setString.length > 0) {
       await client.query(
         `
@@ -193,6 +193,7 @@ async function updateArtPiece(pieceId, fields = {}) {
         WHERE id=${pieceId}
         RETURNING *;
       `,
+      // Generating string-keyed property values
         Object.values(fields)
       );
     }
@@ -202,9 +203,12 @@ async function updateArtPiece(pieceId, fields = {}) {
       return await getPieceById(pieceId);
     }
 
-    // make any new tags that need to be made
+    // make any new tags that need to be created
     const tagList = await createTags(tags);
+    console.log(tagList);
+
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
+    console.log(tagListIdString);
 
     // delete any piece_tags from the database which aren't in that tagList
     await client.query(
@@ -217,7 +221,7 @@ async function updateArtPiece(pieceId, fields = {}) {
       [pieceId]
     );
 
-    // and create post_tags as necessary
+    // and create piece_tags as necessary
     await addTagsToPiece(pieceId, tagList);
 
     return await getPieceById(pieceId);
@@ -225,6 +229,8 @@ async function updateArtPiece(pieceId, fields = {}) {
     throw error;
   }
 }
+
+
 // Deleting an art piece data function:
 const destroyArtPiece = async (id) => {
   try {
@@ -339,7 +345,7 @@ async function createTags(tagList) {
     throw error;
   }
 }
-
+// Inserting tags into the junction table
 async function createPieceTag(pieceId, tagId) {
   try {
     await client.query(
@@ -354,6 +360,7 @@ async function createPieceTag(pieceId, tagId) {
     throw error;
   }
 }
+
 //Adding tags to a piece
 async function addTagsToPiece(pieceId, tagList) {
   try {
@@ -425,10 +432,8 @@ async function getPiecesByTagName(tagName) {
     `,
       [tagName]
     );
-  
+
     return pieceIds.rows;
-
-
   } catch (error) {
     throw error;
   }
