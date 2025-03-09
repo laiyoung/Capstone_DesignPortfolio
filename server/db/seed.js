@@ -65,9 +65,7 @@ async function createTables() {
         title TEXT NOT NULL,
         date DATE NOT NULL,
         imageURL TEXT NOT NULL,
-        description TEXT NOT NULL,
-        tags TEXT
-         
+        description TEXT NOT NULL
       );
 
 

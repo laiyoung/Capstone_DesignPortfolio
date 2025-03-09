@@ -198,8 +198,6 @@ async function updateArtPiece(pieceId, fields = {}) {
     }
 
 
-
-
     // return early if there's no tags to update
     if (tags === undefined) {
       return await getPieceById(pieceId);
@@ -380,14 +378,24 @@ const getAllAdmins = async () => {
   return response.rows;
 };
 // Fetch All Art Pieces (testDB function):
-const getAllPieces = async () => {
-  const SQL = `
-    SELECT * 
-    FROM pieces;
-  `;
-  const response = await client.query(SQL);
-  return response.rows;
+async function getAllPieces() {
+  try {
+    const { rows: pieceIds } = await client.query(`
+      SELECT id
+      FROM pieces;
+    `);
+// using getPieceById here allows you to grab the tags as well and the Promise.all batches
+// the calls necessary to make the map 
+    const pieces = await Promise.all(
+      pieceIds.map((piece) => getPieceById(piece.id))
+    );
+
+    return pieces;
+  } catch (error) {
+    throw error;
+  }
 };
+
 // Fetch All Tags (testDB function):
 async function getAllTags() {
   try {
@@ -405,7 +413,6 @@ async function getAllTags() {
 // Fetch Pieces by TagName (testDB function):
 async function getPiecesByTagName(tagName) {
   try {
-    console.log("Inside method function-spot1", tagName);
     const pieceIds = await client.query(
       `
       SELECT *
@@ -414,8 +421,7 @@ async function getPiecesByTagName(tagName) {
     `,
       [tagName]
     );
-    console.log("Inside method function-spot2", tagName);
-    console.log("Inside method function-rowArray", pieceIds);
+   
     // await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
     return pieceIds.rows;
   } catch (error) {
