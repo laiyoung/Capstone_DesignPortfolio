@@ -70,7 +70,11 @@ async function getPiecesByTagName(tagName) {
     throw error;
   }
 
-
+Changing out how a piece is grabbed:
+await client.query(
+      `SELECT * FROM pieces WHERE id = $1;`,
+      [pieceId]
+    );
 
 A more complex getAllAdmin request (there was no message so I didn't use it):
 // apiRouter.get("/", async (req, res, next) => {
@@ -154,6 +158,76 @@ apiRouter.get("/", (req, res) =>
 );
 ]
 
+Original Patch attempt:
+apiRouter.patch('/:pieceId', requireAuth, async (req, res, next) => {
+  const { pieceId } = req.params;
+  console.log(req.body);
+  try {
+    // Fetch current piece information
+    const currentPieceInfo = await client.query(
+      `SELECT * FROM pieces WHERE id = $1;`,
+      [pieceId]
+    );
+    
+    const singlePiece = currentPieceInfo.rows[0];
+    if (!singlePiece) {
+      return next({
+        name: "PieceNotFoundError",
+        message: "No piece found with that ID."
+      });
+    }
+    // Destructure new values from req.body, falling back to existing values
+    const {
+      title = singlePiece.title,
+      date = singlePiece.date,
+      image_url = singlePiece.image_url,
+      description = singlePiece.description,
+      tags: newTags // new tags from request
+    } = req.body;
+    // Create updatedPiece based on the current piece
+    let updatedPiece = { ...singlePiece };
+    // Merge tags if new tags are provided
+    if (newTags) {
+      // Initialize an array for existing tags, whether stored as array or comma-separated string
+      let existingTagsArray = [];
+      if (singlePiece.tags) {
+        if (Array.isArray(singlePiece.tags)) {
+          existingTagsArray = singlePiece.tags;
+        } else if (typeof singlePiece.tags === 'string') {
+          existingTagsArray = singlePiece.tags.split(',').map(tag => tag.trim());
+        }
+      }
+      // Convert new tags into an array
+      let newTagsArray = [];
+      if (typeof newTags === 'string') {
+        newTagsArray = newTags.split(',').map(tag => tag.trim());
+      } else if (Array.isArray(newTags)) {
+        newTagsArray = newTags;
+      }
+      // Merge arrays and remove duplicates
+      const mergedTags = Array.from(new Set([...existingTagsArray, ...newTagsArray]));
+      // Set the merged tags as an array
+      updatedPiece.tags = mergedTags;
+    }
+    // Update other fields from request, if provided
+    updatedPiece.title = title;
+    updatedPiece.date = date;
+    updatedPiece.image_url = image_url;
+    updatedPiece.description = description;
+    // Update the database record with the merged data
+    const dbUpdate = await client.query(
+      `UPDATE pieces
+       SET title = $1, date = $2, image_url = $3, description = $4, tags = $5
+       WHERE id = $6
+       RETURNING *;`,
+      [updatedPiece.title, updatedPiece.date, updatedPiece.image_url, updatedPiece.description, updatedPiece.tags, pieceId]
+    );
+    res.status(201).json(dbUpdate.rows[0]);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
 
 
 Removing pieces from the db/seed test: 

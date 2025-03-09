@@ -81,11 +81,9 @@ apiRouter.patch('/:pieceId', requireAuth, async (req, res, next) => {
   console.log(req.body);
   try {
     // Fetch current piece information
-    const currentPieceInfo = await client.query(
-      `SELECT * FROM pieces WHERE id = $1;`,
-      [pieceId]
-    );
-    const singlePiece = currentPieceInfo.rows[0];
+    const currentPieceInfo = await getPieceById(pieceId);
+    console.log(currentPieceInfo);
+    const singlePiece = currentPieceInfo;
     if (!singlePiece) {
       return next({
         name: "PieceNotFoundError",

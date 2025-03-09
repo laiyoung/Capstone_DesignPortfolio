@@ -36,6 +36,7 @@ async function dropTables() {
 }
 
 // Creating table function:
+// The tag column registers as null initially because the tags don't get added until later
 async function createTables() {
   try {
     console.log("Starting to build tables...");
@@ -65,7 +66,8 @@ async function createTables() {
         title TEXT NOT NULL,
         date DATE NOT NULL,
         image_url TEXT NOT NULL,
-        description TEXT NOT NULL
+        description TEXT NOT NULL,
+        tags TEXT
       );
 
 

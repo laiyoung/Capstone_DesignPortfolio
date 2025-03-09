@@ -206,7 +206,7 @@ async function updateArtPiece(pieceId, fields = {}) {
     const tagList = await createTags(tags);
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
 
-    // delete any peice_tags from the database which aren't in that tagList
+    // delete any piece_tags from the database which aren't in that tagList
     await client.query(
       `
       DELETE FROM piece_tags
