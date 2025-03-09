@@ -147,7 +147,7 @@ async function createArtPiece({
   authorId,
   title,
   date,
-  imageURL,
+  image_url,
   description,
   tags = [],
 }) {
@@ -156,11 +156,11 @@ async function createArtPiece({
       rows: [piece],
     } = await client.query(
       `
-      INSERT INTO pieces("authorId", title, date, imageURL, description) 
+      INSERT INTO pieces("authorId", title, date, image_url, description) 
       VALUES($1, $2, $3, $4, $5)
       RETURNING *;
     `,
-      [authorId, title, date, imageURL, description]
+      [authorId, title, date, image_url, description]
     );
     console.log(piece);
     const tagList = await createTags(tags);
@@ -179,7 +179,7 @@ async function updateArtPiece(pieceId, fields = {}) {
   delete fields.tags;
 
   // build the set string
-  
+
   try {
     // update any fields that need to be updated
     const setString = Object.keys(fields)
@@ -196,7 +196,6 @@ async function updateArtPiece(pieceId, fields = {}) {
         Object.values(fields)
       );
     }
-
 
     // return early if there's no tags to update
     if (tags === undefined) {
@@ -244,11 +243,14 @@ async function getPieceById(pieceId) {
   try {
     const {
       rows: [piece],
-    } = await client.query(`
+    } = await client.query(
+      `
       SELECT *
       FROM pieces
       WHERE id=$1;
-    `, [pieceId]);
+    `,
+      [pieceId]
+    );
 
     if (!piece) {
       throw {
@@ -257,30 +259,32 @@ async function getPieceById(pieceId) {
       };
     }
 
-    
-    const { rows: tags } = await client.query(`
+    const { rows: tags } = await client.query(
+      `
       SELECT tags.*
       FROM tags
       JOIN piece_tags ON tags.id=piece_tags."tagId"
       WHERE piece_tags."pieceId"=$1;
-    `, [pieceId]);
+    `,
+      [pieceId]
+    );
 
-    
     const {
       rows: [author],
-    } = await client.query(`
+    } = await client.query(
+      `
       SELECT id, username, name
       FROM admins
       WHERE id=$1;
-    `, [piece.authorId]);
+    `,
+      [piece.authorId]
+    );
 
     piece.tags = tags;
     piece.author = author;
-    delete piece.authorId;  
+    delete piece.authorId;
 
-    
     return piece;
-
   } catch (error) {
     throw error;
   }
@@ -311,7 +315,7 @@ async function createTags(tagList) {
   const valuesStringSelect = tagList
     .map((_, index) => `$${index + 1}`)
     .join(", ");
-    
+
   try {
     // Insert all tags, ignoring duplicates
     await client.query(
@@ -384,8 +388,8 @@ async function getAllPieces() {
       SELECT id
       FROM pieces;
     `);
-// using getPieceById here allows you to grab the tags as well and the Promise.all batches
-// the calls necessary to make the map 
+    // using getPieceById here allows you to grab the tags along with the piece info
+    // the Promise.all batches the calls necessary to make the map
     const pieces = await Promise.all(
       pieceIds.map((piece) => getPieceById(piece.id))
     );
@@ -394,7 +398,7 @@ async function getAllPieces() {
   } catch (error) {
     throw error;
   }
-};
+}
 
 // Fetch All Tags (testDB function):
 async function getAllTags() {
@@ -421,9 +425,10 @@ async function getPiecesByTagName(tagName) {
     `,
       [tagName]
     );
-   
-    // await Promise.all(pieceIds.map((piece) => getPieceById(piece.id)));
+  
     return pieceIds.rows;
+
+
   } catch (error) {
     throw error;
   }

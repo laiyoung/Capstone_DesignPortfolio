@@ -64,7 +64,7 @@ async function createTables() {
         "authorId" INTEGER REFERENCES admins(id),
         title TEXT NOT NULL,
         date DATE NOT NULL,
-        imageURL TEXT NOT NULL,
+        image_url TEXT NOT NULL,
         description TEXT NOT NULL
       );
 
@@ -119,7 +119,7 @@ async function createInitialPieces() {
       authorId: laiyoung.id,
       title: "Pinhole Portrait 1",
       date:"2010-08-21",
-      imageURL: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
+      image_url: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
       description:
       "Portrait film photo, created using a handmade pinhole lightbox.",  
       tags: ["film", "pin-hole", "portrait"],
@@ -129,7 +129,7 @@ async function createInitialPieces() {
       authorId: instructor1.id,
       title: "Pinhole Portrait 2",
       date:"2010-08-22",
-      imageURL: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
+      image_url: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
       description:
       "Portrait film photo, created using a handmade pinhole lightbox.",  
       tags: ["film", "pin-hole", "portrait"],

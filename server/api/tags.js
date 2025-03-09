@@ -27,12 +27,11 @@ apiRouter.get("/", async (req, res, next) => {
 // Get Pieces by TagName:
 apiRouter.get("/:tagName/pieces", async (req, res, next) => {
   let { tagName } = req.params;
-  console.log("Inside api router:", tagName);
+  // console.log("Inside api router:", tagName);
 
   // Ex: decodes %23film to #film
   tagName = decodeURIComponent(tagName);
   
-
   try {
     let result = await getPiecesByTagName(tagName);
     res.send(result);

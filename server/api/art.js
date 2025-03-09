@@ -35,7 +35,7 @@ apiRouter.get("/:pieceId", async (req, res, next) => {
 /** Art Piece API Routes that Require a Token */
 // Add an art piece
 apiRouter.post("/", requireAuth, async (req, res, next) => {
-  const { title, date, imageURL, description = "", tags } = req.body;
+  const { title, date, image_url, description = "", tags } = req.body;
 
   const pieceData = {};
 
@@ -43,7 +43,7 @@ apiRouter.post("/", requireAuth, async (req, res, next) => {
     pieceData.authorId = req.admin.id;
     pieceData.title = title;
     pieceData.date = date;
-    pieceData.imageURL = imageURL;
+    pieceData.image_url = image_url;
     pieceData.description = description;
     pieceData.tags = tags;
 
@@ -96,7 +96,7 @@ apiRouter.patch('/:pieceId', requireAuth, async (req, res, next) => {
     const {
       title = singlePiece.title,
       date = singlePiece.date,
-      imageurl = singlePiece.imageurl,
+      image_url = singlePiece.image_url,
       description = singlePiece.description,
       tags: newTags // new tags from request
     } = req.body;
@@ -128,15 +128,15 @@ apiRouter.patch('/:pieceId', requireAuth, async (req, res, next) => {
     // Update other fields from request, if provided
     updatedPiece.title = title;
     updatedPiece.date = date;
-    updatedPiece.imageurl = imageurl;
+    updatedPiece.image_url = image_url;
     updatedPiece.description = description;
     // Update the database record with the merged data
     const dbUpdate = await client.query(
       `UPDATE pieces
-       SET title = $1, date = $2, imageurl = $3, description = $4, tags = $5
+       SET title = $1, date = $2, image_url = $3, description = $4, tags = $5
        WHERE id = $6
        RETURNING *;`,
-      [updatedPiece.title, updatedPiece.date, updatedPiece.imageurl, updatedPiece.description, updatedPiece.tags, pieceId]
+      [updatedPiece.title, updatedPiece.date, updatedPiece.image_url, updatedPiece.description, updatedPiece.tags, pieceId]
     );
     res.status(201).json(dbUpdate.rows[0]);
   } catch (err) {
