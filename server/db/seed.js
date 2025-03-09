@@ -120,24 +120,35 @@ async function createInitialPieces() {
     await createArtPiece({
       authorId: laiyoung.id,
       title: "Pinhole Portrait 1",
-      date:"2010-08-21",
-      image_url: "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
+      date: "2010-08-21",
+      image_url:
+        "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
       description:
-      "Portrait film photo, created using a handmade pinhole lightbox.",  
+        "Portrait film photo, created using a handmade pinhole lightbox.",
       tags: ["film", "pin-hole", "portrait"],
     });
 
     await createArtPiece({
       authorId: instructor1.id,
       title: "Pinhole Portrait 2",
-      date:"2010-08-22",
-      image_url: "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
+      date: "2010-08-22",
+      image_url:
+        "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
       description:
-      "Portrait film photo, created using a handmade pinhole lightbox.",  
+        "Portrait film photo, created using a handmade pinhole lightbox.",
       tags: ["film", "pin-hole", "portrait"],
     });
 
-
+    await createArtPiece({
+      authorId: laiyoung.id,
+      title: "Calla Lily",
+      date: "2018-06-08",
+      image_url:
+        "https://www.dropbox.com/scl/fi/jdl2kbb5gfe9yek7gd3t5/2018Jun08_P6080005.JPG?rlkey=1fowsdb7i4ouqdrsf9g7hr2o3&st=ni3jz3ym&dl=0",
+      description:
+        "Digital macro of a calla lily",
+      tags: ["digital", "macro"],
+    });
 
     console.log("Finished creating art pieces!");
   } catch (error) {
