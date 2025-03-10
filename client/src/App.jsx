@@ -18,15 +18,15 @@ function App() {
 
   return (
     <>
-      <header className="login">Login</header>
+      <header className="login">Login </header>
       <div>
         <h1>Design Portfolio</h1>
         <h2>Laigha Young</h2>
+        <div>
+          {" "}
+          <NewArtPieceForm fetchPieces={fetchPieces} />
+        </div>
         {error && <p>{error.error}</p>}
-      </div>
-      <div>
-        {" "}
-        <NewArtPieceForm fetchPieces={fetchPieces} />
       </div>
 
       <div>

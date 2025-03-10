@@ -2,7 +2,7 @@ import React from "react";
 import SingleArtPiece from "./SingleArtPiece";
 import { useEffect } from "react";
 
-export default function AllArtPieces({ pieces, setPieces, fetchPieces }) {
+export default function AllArtPieces({ pieces, setPieces, fetchPieces, setError }) {
   useEffect(() => {
     fetchPieces();
   }, []);

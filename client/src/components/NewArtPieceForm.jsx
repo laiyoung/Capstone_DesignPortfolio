@@ -31,7 +31,7 @@ export default function NewPlayerForm({getData}) {
     <>
       <div className="form">
         <form onSubmit={handleSubmit}>
-          <label id="playerName">Name:</label>
+          <label id="playerName">Title:</label>
           <input
             type="text"
             name="name"
@@ -40,7 +40,7 @@ export default function NewPlayerForm({getData}) {
             placeholder="New Puppy's Name"
             required
           />
-          <label id="playerBreed">Puppy Breed:</label>
+          <label id="playerBreed">Description:</label>
           <input
             type="text"
             name="breed"
@@ -56,7 +56,7 @@ export default function NewPlayerForm({getData}) {
             onChange={handleChange}
             placeholder="Image URL"
           />
-         <button type="submit"> Add New Puppy </button>
+         <button type="submit"> Add New Art Piece </button>
 
         </form>
       </div>
