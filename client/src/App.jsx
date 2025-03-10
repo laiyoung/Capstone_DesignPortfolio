@@ -7,12 +7,14 @@ function App() {
 
   return (
     <>
-    <div className="login">Login</div>
+    <header className="login">Login</header>
       <div>
         <h1>Design Portfolio</h1>
         <h2>Laigha Young</h2>
         {error && <p>{error.error}</p>}
       </div>
+
+
 
     </>
   );
