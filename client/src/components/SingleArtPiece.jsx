@@ -1,18 +1,30 @@
 import React from "react";
-import { deletePlayer } from "../api";
 import { useState } from "react";
 
-export default function SinglePlayer({ player, getData }) {
-  const [selectedPlayerId, setselectedPlayerId] = useState(null);
+// import { deletePlayer } from "../api";
+
+export default function SingleArtPiece({ piece, fetchPieces, setError }) {
+  const [selectedPieceId, setselectedPieceId] = useState(null);
 
   async function handleDelete() {
-    await deletePlayer(player.id);
+    await deletePlayer(piece.id);
     // location.reload();
-    getData();
+    fetchPieces();
   }
 
   function handleDetails() {
-    setselectedPlayerId(player.id);
+    async function getSingleArtPiece(pieceId) {
+      try {
+        const response = await fetch("api/:pieceId");
+        const result = await response.json();
+        return result.piece;
+      } catch (error) {
+        console.error(error);
+        setError(error);
+      }
+    }
+    getSingleArtPiece(pieceId);
+    setselectedPieceId(piece.id);
     // console.log(player.id)
   }
 
@@ -20,7 +32,7 @@ export default function SinglePlayer({ player, getData }) {
     setselectedPlayerId(null);
   }
 
-  return selectedPlayerId ? (
+  return selectedPieceId ? (
     <div className="single-card-view">
       <h3>{player.name}</h3>
       <img src={player.imageUrl} alt={player.name} />

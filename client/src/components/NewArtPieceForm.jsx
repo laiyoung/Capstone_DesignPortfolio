@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { addPlayer } from "../api";
+// import { addPlayer } from "../api";
 
 export default function NewPlayerForm({getData}) {
   const [newPlayer, setNewPlayer] = useState({
