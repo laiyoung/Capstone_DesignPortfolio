@@ -35,7 +35,7 @@ apiRouter.get("/:pieceId", async (req, res, next) => {
 /** Art Piece API Routes that Require a Token */
 // Add an art piece
 apiRouter.post("/", requireAuth, async (req, res, next) => {
-  const { title, date, image_url, description = "", tags } = req.body;
+  const { title, date, image_url, description = "", tags = [] } = req.body;
 
   const pieceData = {};
 
@@ -95,7 +95,7 @@ apiRouter.patch("/:pieceId", requireAuth, async (req, res, next) => {
     updateFields.description = description;
   }
   if (tags) {
-    updateFields.tags = tags;
+    updateFields.tags = tags
   }
 
   try {

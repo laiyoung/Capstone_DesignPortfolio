@@ -65,11 +65,10 @@ async function createTables() {
         "authorId" INTEGER REFERENCES admins(id),
         title TEXT NOT NULL,
         date DATE NOT NULL,
-        image_url TEXT NOT NULL,
+        image_url VARCHAR(1000) NOT NULL,
         description TEXT NOT NULL,
         tags TEXT
       );
-
 
       CREATE TABLE piece_tags (
         "pieceId" INTEGER REFERENCES pieces(id) ON DELETE CASCADE,
@@ -122,7 +121,7 @@ async function createInitialPieces() {
       title: "Pinhole Portrait 1",
       date: "2010-08-21",
       image_url:
-        "https://www.dropbox.com/scl/fi/yo0x9rthszynr7q2kr8pw/2010Aug21_Art-Portfolio_010.jpg?rlkey=z1jvt0kmo7ij4y0zz7kn46v44&st=ijiww6sk&dl=0",
+        "https://uc28373a0e1b89a4b10836eb177e.previews.dropboxusercontent.com/p/thumb/ACn8DX4YxIWUTLNJKaMGzg5w24PFSEdahq_cOscctNFhUL38_YSTO9z_eoTQn6uMetntUeIDD4omEsxbYbLE8vDqO2n5oRMoHM1Lx35vxYLTeyLleX1VC9Re9spcs_uIf22Xhk2U7Ol8I7s6bQ2u8B6ZnyoPvu1oZDtv6YnrPBNZzkIc5aCjy0W6P5Wu3yc0FuKd2as6YHg3p65xWVCKG0Z0hJ_wI69M2qoHKifGcD52vD3XkINf5MWo6HSdRZZ6zwfYrZTjZIINvB9F5Zi9cP1j6TY7k5N0IFe0Fz_CEe_r2iXdlHQwVC9qw-D8Tq2dWVLbkm4XiZ38vqvAlVSCFTv-AIVVqdb33-I8KQTlAAOh459FkefJMjUyZhzSg-rNp-7gsDD28TdMDmGZO-q8x_su/p.jpeg?is_prewarmed=true",
       description:
         "Portrait film photo, created using a handmade pinhole lightbox.",
       tags: ["film", "pin-hole", "portrait"],
@@ -133,7 +132,7 @@ async function createInitialPieces() {
       title: "Pinhole Portrait 2",
       date: "2010-08-22",
       image_url:
-        "https://www.dropbox.com/scl/fi/oxe1w7sd5p5wy99d4i6dj/2010Aug22_Art-Portfolio_021.jpg?rlkey=y747l2fet6ub0hr41y290s15q&st=b1lu9e2j&dl=0",
+        "https://uccfffacff3f433af66f3ff338f4.previews.dropboxusercontent.com/p/thumb/ACm-5fYP0OItYmahEs4FkRa3RDdzyV8d_RCM2iBB_goCqazsJWAMP1lhIGy77b7vRHvWbfDOhrNdWuXldAu0AEqSrdWFtl0q_4HdcoSp50gZbEZaxK2O7_qgVQb-s21S0Ok60sn9fo8lLmyY9JbG8Pz55H1XtLciem4X8JLNcSYFKzX7JskKz-O3m_geyE3iMgsKRuj6lU-6kacnXux2e3peIX-V3Ul-pzD1TYifhWoBQiNKhfxqYaFqsREVVb1xY_6CkjOsg37_Rp7m6QEfFtQydqUSAjSO1RVbfFU8N0On6ZhHDPI0AMTWhjA35MmHNt6kFB-_FXR-SmGqbH5-kRIiqGGFGPEWaQDZH-csJIijlkCP5h2MZ4UFds9aMMPg5f4I3TBuLbAM3ZVL4p2zFUDV/p.jpeg?is_prewarmed=true",
       description:
         "Portrait film photo, created using a handmade pinhole lightbox.",
       tags: ["film", "pin-hole", "portrait"],
@@ -144,9 +143,8 @@ async function createInitialPieces() {
       title: "Calla Lily",
       date: "2018-06-08",
       image_url:
-        "https://www.dropbox.com/scl/fi/jdl2kbb5gfe9yek7gd3t5/2018Jun08_P6080005.JPG?rlkey=1fowsdb7i4ouqdrsf9g7hr2o3&st=ni3jz3ym&dl=0",
-      description:
-        "Digital macro of a calla lily",
+        "https://uca346b4f1abe3adde85a93a06cc.previews.dropboxusercontent.com/p/thumb/AClL7aNj5CeFvibzHuYQHz9nJHB7nE81sEaouS1wad-4R5hZRwLgAJyTXieYLQqLDh4zUOXg9sRyR_vVvEXU_xt_7xpokua5_0CrZzX7uW2qAV1jarcIGtIfp_Rx5Wnwqx-JZFSqObzFcUA8TTuEpmhg83w3VTDbOXgH5nU_V3WjOQy1ROOdIdRXlWka4lSsNAs90s5VeIedKiGQyCjg6PN9fib5ddufblYH67dK_tszWyw38SpVF-lvXcE4vJttsn_2td64eCM3M79U0PcsSMTmBHJL1nLBeMIG7iWqFbQ3imAopYffBU5Tb5qADYuUx9kOeN4Dnnc6CPGtrSxzmZZOgYbJr-zwN96lmwbHMrQwtKjcCxaypku6-9l8Wsg_pL1mgvpx3nsh8LqQHGFPnuyS/p.jpeg?is_prewarmed=true",
+      description: "Digital macro of a calla lily",
       tags: ["digital", "macro"],
     });
 

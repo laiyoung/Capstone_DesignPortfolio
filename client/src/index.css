@@ -72,13 +72,11 @@ form > * {
 
 .form {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column-reverse;
+  justify-content: left;
+  align-items: flex-end;
   text-align: left;
-  gap: 3px;
   margin-bottom: 15px;
-  width: 100vw;
 }
 
 form input {
@@ -123,9 +121,9 @@ form button {
 }
 
 img {
-  max-width: 50%;
+  /* max-width: 50%;
   max-height: 50%;
-  border-radius: 50%;
+  border-radius: 50%; */
   text-align: center;
   margin: auto;
   padding: 20px;
