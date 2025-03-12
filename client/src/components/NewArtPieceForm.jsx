@@ -29,7 +29,7 @@ export default function NewPlayerForm({getData}) {
 
   return (
     <>
-      <div className="form">
+      <div className="new-piece-form">
         <form onSubmit={handleSubmit}>
           <label id="playerName">Title:</label>
           <input

@@ -2,20 +2,37 @@
 login form */
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { accountLogin } from "../api";
+import { API_URL } from "../App";
 
-export default function Login({ setToken, setUser }) {
+
+export default function Login({ setToken, setAdmin, token, admin }) {
   const navigate = useNavigate();
-  const [userLogin, setUserLogin] = useState({
-    email: "",
+  const [adminLogin, setAdminLogin] = useState({
+    username: "",
     password: "",
   });
 
+
+ async function accountLogin(adminLogin) {
+    try {
+      const response = await fetch(`${API_URL}/admins/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(adminLogin),
+      });
+      const result = await response.json();
+      return result.token;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function handleChange(event) {
     const { name, value } = event.target;
-    setUserLogin((prevData) => ({
+    setAdminLogin((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -23,9 +40,9 @@ export default function Login({ setToken, setUser }) {
 
   async function submitHandler(event) {
     event.preventDefault();
-    setToken(await accountLogin(userLogin));
-    setUser();
-    navigate("/account-view");
+    setToken(await accountLogin(adminLogin));
+    console.log(token);
+    navigate("/");
   }
 
   return (
@@ -34,11 +51,11 @@ export default function Login({ setToken, setUser }) {
         <form onSubmit={submitHandler}>
           <label>
             {" "}
-            Email:{" "}
+            Username:{" "}
             <input
               required
-              name="email"
-              value={userLogin.email}
+              name="username"
+              value={adminLogin.username}
               type="text"
               onChange={handleChange}
             />
@@ -49,17 +66,12 @@ export default function Login({ setToken, setUser }) {
             <input
               required
               name="password"
-              value={userLogin.password}
+              value={adminLogin.password}
               type="password"
               onChange={handleChange}
             />
           </label>
-          <button type="submit">submit</button>
-          <div>
-            <h2>
-              Not a user? <Link to="/register">Register Here!</Link>
-            </h2>
-          </div>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </>
