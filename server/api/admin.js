@@ -65,7 +65,7 @@ apiRouter.post("/login", async (req, res, next) => {
 
       res.send({
         message: "you're logged in!",
-        token,
+        token, 
       });
     } else {
       next({
@@ -78,6 +78,7 @@ apiRouter.post("/login", async (req, res, next) => {
     next(error);
   }
 });
+// Get Admin by username
 
 // Authorized action path for the front end
 apiRouter.get("/auth/me", (req, res, next) => {

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
 
-export default function Login({ setToken, setAdmin, token, admin }) {
+export default function Login({ setToken }) {
   const navigate = useNavigate();
   const [adminLogin, setAdminLogin] = useState({
     username: "",
@@ -24,11 +24,13 @@ export default function Login({ setToken, setAdmin, token, admin }) {
         body: JSON.stringify(adminLogin),
       });
       const result = await response.json();
-      return result.token;
+      setToken(result.token);
+      
     } catch (error) {
       console.error(error);
     }
   }
+  
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -40,8 +42,7 @@ export default function Login({ setToken, setAdmin, token, admin }) {
 
   async function submitHandler(event) {
     event.preventDefault();
-    setToken(await accountLogin(adminLogin));
-    console.log(token);
+    await accountLogin(adminLogin);
     navigate("/");
   }
 

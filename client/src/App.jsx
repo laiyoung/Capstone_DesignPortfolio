@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AllArtPieces from "./components/AllArtPieces";
 import TagResults from "./components/TagResults";
 import Login from "./components/Login";
-import { useNavigate } from "react-router-dom";
- 
+import EditArtDetailsForm from "./components/EditArtDetailsForm"
+
 /** API Link */
 export const API_URL = `http://localhost:3000/api`;
 
@@ -14,16 +15,19 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [token, setToken] = useState();
-  const [admin, setAdmin] = useState();
+  // const [admin, setAdmin] = useState();
 
   const navigate = useNavigate();
 
-  async function fetchPieces() {
-    const response = await fetch(`${API_URL}/pieces`);
-    const allPieceData = await response.json();
-    setPieces(allPieceData);
-    console.log(allPieceData);
-  }
+  useEffect(() => {
+    async function fetchPieces() {
+      const response = await fetch(`${API_URL}/pieces`);
+      const allPieceData = await response.json();
+      setPieces(allPieceData);
+      // console.log(allPieceData);
+    }
+    fetchPieces();
+  }, [pieces.length]);
 
   async function handlelogOut() {
     navigate("/");
@@ -33,15 +37,11 @@ function App() {
   return (
     <>
       <header className="login">
-      {!token ? (
-          <Link to={"/login"}>
-          Login
-          </Link>
+        {!token ? (
+          <Link to={"/login"}>Login</Link>
         ) : (
           <button onClick={handlelogOut}>Logout </button>
         )}
-
-        
       </header>
       <div>{error && <p>{error.error}</p>}</div>
       <div>
@@ -57,10 +57,8 @@ function App() {
               <AllArtPieces
                 pieces={pieces}
                 setPieces={setPieces}
-                fetchPieces={fetchPieces}
                 setError={setError}
                 token={token}
-                admin={admin}
               />
             }
           />
@@ -70,10 +68,8 @@ function App() {
               <TagResults results={tagResults} setTagResults={setTagResults} />
             }
           />
-          <Route
-            path="/login"
-            element={<Login setToken={setToken} setAdmin={setAdmin} token={token} admin={admin}/>}
-          />
+          <Route path="/:id" element={<EditArtDetailsForm />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
         </Routes>
       </div>
     </>
