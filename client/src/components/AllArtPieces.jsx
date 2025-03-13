@@ -1,23 +1,25 @@
 import React from "react";
 import SingleArtPiece from "./SingleArtPiece";
 import NewArtPieceForm from "./NewArtPieceForm";
-import { useEffect } from "react";
 
-export default function AllArtPieces({ pieces, fetchPieces, setError, token }) {
-  useEffect(() => {
-    fetchPieces();
-  }, []);
-  // console.log(pieces);
+export default function AllArtPieces({
+  pieces,
+  setError,
+  token,
+  selectedPieceId,
+  setSelectedPieceId,
+}) {
   return (
     <>
       {token && (
         <div>
-        {" "}
-        <NewArtPieceForm fetchPieces={fetchPieces} />
-      </div>
+          {" "}
+          <NewArtPieceForm
+            selectedPieceId={selectedPieceId}
+            setSelectedPieceId={setSelectedPieceId}
+          />
+        </div>
       )}
-
-      
 
       <div className="article">
         {pieces.map((piece) => (
@@ -25,9 +27,10 @@ export default function AllArtPieces({ pieces, fetchPieces, setError, token }) {
             key={piece.id}
             pieceId={piece.id}
             piece={piece}
-            fetchPieces={fetchPieces}
             setError={setError}
             token={token}
+            selectedPieceId={selectedPieceId}
+            setSelectedPieceId={setSelectedPieceId}
           />
         ))}
       </div>

@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 // import { addPlayer } from "../api";
 
-export default function NewPlayerForm({getData}) {
+export default function NewPlayerForm(token) {
+
   const [newPlayer, setNewPlayer] = useState({
     name: "",
     breed: "",
@@ -12,7 +13,7 @@ export default function NewPlayerForm({getData}) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setNewPlayer((prevData) => ({
+    setNewPiece((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -20,10 +21,24 @@ export default function NewPlayerForm({getData}) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const response = await addPlayer(newPlayer);
-    setNewPlayer(await response);
-    // location.reload();
-    getData();
+     try {
+      const response = await fetch(`${API_URL}/pieces`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newPiece),
+      });
+
+      const result = setNewPiece(await response.json());
+      console.log(result);
+      return result;
+
+    } catch (error) {
+      console.error(error);
+      setError(error);
+    }
     event.target.reset();
   }
 
@@ -56,8 +71,7 @@ export default function NewPlayerForm({getData}) {
             onChange={handleChange}
             placeholder="Image URL"
           />
-         <button type="submit"> Add New Art Piece </button>
-
+          <button type="submit"> Add New Art Piece </button>
         </form>
       </div>
     </>

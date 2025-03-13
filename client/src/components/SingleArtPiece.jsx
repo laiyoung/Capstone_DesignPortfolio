@@ -10,8 +10,9 @@ export default function SingleArtPiece({
   setError,
   pieceId,
   token,
+  setSelectedPieceId,
+  selectedPieceId,
 }) {
-  const [selectedPieceId, setselectedPieceId] = useState(null);
   const [tags, setTags] = useState([]);
   const navigate = useNavigate();
 
@@ -23,17 +24,11 @@ export default function SingleArtPiece({
     margin: "auto",
     padding: "20px",
   };
-  // async function handleDelete() {
-  //   await deletePlayer(piece.id);
-  //   // location.reload();
-  //   fetchPieces();
-  // }
 
   function handleDetails(pieceId) {
     async function getSingleArtPiece() {
       try {
         const response = await fetch(`${API_URL}/pieces/${pieceId}`);
-        console.log(response);
         const result = await response.json();
         console.log(result);
         setTags(result.tags);
@@ -44,13 +39,13 @@ export default function SingleArtPiece({
       }
     }
     getSingleArtPiece();
-    setselectedPieceId(piece.id);
+    setSelectedPieceId(pieceId);
 
     // console.log(piece.id)
   }
-  // console.log (piece.tags.medium)
+
   async function handleClose() {
-    setselectedPieceId(null);
+    setSelectedPieceId(null);
   }
 
   async function handleDelete(pieceId) {
@@ -59,6 +54,7 @@ export default function SingleArtPiece({
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
     } catch (error) {
@@ -71,11 +67,13 @@ export default function SingleArtPiece({
     navigate("/:id");
   }
 
+  const date = piece.date.split("T")[0];
+
   return selectedPieceId ? (
     <div className="single-card-view">
       <h3>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
-      <p>Date: {piece.date} </p>
+      <p>Date: {date} </p>
       <p>Description: {piece.description} </p>
       <p>Tags: </p>
       {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)}

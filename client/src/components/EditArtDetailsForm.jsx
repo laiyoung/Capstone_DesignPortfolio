@@ -1,29 +1,73 @@
 import React from "react";
-import { useState } from "react";
-// import { addPlayer } from "../api";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default function NewPlayerForm({getData}) {
-  const [newPlayer, setNewPlayer] = useState({
-    name: "",
-    breed: "",
-    image: "",
+export default function EditArtPieceForm({
+  setError,
+  selectedPieceId,
+  setSelectedPieceId,
+  token,
+}) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  //GET Request:
+   useEffect(() => {
+   async function getSingleArtPiece() {
+        try {
+          const response = await fetch(`${API_URL}/pieces/${id}`);
+          console.log(response);
+          const result = await response.json();
+          console.log(result);
+          return result;
+        } catch (error) {
+          console.error(error);
+          setError(error);
+        }
+        setSelectedPieceId(piece.id);
+      }
+      getSingleArtPiece(id);
+    }, []);
+  
+  
+  // Updated Piece Info:
+  const [updatedPiece, setUpdatedPiece] = useState({
+    title: "",
+    date: "",
+    image_url: "",
+    description: "",
+    tags: [],
   });
   // console.log(newPlayer);
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setNewPlayer((prevData) => ({
+    setUpdatedPiece((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   }
 
+  // PATCH Request:
   async function handleSubmit(event) {
     event.preventDefault();
-    const response = await addPlayer(newPlayer);
-    setNewPlayer(await response);
-    // location.reload();
-    getData();
+    try {
+      const response = await fetch(`${API_URL}/pieces/${selectedPieceId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedPiece),
+      });
+
+      const result = await response.json();
+      console.log(result);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setError(error);
+    }
     event.target.reset();
   }
 
@@ -56,8 +100,7 @@ export default function NewPlayerForm({getData}) {
             onChange={handleChange}
             placeholder="Image URL"
           />
-         <button type="submit"> Add New Art Piece </button>
-
+          <button type="submit"> Add New Art Piece </button>
         </form>
       </div>
     </>

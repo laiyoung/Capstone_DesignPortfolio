@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AllArtPieces from "./components/AllArtPieces";
 import TagResults from "./components/TagResults";
 import Login from "./components/Login";
-import EditArtDetailsForm from "./components/EditArtDetailsForm"
+import EditArtDetailsForm from "./components/EditArtDetailsForm";
 
 /** API Link */
 export const API_URL = `http://localhost:3000/api`;
@@ -15,6 +15,7 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [token, setToken] = useState();
+  const [selectedPieceId, setSelectedPieceId] = useState(null);
   // const [admin, setAdmin] = useState();
 
   const navigate = useNavigate();
@@ -58,7 +59,10 @@ function App() {
                 pieces={pieces}
                 setPieces={setPieces}
                 setError={setError}
+                error={error}
                 token={token}
+                selectedPieceId={selectedPieceId}
+                setSelectedPieceId={setSelectedPieceId}
               />
             }
           />
@@ -68,7 +72,18 @@ function App() {
               <TagResults results={tagResults} setTagResults={setTagResults} />
             }
           />
-          <Route path="/:id" element={<EditArtDetailsForm />} />
+          <Route
+            path="/:id"
+            element={
+              <EditArtDetailsForm
+                setError={setError}
+                error={error}
+                selectedPieceId={selectedPieceId}
+                setSelectedPieceId={setSelectedPieceId}
+                token={token}
+              />
+            }
+          />
           <Route path="/login" element={<Login setToken={setToken} />} />
         </Routes>
       </div>
