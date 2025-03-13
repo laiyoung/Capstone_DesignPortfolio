@@ -15,7 +15,7 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [token, setToken] = useState();
-  const [selectedPieceId, setSelectedPieceId] = useState(null);
+ 
   // const [admin, setAdmin] = useState();
 
   const navigate = useNavigate();
@@ -61,8 +61,6 @@ function App() {
                 setError={setError}
                 error={error}
                 token={token}
-                selectedPieceId={selectedPieceId}
-                setSelectedPieceId={setSelectedPieceId}
               />
             }
           />
@@ -78,8 +76,6 @@ function App() {
               <EditArtDetailsForm
                 setError={setError}
                 error={error}
-                selectedPieceId={selectedPieceId}
-                setSelectedPieceId={setSelectedPieceId}
                 token={token}
               />
             }

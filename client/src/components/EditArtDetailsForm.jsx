@@ -4,10 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 
 export default function EditArtPieceForm({
   setError,
-  selectedPieceId,
-  setSelectedPieceId,
   token,
 }) {
+  const [originalPiece, setOriginalPiece] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -16,15 +15,13 @@ export default function EditArtPieceForm({
    async function getSingleArtPiece() {
         try {
           const response = await fetch(`${API_URL}/pieces/${id}`);
-          console.log(response);
           const result = await response.json();
           console.log(result);
-          return result;
+          setOriginalPiece(result);
         } catch (error) {
           console.error(error);
           setError(error);
         }
-        setSelectedPieceId(piece.id);
       }
       getSingleArtPiece(id);
     }, []);
@@ -32,7 +29,7 @@ export default function EditArtPieceForm({
   
   // Updated Piece Info:
   const [updatedPiece, setUpdatedPiece] = useState({
-    title: "",
+    title: originalPiece.title,
     date: "",
     image_url: "",
     description: "",
@@ -63,13 +60,17 @@ export default function EditArtPieceForm({
 
       const result = await response.json();
       console.log(result);
-      navigate("/");
     } catch (error) {
       console.error(error);
       setError(error);
     }
     event.target.reset();
   }
+
+  async function handleClose() {
+    navigate("/");
+  }
+
 
   return (
     <>
@@ -102,6 +103,7 @@ export default function EditArtPieceForm({
           />
           <button type="submit"> Add New Art Piece </button>
         </form>
+        <button onClick={handleClose}>Close Editing</button>
       </div>
     </>
   );

@@ -6,8 +6,6 @@ export default function AllArtPieces({
   pieces,
   setError,
   token,
-  selectedPieceId,
-  setSelectedPieceId,
 }) {
   return (
     <>
@@ -15,8 +13,6 @@ export default function AllArtPieces({
         <div>
           {" "}
           <NewArtPieceForm
-            selectedPieceId={selectedPieceId}
-            setSelectedPieceId={setSelectedPieceId}
           />
         </div>
       )}
@@ -29,8 +25,6 @@ export default function AllArtPieces({
             piece={piece}
             setError={setError}
             token={token}
-            selectedPieceId={selectedPieceId}
-            setSelectedPieceId={setSelectedPieceId}
           />
         ))}
       </div>

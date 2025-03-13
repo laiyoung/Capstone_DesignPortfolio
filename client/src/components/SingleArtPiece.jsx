@@ -10,9 +10,8 @@ export default function SingleArtPiece({
   setError,
   pieceId,
   token,
-  setSelectedPieceId,
-  selectedPieceId,
 }) {
+  const [selectedPieceId, setSelectedPieceId] = useState(null);
   const [tags, setTags] = useState([]);
   const navigate = useNavigate();
 
@@ -32,18 +31,15 @@ export default function SingleArtPiece({
         const result = await response.json();
         console.log(result);
         setTags(result.tags);
-        return result;
+        setSelectedPieceId(result);
       } catch (error) {
         console.error(error);
         setError(error);
       }
     }
     getSingleArtPiece();
-    setSelectedPieceId(pieceId);
-
-    // console.log(piece.id)
   }
-
+ 
   async function handleClose() {
     setSelectedPieceId(null);
   }
