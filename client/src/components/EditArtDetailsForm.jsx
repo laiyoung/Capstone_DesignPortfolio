@@ -1,23 +1,33 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export default function EditArtPieceForm({ setError, token }) {
+export default function EditArtPieceForm({
+  setError,
+  token,
+}) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [originalPiece, setOriginalPiece] = useState();
+  const imgSmallStyle = {
+    maxWidth: "50%",
+    maxHeight: "50%",
+    borderRadius: "50%",
+    textAlign: "center",
+    margin: "auto",
+    padding: "20px",
+  };
+  const [originalPiece, setOriginalPiece] = useState({});
   // Updated Piece Starting Info:
   const [updatedPiece, setUpdatedPiece] = useState({});
 
-  
- //GET Request for Original Piece:
+  //GET Request for Original Piece:
   useEffect(() => {
     async function getSingleArtPiece() {
       try {
         const response = await fetch(`${API_URL}/pieces/${id}`);
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
         setOriginalPiece(result);
       } catch (error) {
         console.error(error);
@@ -39,7 +49,7 @@ export default function EditArtPieceForm({ setError, token }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const response = await fetch(`${API_URL}/pieces/${selectedPieceId}`, {
+      const response = await fetch(`${API_URL}/pieces/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -63,14 +73,18 @@ export default function EditArtPieceForm({ setError, token }) {
 
   return (
     <>
-    {/* <div className="single-card-view">
-      <h3>{piece.title}</h3>
-      <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
-      <p>Date: {date} </p>
-      <p>Description: {piece.description} </p>
-      <p>Tags: </p>
-      {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)}
-    </div> */}
+      <div className="single-card-view">
+        <h3>Title: {originalPiece.title}</h3>
+        <img
+          style={imgSmallStyle}
+          src={originalPiece.image_url}
+          alt={originalPiece.title}
+        />
+        <p>Date: {originalPiece.date} </p>
+        <p>Description: {originalPiece.description} </p>
+        <p>Tags: </p>
+        {/* {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)} */}
+      </div>
       <div className="form">
         <form onSubmit={handleSubmit}>
           <label id="pieceTitle">Title:</label>
@@ -96,8 +110,10 @@ export default function EditArtPieceForm({ setError, token }) {
             onChange={handleChange}
           />
           <label id="pieceDescription">Description:</label>
-          <input
+          <textarea
             type="text"
+            rows="4"
+            cols="125"
             name="Description"
             // defaultValue={originalPiece.description}
             onChange={handleChange}

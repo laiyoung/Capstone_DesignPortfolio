@@ -46,6 +46,11 @@ export default function Login({ setToken }) {
     navigate("/");
   }
 
+  async function handleClose() {
+    navigate("/");
+    setSelectedPieceId(null);
+  }
+
   return (
     <>
       <div className="form">
@@ -74,6 +79,7 @@ export default function Login({ setToken }) {
           </label>
           <button type="submit">Submit</button>
         </form>
+        <button onClick={handleClose}>Back to Portfolio</button>
       </div>
     </>
   );

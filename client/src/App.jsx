@@ -15,7 +15,6 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [token, setToken] = useState();
- 
   // const [admin, setAdmin] = useState();
 
   const navigate = useNavigate();
@@ -67,7 +66,7 @@ function App() {
           <Route
             path="/tag-results"
             element={
-              <TagResults results={tagResults} setTagResults={setTagResults} />
+              <TagResults tagResults={tagResults} setTagResults={setTagResults} />
             }
           />
           <Route

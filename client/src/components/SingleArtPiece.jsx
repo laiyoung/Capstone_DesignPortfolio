@@ -11,8 +11,9 @@ export default function SingleArtPiece({
   pieceId,
   token,
 }) {
-  const [selectedPieceId, setSelectedPieceId] = useState(null);
   const [tags, setTags] = useState([]);
+  const [selectedPieceId, setSelectedPieceId] = useState(null);
+
   const navigate = useNavigate();
 
   const imgSmallStyle = {
@@ -31,7 +32,7 @@ export default function SingleArtPiece({
         const result = await response.json();
         console.log(result);
         setTags(result.tags);
-        setSelectedPieceId(result.id);
+       setSelectedPieceId(result.id);
       } catch (error) {
         console.error(error);
         setError(error);
@@ -39,7 +40,8 @@ export default function SingleArtPiece({
     }
     getSingleArtPiece();
   }
-  // console.log(selectedPieceId);
+  console.log(selectedPieceId);
+  
 
   async function handleClose() {
     setSelectedPieceId(null);
@@ -61,12 +63,13 @@ export default function SingleArtPiece({
   }
 
   async function navToEditForm() {
-    navigate("/:id");
+    navigate(`/${selectedPieceId}`);
   }
 
   const date = piece.date.split("T")[0];
 
   return selectedPieceId ? (
+   
     <div className="single-card-view">
       <h3>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
@@ -74,18 +77,18 @@ export default function SingleArtPiece({
       <p>Description: {piece.description} </p>
       <p>Tags: </p>
       {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)}
-      <button onClick={handleClose}>Close Details</button>
-    </div>
-  ) : (
-    <div className="piece-card">
-      <img src={piece.image_url} alt={piece.title} />
-      <button onClick={() => handleDetails(pieceId)}>Art Piece Details</button>
       {token && (
         <div>
           <button onClick={handleDelete}> Delete </button>
           <button onClick={navToEditForm}> Edit Art Piece</button>
         </div>
       )}
+      <button onClick={handleClose}>Close Details</button>
+    </div>
+  ) : (
+    <div className="piece-card">
+      <img src={piece.image_url} alt={piece.title} />
+      <button onClick={() => handleDetails(pieceId)}>Art Piece Details</button>
     </div>
   );
 }

@@ -6,14 +6,17 @@ export default function AllArtPieces({
   pieces,
   setError,
   token,
+  selectedPieceId,
+  setSelectedPieceId,
+  tags,
+  setTags
 }) {
   return (
     <>
       {token && (
         <div>
           {" "}
-          <NewArtPieceForm
-          />
+          <NewArtPieceForm />
         </div>
       )}
 
