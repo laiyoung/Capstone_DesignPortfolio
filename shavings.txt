@@ -8,6 +8,13 @@ A useful ternary I didn't need:
         </div>
       )} */}
 
+Default items for editing:
+ title: originalPiece.title,
+ date: originalPiece.date,
+ image_url: originalPiece.image_url,
+ description: originalPiece.description,
+ tags: originalPiece.tags,
+
 Another delete handler:
   // async function handleDelete() {
   //   await deletePlayer(piece.id);

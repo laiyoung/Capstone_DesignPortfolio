@@ -31,7 +31,7 @@ export default function SingleArtPiece({
         const result = await response.json();
         console.log(result);
         setTags(result.tags);
-        setSelectedPieceId(result);
+        setSelectedPieceId(result.id);
       } catch (error) {
         console.error(error);
         setError(error);
@@ -39,7 +39,8 @@ export default function SingleArtPiece({
     }
     getSingleArtPiece();
   }
- 
+  // console.log(selectedPieceId);
+
   async function handleClose() {
     setSelectedPieceId(null);
   }

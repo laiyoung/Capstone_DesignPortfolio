@@ -1,41 +1,31 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_URL } from "../App";
 
-export default function EditArtPieceForm({
-  setError,
-  token,
-}) {
-  const [originalPiece, setOriginalPiece] = useState([]);
+export default function EditArtPieceForm({ setError, token }) {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [originalPiece, setOriginalPiece] = useState();
+  // Updated Piece Starting Info:
+  const [updatedPiece, setUpdatedPiece] = useState({});
 
-  //GET Request:
-   useEffect(() => {
-   async function getSingleArtPiece() {
-        try {
-          const response = await fetch(`${API_URL}/pieces/${id}`);
-          const result = await response.json();
-          console.log(result);
-          setOriginalPiece(result);
-        } catch (error) {
-          console.error(error);
-          setError(error);
-        }
+  
+ //GET Request for Original Piece:
+  useEffect(() => {
+    async function getSingleArtPiece() {
+      try {
+        const response = await fetch(`${API_URL}/pieces/${id}`);
+        const result = await response.json();
+        console.log(result);
+        setOriginalPiece(result);
+      } catch (error) {
+        console.error(error);
+        setError(error);
       }
-      getSingleArtPiece(id);
-    }, []);
-  
-  
-  // Updated Piece Info:
-  const [updatedPiece, setUpdatedPiece] = useState({
-    title: originalPiece.title,
-    date: "",
-    image_url: "",
-    description: "",
-    tags: [],
-  });
-  // console.log(newPlayer);
+    }
+    getSingleArtPiece(id);
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -71,37 +61,56 @@ export default function EditArtPieceForm({
     navigate("/");
   }
 
-
   return (
     <>
-      <div className="new-piece-form">
+    {/* <div className="single-card-view">
+      <h3>{piece.title}</h3>
+      <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
+      <p>Date: {date} </p>
+      <p>Description: {piece.description} </p>
+      <p>Tags: </p>
+      {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)}
+    </div> */}
+      <div className="form">
         <form onSubmit={handleSubmit}>
-          <label id="playerName">Title:</label>
+          <label id="pieceTitle">Title:</label>
           <input
             type="text"
-            name="name"
-            defaultValue={newPlayer.name}
+            name="title"
+            // defaultValue={originalPiece.title}
             onChange={handleChange}
-            placeholder="New Puppy's Name"
             required
           />
-          <label id="playerBreed">Description:</label>
+          <label id="pieceDate">Date:</label>
           <input
             type="text"
-            name="breed"
-            defaultValue={newPlayer.breed}
+            name="Date"
+            // defaultValue={originalPiece.date}
             onChange={handleChange}
-            placeholder="What breed is your puppy?"
           />
           <label> Picture: </label>
           <input
             type="text"
             name="image"
-            defaultValue={newPlayer.image}
+            // defaultValue={originalPiece.image_url}
             onChange={handleChange}
-            placeholder="Image URL"
           />
-          <button type="submit"> Add New Art Piece </button>
+          <label id="pieceDescription">Description:</label>
+          <input
+            type="text"
+            name="Description"
+            // defaultValue={originalPiece.description}
+            onChange={handleChange}
+          />
+          <label> Tags: </label>
+          <input
+            type="text"
+            name="tags"
+            // defaultValue={originalPiece.tags}
+            onChange={handleChange}
+          />
+
+          <button type="submit"> Change Art Piece </button>
         </form>
         <button onClick={handleClose}>Close Editing</button>
       </div>
