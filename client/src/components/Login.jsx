@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setAdmin }) {
   const navigate = useNavigate();
   const [adminLogin, setAdminLogin] = useState({
     username: "",
@@ -24,8 +24,9 @@ export default function Login({ setToken }) {
         body: JSON.stringify(adminLogin),
       });
       const result = await response.json();
+      console.log(result);
       setToken(result.token);
-      
+      setAdmin(result.adminId)
     } catch (error) {
       console.error(error);
     }

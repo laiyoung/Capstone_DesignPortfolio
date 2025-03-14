@@ -25,7 +25,7 @@ export default function SingleArtPiece({ piece, setError, pieceId, token }) {
       try {
         const response = await fetch(`${API_URL}/pieces/${pieceId}`);
         const result = await response.json();
-        // console.log(result);
+        console.log(result);
         setTagButtons(result.tags);
         setSelectedPieceId(result.id);
       } catch (error) {
@@ -41,9 +41,9 @@ export default function SingleArtPiece({ piece, setError, pieceId, token }) {
     setSelectedPieceId(null);
   }
 
-  async function handleDelete(pieceId) {
+  async function handleDelete(selectedPieceId) {
     try {
-      await fetch(`${API_URL}/pieces/${pieceId}`, {
+      await fetch(`${API_URL}/pieces/${selectedPieceId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

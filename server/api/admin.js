@@ -65,6 +65,7 @@ apiRouter.post("/login", async (req, res, next) => {
 
       res.send({
         message: "you're logged in!",
+        adminId: admin.id,
         token, 
       });
     } else {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export default function EditArtPieceForm({ setError, token }) {
+export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const imgSmallStyle = {
@@ -15,8 +15,8 @@ export default function EditArtPieceForm({ setError, token }) {
     padding: "20px",
   };
   const [tags, setTags] = useState([]);
-  const [admin, setAdmin] = useState({});
   const [originalPiece, setOriginalPiece] = useState({});
+  
   // Updated Piece Starting Info:
   const [updatedPiece, setUpdatedPiece] = useState({});
 
@@ -122,7 +122,7 @@ export default function EditArtPieceForm({ setError, token }) {
           />
           <label> Tags: </label>
           <h5 style={{ padding: "1em" }}>
-            Enter tags seperated by commas. Ex: "digital", "portrait"
+            Enter tags seperated by commas. Ex: digital, portrait
             {" "}
           </h5>
           <textarea

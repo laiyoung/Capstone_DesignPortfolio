@@ -1,15 +1,17 @@
 import React from "react";
 import { useState } from "react";
-// import { addPlayer } from "../api";
+import { API_URL } from "../App";
 
-export default function NewPlayerForm(token) {
-
-  const [newPlayer, setNewPlayer] = useState({
-    name: "",
-    breed: "",
-    image: "",
+export default function NewArtPieceForm({token, admin}) {
+console.log
+  const [newPiece, setNewPiece] = useState({
+    author: admin, 
+    title: "",
+    date: "",
+    image_url: "",
+    description: "",
+    tags: [],
   });
-  // console.log(newPlayer);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -21,7 +23,9 @@ export default function NewPlayerForm(token) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-     try {
+    newPiece.tags = newPiece.tags.split(", ")
+    console.log(newPiece.tags);
+    try {
       const response = await fetch(`${API_URL}/pieces`, {
         method: "POST",
         headers: {
@@ -31,45 +35,63 @@ export default function NewPlayerForm(token) {
         body: JSON.stringify(newPiece),
       });
 
-      const result = setNewPiece(await response.json());
+      const result = await response.json();
       console.log(result);
       return result;
-
     } catch (error) {
       console.error(error);
-      setError(error);
     }
     event.target.reset();
   }
+
 
   return (
     <>
       <div className="new-piece-form">
         <form onSubmit={handleSubmit}>
-          <label id="playerName">Title:</label>
+          <label id="pieceTitle">Title:</label>
           <input
             type="text"
-            name="name"
-            defaultValue={newPlayer.name}
+            name="title"
+            defaultValue={newPiece.title}
             onChange={handleChange}
-            placeholder="New Puppy's Name"
             required
           />
-          <label id="playerBreed">Description:</label>
+          <label id="pieceDate">Date:</label>
+          <h5 style={{ padding: "1em" }}>
+            Enter date using ISO-8601 formatting(YYYY-MM-DD).
+          </h5>
           <input
             type="text"
-            name="breed"
-            defaultValue={newPlayer.breed}
+            name="date"
+            defaultValue={newPiece.date}
             onChange={handleChange}
-            placeholder="What breed is your puppy?"
           />
-          <label> Picture: </label>
+          <label> Image: </label>
           <input
             type="text"
-            name="image"
-            defaultValue={newPlayer.image}
+            name="image_url"
+            defaultValue={newPiece.image_url}
             onChange={handleChange}
-            placeholder="Image URL"
+          />
+          <label id="pieceDescription">Description:</label>
+          <textarea
+            type="text"
+            rows="4"
+            cols="50"
+            name="description"
+            defaultValue={newPiece.description}
+            onChange={handleChange}
+          />
+          <label> Tags: </label>
+          <h5 style={{ padding: "1em" }}>
+            Enter tags seperated by commas. Ex: digital, portrait{" "}
+          </h5>
+          <textarea
+            type="text"
+            name="tags"
+            defaultValue={newPiece.tags}
+            onChange={handleChange}
           />
           <button type="submit"> Add New Art Piece </button>
         </form>
