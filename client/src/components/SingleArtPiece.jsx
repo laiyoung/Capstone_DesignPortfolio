@@ -5,13 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 // import { deletePlayer } from "../api";
 
-export default function SingleArtPiece({
-  piece,
-  setError,
-  pieceId,
-  token,
-}) {
-  const [tags, setTags] = useState([]);
+export default function SingleArtPiece({ piece, setError, pieceId, token }) {
+  const [tagButtons, setTagButtons] = useState([]);
   const [selectedPieceId, setSelectedPieceId] = useState(null);
 
   const navigate = useNavigate();
@@ -30,9 +25,9 @@ export default function SingleArtPiece({
       try {
         const response = await fetch(`${API_URL}/pieces/${pieceId}`);
         const result = await response.json();
-        console.log(result);
-        setTags(result.tags);
-       setSelectedPieceId(result.id);
+        // console.log(result);
+        setTagButtons(result.tags);
+        setSelectedPieceId(result.id);
       } catch (error) {
         console.error(error);
         setError(error);
@@ -40,8 +35,7 @@ export default function SingleArtPiece({
     }
     getSingleArtPiece();
   }
-  console.log(selectedPieceId);
-  
+  // console.log(selectedPieceId);
 
   async function handleClose() {
     setSelectedPieceId(null);
@@ -69,14 +63,14 @@ export default function SingleArtPiece({
   const date = piece.date.split("T")[0];
 
   return selectedPieceId ? (
-   
     <div className="single-card-view">
       <h3>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
       <p>Date: {date} </p>
       <p>Description: {piece.description} </p>
       <p>Tags: </p>
-      {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)}
+      {tagButtons &&
+        tagButtons.map((tag) => <button key={tag.id}>{tag.medium}</button>)}
       {token && (
         <div>
           <button onClick={handleDelete}> Delete </button>

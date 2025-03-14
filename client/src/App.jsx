@@ -15,7 +15,7 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [token, setToken] = useState();
-  // const [admin, setAdmin] = useState();
+ 
 
   const navigate = useNavigate();
 

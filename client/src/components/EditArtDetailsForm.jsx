@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export default function EditArtPieceForm({
-  setError,
-  token,
-}) {
+export default function EditArtPieceForm({ setError, token }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const imgSmallStyle = {
@@ -17,6 +14,8 @@ export default function EditArtPieceForm({
     margin: "auto",
     padding: "20px",
   };
+  const [tags, setTags] = useState([]);
+  const [admin, setAdmin] = useState({});
   const [originalPiece, setOriginalPiece] = useState({});
   // Updated Piece Starting Info:
   const [updatedPiece, setUpdatedPiece] = useState({});
@@ -29,6 +28,8 @@ export default function EditArtPieceForm({
         const result = await response.json();
         // console.log(result);
         setOriginalPiece(result);
+        setTags(result.tags);
+        setAdmin(result.author);
       } catch (error) {
         console.error(error);
         setError(error);
@@ -83,7 +84,8 @@ export default function EditArtPieceForm({
         <p>Date: {originalPiece.date} </p>
         <p>Description: {originalPiece.description} </p>
         <p>Tags: </p>
-        {/* {tags && tags.map((tag) => <button key={tag.id}>{tag.medium}</button>)} */}
+        {tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
+        <p>Administrative Author: {admin.name} </p>
       </div>
       <div className="form">
         <form onSubmit={handleSubmit}>
@@ -91,7 +93,7 @@ export default function EditArtPieceForm({
           <input
             type="text"
             name="title"
-            // defaultValue={originalPiece.title}
+            defaultValue={originalPiece.title}
             onChange={handleChange}
             required
           />
@@ -99,14 +101,14 @@ export default function EditArtPieceForm({
           <input
             type="text"
             name="Date"
-            // defaultValue={originalPiece.date}
+            defaultValue={originalPiece.date}
             onChange={handleChange}
           />
           <label> Picture: </label>
           <input
             type="text"
             name="image"
-            // defaultValue={originalPiece.image_url}
+            defaultValue={originalPiece.image_url}
             onChange={handleChange}
           />
           <label id="pieceDescription">Description:</label>
@@ -115,14 +117,18 @@ export default function EditArtPieceForm({
             rows="4"
             cols="125"
             name="Description"
-            // defaultValue={originalPiece.description}
+            defaultValue={originalPiece.description}
             onChange={handleChange}
           />
           <label> Tags: </label>
-          <input
+          <h5 style={{ padding: "1em" }}>
+            Enter tags seperated by commas. Ex: "digital", "portrait"
+            {" "}
+          </h5>
+          <textarea
             type="text"
             name="tags"
-            // defaultValue={originalPiece.tags}
+            defaultValue={tags && tags.map((tag) => tag.medium).join(", ") }
             onChange={handleChange}
           />
 
