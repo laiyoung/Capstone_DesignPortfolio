@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
 export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
+
   const { id } = useParams();
   const navigate = useNavigate();
   const imgSmallStyle = {
