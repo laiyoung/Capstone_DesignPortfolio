@@ -5,10 +5,16 @@ import { useNavigate } from "react-router-dom";
 
 // import { deletePlayer } from "../api";
 
-export default function SingleArtPiece({ piece, setError, pieceId, token }) {
+export default function SingleArtPiece({
+  piece,
+  setError,
+  pieceId,
+  token,
+  pieces,
+}) {
   const [tagButtons, setTagButtons] = useState([]);
   const [selectedPieceId, setSelectedPieceId] = useState(null);
-
+  const [tagResults, setTagResults] = useState([]);
   const navigate = useNavigate();
 
   const imgSmallStyle = {
@@ -19,7 +25,7 @@ export default function SingleArtPiece({ piece, setError, pieceId, token }) {
     margin: "auto",
     padding: "20px",
   };
-
+  console.log(pieceId);
   function handleDetails(pieceId) {
     async function getSingleArtPiece() {
       try {
@@ -35,14 +41,15 @@ export default function SingleArtPiece({ piece, setError, pieceId, token }) {
     }
     getSingleArtPiece();
   }
-  // console.log(selectedPieceId);
+  console.log(selectedPieceId);
 
   async function handleClose() {
     setSelectedPieceId(null);
   }
 
-  async function handleDelete(selectedPieceId) {
+  async function handleDelete() {
     try {
+      console.log(selectedPieceId);
       await fetch(`${API_URL}/pieces/${selectedPieceId}`, {
         method: "DELETE",
         headers: {
@@ -55,6 +62,13 @@ export default function SingleArtPiece({ piece, setError, pieceId, token }) {
       setError(error);
     }
   }
+
+  function handleSearch(tag) {
+    tagResults = pieces.filter((item) => item.tags.tag.id === tag.id);
+    setTagResults(tagResults);
+    navigate("/tag-results");
+  }
+  console.log(tagResults);
 
   async function navToEditForm() {
     navigate(`/${selectedPieceId}`);
@@ -70,7 +84,11 @@ export default function SingleArtPiece({ piece, setError, pieceId, token }) {
       <p>Description: {piece.description} </p>
       <p>Tags: </p>
       {tagButtons &&
-        tagButtons.map((tag) => <button key={tag.id}>{tag.medium}</button>)}
+        tagButtons.map((tag) => (
+          <button key={tag.id} onClick={handleSearch}>
+            {tag.medium}
+          </button>
+        ))}
       {token && (
         <div>
           <button onClick={handleDelete}> Delete </button>

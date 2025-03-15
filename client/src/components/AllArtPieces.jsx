@@ -21,6 +21,7 @@ export default function AllArtPieces({
       <div className="article">
         {pieces.map((piece) => (
           <SingleArtPiece
+            pieces={pieces}
             key={piece.id}
             pieceId={piece.id}
             piece={piece}

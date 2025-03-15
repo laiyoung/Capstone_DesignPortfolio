@@ -7,7 +7,6 @@ import TagResults from "./components/TagResults";
 import Login from "./components/Login";
 import EditArtDetailsForm from "./components/EditArtDetailsForm";
 
-
 /** API Link */
 export const API_URL = `http://localhost:3000/api`;
 
@@ -16,7 +15,7 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [token, setToken] = useState();
- const [admin, setAdmin] = useState({});
+  const [admin, setAdmin] = useState({});
 
   const navigate = useNavigate();
 
@@ -29,7 +28,6 @@ function App() {
     }
     fetchPieces();
   }, [pieces.length]);
-
 
   async function handlelogOut() {
     navigate("/");
@@ -70,7 +68,10 @@ function App() {
           <Route
             path="/tag-results"
             element={
-              <TagResults tagResults={tagResults} setTagResults={setTagResults} />
+              <TagResults
+                tagResults={tagResults}
+                setTagResults={setTagResults}
+              />
             }
           />
           <Route
@@ -85,7 +86,10 @@ function App() {
               />
             }
           />
-          <Route path="/login" element={<Login setToken={setToken} setAdmin={setAdmin}/>} />
+          <Route
+            path="/login"
+            element={<Login setToken={setToken} setAdmin={setAdmin} />}
+          />
         </Routes>
       </div>
     </>

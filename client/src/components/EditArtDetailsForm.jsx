@@ -16,7 +16,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   };
   const [tags, setTags] = useState([]);
   const [originalPiece, setOriginalPiece] = useState({});
-  
+
   // Updated Piece Starting Info:
   const [updatedPiece, setUpdatedPiece] = useState({});
 
@@ -84,7 +84,9 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
         <p>Date: {originalPiece.date} </p>
         <p>Description: {originalPiece.description} </p>
         <p>Tags: </p>
-        {tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
+        {tags?.map((tag) => (
+          <ul key={tag.id}>{tag.medium}</ul>
+        ))}
         <p>Administrative Author: {admin.name} </p>
       </div>
       <div className="form">
@@ -122,13 +124,13 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
           />
           <label> Tags: </label>
           <h5 style={{ padding: "1em" }}>
-            Enter tags seperated by commas. Ex: digital, portrait
-            {" "}
+            Enter tags seperated by commas, followed by a space. Ex: digital,
+            portrait{" "}
           </h5>
           <textarea
             type="text"
             name="tags"
-            defaultValue={tags && tags.map((tag) => tag.medium).join(", ") }
+            defaultValue={tags?.map((tag) => tag.medium).join(", ")}
             onChange={handleChange}
           />
 

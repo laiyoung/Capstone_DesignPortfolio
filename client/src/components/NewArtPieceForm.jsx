@@ -3,7 +3,6 @@ import { useState } from "react";
 import { API_URL } from "../App";
 
 export default function NewArtPieceForm({token, admin}) {
-console.log
   const [newPiece, setNewPiece] = useState({
     author: admin, 
     title: "",
@@ -53,7 +52,7 @@ console.log
           <input
             type="text"
             name="title"
-            defaultValue={newPiece.title}
+            value={newPiece.title}
             onChange={handleChange}
             required
           />
@@ -64,14 +63,14 @@ console.log
           <input
             type="text"
             name="date"
-            defaultValue={newPiece.date}
+            value={newPiece.date}
             onChange={handleChange}
           />
           <label> Image: </label>
           <input
             type="text"
             name="image_url"
-            defaultValue={newPiece.image_url}
+            value={newPiece.image_url}
             onChange={handleChange}
           />
           <label id="pieceDescription">Description:</label>
@@ -80,17 +79,17 @@ console.log
             rows="4"
             cols="50"
             name="description"
-            defaultValue={newPiece.description}
+            value={newPiece.description}
             onChange={handleChange}
           />
           <label> Tags: </label>
           <h5 style={{ padding: "1em" }}>
-            Enter tags seperated by commas. Ex: digital, portrait{" "}
+            Enter tags seperated by commas, followed by a space. Ex: digital, portrait{" "}
           </h5>
           <textarea
             type="text"
             name="tags"
-            defaultValue={newPiece.tags}
+            value={newPiece.tags}
             onChange={handleChange}
           />
           <button type="submit"> Add New Art Piece </button>

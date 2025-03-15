@@ -8,6 +8,9 @@ A useful ternary I didn't need:
         </div>
       )} */}
 
+A way to check for tags:
+{tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
+
 Default items for editing:
  title: originalPiece.title,
  date: originalPiece.date,
