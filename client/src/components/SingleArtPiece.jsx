@@ -64,8 +64,7 @@ export default function SingleArtPiece({
   }
 
   function handleSearch(tag) {
-    tagResults = pieces.filter((item) => item.tags.tag.id === tag.id);
-    setTagResults(tagResults);
+    setTagResults(pieces.filter((item) => item.tags[tag.id] === tag.id));
     navigate("/tag-results");
   }
   console.log(tagResults);

@@ -102,14 +102,14 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
           <label id="pieceDate">Date:</label>
           <input
             type="text"
-            name="Date"
+            name="date"
             defaultValue={originalPiece.date}
             onChange={handleChange}
           />
           <label> Picture: </label>
           <input
             type="text"
-            name="image"
+            name="image_url"
             defaultValue={originalPiece.image_url}
             onChange={handleChange}
           />
@@ -118,7 +118,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
             type="text"
             rows="4"
             cols="125"
-            name="Description"
+            name="description"
             defaultValue={originalPiece.description}
             onChange={handleChange}
           />
