@@ -3,12 +3,18 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export default function EditArtPieceForm({ setError, token, admin, setAdmin, fetchPieces }) {
+export default function EditArtPieceForm({
+  setError,
+  token,
+  admin,
+  setAdmin,
+  fetchPieces,
+}) {
   useEffect(() => {
     fetchPieces();
   }, []);
   const { id } = useParams();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const imgSmallStyle = {
     maxWidth: "50%",
     maxHeight: "50%",
@@ -24,22 +30,23 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin, fet
   const [updatedPiece, setUpdatedPiece] = useState({});
 
   //GET Request for Original Piece:
-  useEffect(() => {
-    async function getSingleArtPiece() {
-      try {
-        const response = await fetch(`${API_URL}/pieces/${id}`);
-        const result = await response.json();
-        // console.log(result);
-        setOriginalPiece(result);
-        setTags(result.tags);
-        setAdmin(result.author);
-      } catch (error) {
-        console.error(error);
-        setError(error);
-      }
+  async function getSingleArtPiece() {
+    try {
+      const response = await fetch(`${API_URL}/pieces/${id}`);
+      const result = await response.json();
+      // console.log(result);
+      setOriginalPiece(result);
+      setTags(result.tags);
+      setAdmin(result.author);
+    } catch (error) {
+      console.error(error);
+      setError(error);
     }
+  }
+  useEffect(() => {
     getSingleArtPiece(id);
-  }, [fetchPieces, ...Object.values(originalPiece)]);
+  }, []);
+  
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -64,6 +71,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin, fet
 
       const result = await response.json();
       // console.log(result);
+      getSingleArtPiece(id);
     } catch (error) {
       console.error(error);
       setError(error);
