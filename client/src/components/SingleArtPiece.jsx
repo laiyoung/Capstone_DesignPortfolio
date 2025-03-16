@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "../App";
 import { useNavigate } from "react-router-dom";
 
@@ -11,11 +11,18 @@ export default function SingleArtPiece({
   pieceId,
   token,
   pieces,
+  tagResults,
+  setTagResults,
+  setMedium,
+  fetchPieces,
 }) {
   const [tagButtons, setTagButtons] = useState([]);
   const [selectedPieceId, setSelectedPieceId] = useState(null);
-  const [tagResults, setTagResults] = useState([]);
   const navigate = useNavigate();
+
+   useEffect(() => {
+      fetchPieces();
+    }, [pieces.length]);
 
   const imgSmallStyle = {
     maxWidth: "50%",
@@ -25,13 +32,13 @@ export default function SingleArtPiece({
     margin: "auto",
     padding: "20px",
   };
-  console.log(pieceId);
+  // console.log(pieceId);
   function handleDetails(pieceId) {
     async function getSingleArtPiece() {
       try {
         const response = await fetch(`${API_URL}/pieces/${pieceId}`);
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
         setTagButtons(result.tags);
         setSelectedPieceId(result.id);
       } catch (error) {
@@ -41,7 +48,7 @@ export default function SingleArtPiece({
     }
     getSingleArtPiece();
   }
-  console.log(selectedPieceId);
+  // console.log(selectedPieceId);
 
   async function handleClose() {
     setSelectedPieceId(null);
@@ -49,7 +56,7 @@ export default function SingleArtPiece({
 
   async function handleDelete() {
     try {
-      console.log(selectedPieceId);
+      // console.log(selectedPieceId);
       await fetch(`${API_URL}/pieces/${selectedPieceId}`, {
         method: "DELETE",
         headers: {
@@ -63,11 +70,12 @@ export default function SingleArtPiece({
     }
   }
 
-  function handleSearch(tag) {
-    setTagResults(pieces.filter((item) => item.tags[tag.id] === tag.id));
+  function navToTagResults(tag) {
+    setMedium(tag.medium);
+    // console.log(medium);
     navigate("/tag-results");
   }
-  console.log(tagResults);
+  // console.log(tagResults);
 
   async function navToEditForm() {
     navigate(`/${selectedPieceId}`);
@@ -84,7 +92,7 @@ export default function SingleArtPiece({
       <p>Tags: </p>
       {tagButtons &&
         tagButtons.map((tag) => (
-          <button key={tag.id} onClick={handleSearch}>
+          <button key={tag.id} onClick={() => navToTagResults(tag)}>
             {tag.medium}
           </button>
         ))}

@@ -14,18 +14,30 @@ function App() {
   const [error, setError] = useState(null);
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
+  const [medium, setMedium] = useState();
   const [token, setToken] = useState();
   const [admin, setAdmin] = useState({});
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   async function fetchPieces() {
+  //     const response = await fetch(`${API_URL}/pieces`);
+  //     const allPieceData = await response.json();
+  //     setPieces(allPieceData);
+  //     // console.log(allPieceData);
+  //   }
+  //   fetchPieces();
+  // }, [pieces.length]);
+
     async function fetchPieces() {
       const response = await fetch(`${API_URL}/pieces`);
       const allPieceData = await response.json();
       setPieces(allPieceData);
       // console.log(allPieceData);
     }
+
+  useEffect(() => {
     fetchPieces();
   }, [pieces.length]);
 
@@ -62,6 +74,10 @@ function App() {
                 token={token}
                 admin={admin}
                 setAdmin={setAdmin}
+                tagResults={tagResults}
+                setTagResults={setTagResults}
+                setMedium={setMedium}
+                fetchPieces={fetchPieces}
               />
             }
           />
@@ -71,6 +87,8 @@ function App() {
               <TagResults
                 tagResults={tagResults}
                 setTagResults={setTagResults}
+                setMedium={setMedium}
+                medium={medium}
               />
             }
           />
@@ -83,6 +101,7 @@ function App() {
                 token={token}
                 admin={admin}
                 setAdmin={setAdmin}
+                fetchPieces={fetchPieces}
               />
             }
           />

@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { API_URL } from "../App";
 import SingleArtPiece from "./SingleArtPiece";
 import NewArtPieceForm from "./NewArtPieceForm";
 
@@ -8,13 +10,27 @@ export default function AllArtPieces({
   token,
   admin,
   setAdmin,
+  tagResults,
+  setTagResults,
+  setMedium,
+  fetchPieces,
 }) {
+  useEffect(() => {
+    fetchPieces();
+  }, [pieces.length]);
+
   return (
     <>
       {token && (
         <div>
           {" "}
-          <NewArtPieceForm token={token} admin={admin} setAdmin={setAdmin} />
+          <NewArtPieceForm
+            token={token}
+            admin={admin}
+            setAdmin={setAdmin}
+            pieces={pieces}
+            fetchPieces={fetchPieces}
+          />
         </div>
       )}
 
@@ -27,6 +43,10 @@ export default function AllArtPieces({
             piece={piece}
             setError={setError}
             token={token}
+            tagResults={tagResults}
+            setTagResults={setTagResults}
+            setMedium={setMedium}
+            fetchPieces={fetchPieces}
           />
         ))}
       </div>

@@ -11,6 +11,25 @@ A useful ternary I didn't need:
 A way to check for tags:
 {tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
 
+Getting pieces useEffect:
+ useEffect(() => {
+    async function fetchPieces() {
+      const response = await fetch(`${API_URL}/pieces`);
+      const allPieceData = await response.json();
+      setPieces(allPieceData);
+      // console.log(allPieceData);
+    }
+    fetchPieces();
+  }, [pieces.length]);
+
+Another GET all pieces useEffect:
+  async function fetchPieces() {
+    const response = await fetch(`${API_URL}/pieces`);
+    const allPieceData = await response.json();
+    setPieces(allPieceData);
+    // console.log(allPieceData);
+  }
+
 Default items for editing:
  title: originalPiece.title,
  date: originalPiece.date,

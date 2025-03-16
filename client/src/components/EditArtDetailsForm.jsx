@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
-
+export default function EditArtPieceForm({ setError, token, admin, setAdmin, fetchPieces }) {
+  useEffect(() => {
+    fetchPieces();
+  }, []);
   const { id } = useParams();
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
   const imgSmallStyle = {
     maxWidth: "50%",
     maxHeight: "50%",
@@ -37,7 +39,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
       }
     }
     getSingleArtPiece(id);
-  }, []);
+  }, [fetchPieces, ...Object.values(originalPiece)]);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -61,7 +63,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
       });
 
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.error(error);
       setError(error);
