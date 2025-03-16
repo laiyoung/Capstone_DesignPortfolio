@@ -1,3 +1,19 @@
+For Deployment, you'll need to change the script set up, so that you're only running 
+1 script, not 2:
+* concurrently is a framework to do that. Make sure you change the default scripts to
+match the 1s you already have!!
+
+npm  install concurrently 
+
+"scripts": {
+    "frontend": "cd client && npm run dev",
+    "backend": "nodemon server",
+    "seed": "node ./server/db/seed.js",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+
+
+
 A useful ternary I didn't need:
 {/* {!token ? (
         <></>
