@@ -3,13 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../App";
 
-export default function EditArtPieceForm({
-  setError,
-  token,
-  admin,
-  setAdmin,
-}) {
-
+export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const imgSmallStyle = {
@@ -33,7 +27,7 @@ export default function EditArtPieceForm({
       const result = await response.json();
       // console.log(result);
       setOriginalPiece(result);
-      setTags(result.tags);
+      setTags(result.tags || []);
       setAdmin(result.author);
     } catch (error) {
       console.error(error);
@@ -43,7 +37,6 @@ export default function EditArtPieceForm({
   useEffect(() => {
     getSingleArtPiece(id);
   }, []);
-
 
   function handleChange(event) {
     const { name, value } = event.target;
