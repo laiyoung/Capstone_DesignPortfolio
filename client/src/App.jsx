@@ -101,7 +101,6 @@ function App() {
                 token={token}
                 admin={admin}
                 setAdmin={setAdmin}
-                fetchPieces={fetchPieces}
               />
             }
           />

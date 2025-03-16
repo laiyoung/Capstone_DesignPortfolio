@@ -8,11 +8,8 @@ export default function EditArtPieceForm({
   token,
   admin,
   setAdmin,
-  fetchPieces,
 }) {
-  useEffect(() => {
-    fetchPieces();
-  }, []);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const imgSmallStyle = {
@@ -46,7 +43,7 @@ export default function EditArtPieceForm({
   useEffect(() => {
     getSingleArtPiece(id);
   }, []);
-  
+
 
   function handleChange(event) {
     const { name, value } = event.target;
