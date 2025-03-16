@@ -89,6 +89,9 @@ function App() {
                 setTagResults={setTagResults}
                 setMedium={setMedium}
                 medium={medium}
+                fetchPieces={fetchPieces}
+                pieces={pieces}
+                setPieces={setPieces}
               />
             }
           />

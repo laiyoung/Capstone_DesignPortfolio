@@ -24,7 +24,7 @@ export default function Login({ setToken, setAdmin }) {
         body: JSON.stringify(adminLogin),
       });
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       setToken(result.token);
       setAdmin(result.adminId)
     } catch (error) {
