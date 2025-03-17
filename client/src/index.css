@@ -92,7 +92,7 @@ form button {
 /* Component Styling */
 .article {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row wrap-reverse;
   justify-content: space-evenly;
   gap: 10px;
 }
