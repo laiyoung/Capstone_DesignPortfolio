@@ -4,21 +4,19 @@ import { useNavigate } from "react-router-dom";
 export default function TagResults({
   tagResults,
   setTagResults,
-  medium,
-  setMedium,
+  selectedMedium,
+  setSelectedMedium,
   fetchPieces,
   pieces
 }) {
   const navigate = useNavigate();
   useEffect(() => {
     fetchPieces();
-  }, [tagResults.length]);
-  console.log(pieces)
-  
-  useEffect(() => {
-    setTagResults(pieces.filter((piece) => piece.tags[medium] === medium));
-  }, []);
-  console.log(tagResults)
+    setTagResults(pieces.filter((item) => (
+       item.tags.some(tag => tag.medium === selectedMedium))));
+  }, [pieces.length, selectedMedium]);
+
+  // console.log(tagResults)
 
   async function handleBack() {
     navigate("/");
@@ -26,7 +24,7 @@ export default function TagResults({
 
   return (
     <div className="article">
-      <h2> {medium[0].toUpperCase() + medium.slice(1)} art pieces: </h2>
+      <h2> {selectedMedium[0].toUpperCase() + selectedMedium.slice(1)} art pieces: </h2>
       <button onClick={handleBack}>Back To the Full Gallery</button>
       {tagResults.map((filteredPiece) => {
         return (

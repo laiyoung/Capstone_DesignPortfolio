@@ -10,9 +10,7 @@ export default function AllArtPieces({
   token,
   admin,
   setAdmin,
-  tagResults,
-  setTagResults,
-  setMedium,
+  setSelectedMedium,
   fetchPieces,
 }) {
   useEffect(() => {
@@ -43,9 +41,7 @@ export default function AllArtPieces({
             piece={piece}
             setError={setError}
             token={token}
-            tagResults={tagResults}
-            setTagResults={setTagResults}
-            setMedium={setMedium}
+            setSelectedMedium={setSelectedMedium}
             fetchPieces={fetchPieces}
           />
         ))}

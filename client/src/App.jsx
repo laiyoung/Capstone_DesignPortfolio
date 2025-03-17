@@ -14,7 +14,7 @@ function App() {
   const [error, setError] = useState(null);
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
-  const [medium, setMedium] = useState();
+  const [selectedMedium, setSelectedMedium] = useState();
   const [token, setToken] = useState();
   const [admin, setAdmin] = useState({});
 
@@ -76,7 +76,8 @@ function App() {
                 setAdmin={setAdmin}
                 tagResults={tagResults}
                 setTagResults={setTagResults}
-                setMedium={setMedium}
+                setSelectedMedium={setSelectedMedium}
+                selectedMedium={selectedMedium}
                 fetchPieces={fetchPieces}
               />
             }
@@ -87,8 +88,8 @@ function App() {
               <TagResults
                 tagResults={tagResults}
                 setTagResults={setTagResults}
-                setMedium={setMedium}
-                medium={medium}
+                setSelectedMedium={setSelectedMedium}
+                selectedMedium={selectedMedium}
                 fetchPieces={fetchPieces}
                 pieces={pieces}
                 setPieces={setPieces}

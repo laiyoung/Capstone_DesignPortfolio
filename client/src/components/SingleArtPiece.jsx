@@ -11,9 +11,7 @@ export default function SingleArtPiece({
   pieceId,
   token,
   pieces,
-  tagResults,
-  setTagResults,
-  setMedium,
+  setSelectedMedium,
   fetchPieces,
 }) {
   const [tagButtons, setTagButtons] = useState([]);
@@ -71,7 +69,7 @@ export default function SingleArtPiece({
   }
 
   function navToTagResults(tag) {
-    setMedium(tag.medium);
+    setSelectedMedium(tag.medium);
     // console.log(medium);
     navigate("/tag-results");
   }
