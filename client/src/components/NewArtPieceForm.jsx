@@ -46,8 +46,11 @@ export default function NewArtPieceForm({ token, admin, fetchPieces, pieces }) {
       resetForm();
     }
   }
-
-  // Unfortunately, event.target.reset() didn't work for this form:
+/** 
+ * Unfortunately, event.target.reset() didn't work for this form. I think it's because the admin
+ * identification is a fixed variable that doesn't reset, so when you try to rest the form
+ * it fails. However, doing a manual reset of the useSate does work:
+*/
   async function resetForm() {
     setNewPiece({
       author: admin,
