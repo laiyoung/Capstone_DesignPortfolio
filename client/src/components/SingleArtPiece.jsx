@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { API_URL } from "../App";
 import { useNavigate } from "react-router-dom";
 
-// import { deletePlayer } from "../api";
-
 export default function SingleArtPiece({
   piece,
   setError,
@@ -17,10 +15,6 @@ export default function SingleArtPiece({
   const [tagButtons, setTagButtons] = useState([]);
   const [selectedPieceId, setSelectedPieceId] = useState(null);
   const navigate = useNavigate();
-
-   useEffect(() => {
-      fetchPieces();
-    }, [pieces.length]);
 
   const imgSmallStyle = {
     maxWidth: "50%",
@@ -66,6 +60,7 @@ export default function SingleArtPiece({
       console.log(error);
       setError(error);
     }
+    fetchPieces();
   }
 
   function navToTagResults(tag) {
@@ -83,11 +78,13 @@ export default function SingleArtPiece({
 
   return selectedPieceId ? (
     <div className="single-card-view">
-      <h3>{piece.title}</h3>
+      <h3 style={{ textAlign: "center" }}>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
-      <p>Date: {date} </p>
-      <p>Description: {piece.description} </p>
-      <p>Tags: </p>
+      <p style={{ fontWeight: "bold" }}>Date: </p> 
+      <p>{date}</p>
+      <p style={{ fontWeight: "bold" }}>Description: </p> 
+      <p>{piece.description}</p>
+      <p style={{ fontWeight: "bold" }}>Tags: </p>
       {tagButtons &&
         tagButtons.map((tag) => (
           <button key={tag.id} onClick={() => navToTagResults(tag)}>

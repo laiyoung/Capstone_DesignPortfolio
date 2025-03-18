@@ -1,16 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "../App";
 
-export default function NewArtPieceForm({token, admin}) {
+export default function NewArtPieceForm({ token, admin, fetchPieces, pieces }) {
   const [newPiece, setNewPiece] = useState({
-    author: admin, 
+    author: admin,
     title: "",
     date: "",
     image_url: "",
     description: "",
     tags: [],
   });
+
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -22,8 +23,8 @@ export default function NewArtPieceForm({token, admin}) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    newPiece.tags = newPiece.tags.split(", ")
-    console.log(newPiece.tags);
+    newPiece.tags = newPiece.tags.split(", ");
+    // console.log(newPiece.tags);
     try {
       const response = await fetch(`${API_URL}/pieces`, {
         method: "POST",
@@ -35,14 +36,28 @@ export default function NewArtPieceForm({token, admin}) {
       });
 
       const result = await response.json();
-      console.log(result);
-      return result;
+      // console.log(result);
+      return result
+
     } catch (error) {
       console.error(error);
+    } finally {
+      fetchPieces();
+      resetForm();
     }
-    event.target.reset();
   }
 
+  // Unfortunately, event.target.reset() didn't work for this form:
+  async function resetForm() {
+    setNewPiece({
+      author: admin,
+      title: "",
+      date: "",
+      image_url: "",
+      description: "",
+      tags: [],
+    });
+  }
 
   return (
     <>
@@ -84,7 +99,8 @@ export default function NewArtPieceForm({token, admin}) {
           />
           <label> Tags: </label>
           <h5 style={{ padding: "1em" }}>
-            Enter tags seperated by commas, followed by a space. Ex: digital, portrait{" "}
+            Enter tags seperated by commas, followed by a space. Ex: digital,
+            portrait{" "}
           </h5>
           <textarea
             type="text"

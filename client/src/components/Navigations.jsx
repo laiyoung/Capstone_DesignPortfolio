@@ -3,33 +3,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Navigation({ token, setToken }) {
-  const navigate = useNavigate();
-  async function handlelogOut() {
-    navigate("/");
-    setToken(null);
-  }
+export default function Navigation() {
+  // const navigate = useNavigate();
+  // async function handlelogOut() {
+  //   navigate("/");
+  // }
 
-  return token ? (
-    <div className="nav">
-      <Link to={"/"}>
-        {" "}
-        <h2>Full Catalog</h2>
-      </Link>
-      <Link to={"/account-view"}>
-        <h2>Make a Reservation</h2>
-      </Link>
-      <button onClick={handlelogOut}>Log Out</button>
-    </div>
-  ) : (
-    <div className="nav">
-      <Link to={"/"}>
-        {" "}
-        <h2>Full Catalog</h2>
-      </Link>
-      <Link to={"/login"}>
-        <h2>Login for Reservations</h2>
-      </Link>
-    </div>
+  return (
+    <>
+      <div>
+        <Link to={"/"}>
+          {" "}
+          <h2>Art</h2>
+        </Link>
+        <Link to={"/account-view"}>
+          <h2>Projects</h2>
+        </Link>
+        <Link to={"/"}>
+          {" "}
+          <h2>CV</h2>
+        </Link>
+        <Link to={"/login"}>
+          <h2> Send a Message</h2>
+        </Link>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+
 import { API_URL } from "../App";
 import SingleArtPiece from "./SingleArtPiece";
 import NewArtPieceForm from "./NewArtPieceForm";
@@ -13,9 +13,6 @@ export default function AllArtPieces({
   setSelectedMedium,
   fetchPieces,
 }) {
-  useEffect(() => {
-    fetchPieces();
-  }, [pieces.length]);
 
   return (
     <>
