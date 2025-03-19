@@ -6,6 +6,10 @@ import AllArtPieces from "./components/AllArtPieces";
 import TagResults from "./components/TagResults";
 import Login from "./components/Login";
 import EditArtDetailsForm from "./components/EditArtDetailsForm";
+import Navigation from "./components/Navigation";
+import CV from "./components/CV";
+import Projects from "./components/Projects";
+
 
 /** API Link */
 export const API_URL = `http://localhost:3000/api`;
@@ -20,21 +24,10 @@ function App() {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   async function fetchPieces() {
-  //     const response = await fetch(`${API_URL}/pieces`);
-  //     const allPieceData = await response.json();
-  //     setPieces(allPieceData);
-  //     // console.log(allPieceData);
-  //   }
-  //   fetchPieces();
-  // }, [pieces.length]);
-
     async function fetchPieces() {
       const response = await fetch(`${API_URL}/pieces`);
       const allPieceData = await response.json();
       setPieces(allPieceData);
-      // console.log(allPieceData);
     }
 
   useEffect(() => {
@@ -56,9 +49,12 @@ function App() {
         )}
       </header>
       <div>{error && <p>{error.error}</p>}</div>
-      <div>
+      <div className="titlebox">
+        <div>
         <h1>Design Portfolio</h1>
         <h2>Laigha Young</h2>
+        </div>
+        <Navigation token={token} setToken={setToken} />
       </div>
 
       <div>
@@ -111,6 +107,14 @@ function App() {
           <Route
             path="/login"
             element={<Login setToken={setToken} setAdmin={setAdmin} />}
+          />
+          <Route
+            path="/cv"
+            element={<CV />}
+          />
+          <Route
+            path="/projects"
+            element={<Projects />}
           />
         </Routes>
       </div>

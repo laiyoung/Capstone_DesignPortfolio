@@ -1,13 +1,13 @@
 /* Text Styling */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 * {
-  font-family: 'Lato', Sans-Serif;
+  font-family: "Lato", Sans-Serif;
   font-weight: 400;
 }
 
 /* For individual styling on an element class */
 /* @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;400;600&display=swap");
-.h4 {
+.navigation {
   font-family: "JetBrains Mono", monospace;
   font-weight: 400;
 } */
@@ -38,7 +38,7 @@ li.favorite {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #eaebf9;
   text-decoration: inherit;
 }
 a:hover {
@@ -56,12 +56,57 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  padding: .5em;
+  padding: 0.5em;
 }
 .login {
   padding: 1em;
   text-align: right;
 }
+
+.login a {
+  color: #646cff !important;
+}
+
+/* Navigation Styling */
+.titlebox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbtn {
+  background-color: #333333;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.5s ease;  /* Smooth transition for the button movement */
+}
+
+.navbtn.open {
+  transform: translateX(-250px);  /* Move the button */
+}
+
+.navigation {
+  height: 260px; 
+  width: 0;
+  text-align: center;
+  color: white;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #333333;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: width 0.5s ease;  /* Smooth transition for the navigation panel */
+}
+
+.navigation.open {
+  width: 250px;  /* Width when open */
+}
+
+
 
 /* Form styling */
 form > * {
@@ -112,12 +157,12 @@ form button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 2px solid rgb(3, 5, 103);
+  border: 2px solid rgb(43, 2, 58);
   border-radius: 10px;
   width: 300px;
   padding: 0 15px 15px;
   margin: 0 10px 10px 0;
-  background-color: rgb(208, 251, 251);
+  background-color: rgb(229, 208, 251);
 }
 
 img {
@@ -140,7 +185,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+/* Need specific styling for tag buttons */
 
+/* Maybe also specific styling for admin buttons */
 button:hover {
   border-color: #432dbe;
   outline: 10em;

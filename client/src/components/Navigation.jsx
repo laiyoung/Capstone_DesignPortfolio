@@ -1,30 +1,32 @@
-/* This will be tied in later, when projects and documents are added **/
 import React from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Navigation() {
   // const navigate = useNavigate();
   // async function handlelogOut() {
   //   navigate("/");
   // }
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
-      <div>
+      <button className={`navbtn ${isOpen ? 'open' : ''}`} onClick={toggleMenu} > ☰ Explore</button>
+      <div className={`navigation ${isOpen ? 'open' : ''}`} style={{ color: "white" }}>
         <Link to={"/"}>
           {" "}
           <h2>Art</h2>
         </Link>
-        <Link to={"/account-view"}>
+        <Link to={"/projects"}>
           <h2>Projects</h2>
         </Link>
-        <Link to={"/"}>
+        <Link to={"/cv"}>
           {" "}
           <h2>CV</h2>
-        </Link>
-        <Link to={"/login"}>
-          <h2> Send a Message</h2>
         </Link>
       </div>
     </>
