@@ -49,6 +49,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   // PATCH Request:
   async function handleSubmit(event) {
     event.preventDefault();
+    updatedPiece.tags = updatedPiece.tags.split(", ");
     try {
       const response = await fetch(`${API_URL}/pieces/${id}`, {
         method: "PATCH",
