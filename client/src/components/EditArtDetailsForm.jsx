@@ -80,7 +80,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
 
   return (
     <>
-      <div className="single-card-view">
+      <div className="editing-card-view">
         <h3>Title: {originalPiece.title}</h3>
         <img
           style={imgSmallStyle}

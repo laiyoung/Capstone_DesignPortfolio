@@ -177,7 +177,7 @@ form button {
   opacity: 1;
 }
 
-.single-card-view {
+.editing-card-view {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -194,12 +194,15 @@ form button {
   white-space: normal;
   line-break: loose;
 }
-.single-card-view p {
+.editing-card-view p {
   hyphens: auto;
   -webkit-hyphenate-limit-chars: 6 3;
   -moz-hyphenate-limit-chars: 6 3;
   hyphenate-limit-chars: 6 3;
 }
+
+
+
 
 @media (max-width: 768px) {
   .piece-card,

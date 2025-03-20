@@ -1,5 +1,12 @@
 For Adding Hyperlinks for Photos:
-
+-Use Dropbox
+-Copy the "share" link
+-Put that share link into a browser where you're NOT signed into Dropbox
+(ex. Signed in on Chrome...copy the link to Mozilla)
+-Grab the "copy image address" from the picture
+-You should end up with a URL that has a set of #s and letters IN FRONT of the
+Dropbox location. That's the link you need! If the Dropbox location comes first,
+the link won't work.
 
 For Deployment, you'll need to change the script set up, so that you're only running 
 1 script, not 2:
