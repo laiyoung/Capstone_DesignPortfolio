@@ -144,7 +144,7 @@ async function createInitialPieces() {
       date: "2018-06-08",
       image_url:
         "https://uca346b4f1abe3adde85a93a06cc.previews.dropboxusercontent.com/p/thumb/AClL7aNj5CeFvibzHuYQHz9nJHB7nE81sEaouS1wad-4R5hZRwLgAJyTXieYLQqLDh4zUOXg9sRyR_vVvEXU_xt_7xpokua5_0CrZzX7uW2qAV1jarcIGtIfp_Rx5Wnwqx-JZFSqObzFcUA8TTuEpmhg83w3VTDbOXgH5nU_V3WjOQy1ROOdIdRXlWka4lSsNAs90s5VeIedKiGQyCjg6PN9fib5ddufblYH67dK_tszWyw38SpVF-lvXcE4vJttsn_2td64eCM3M79U0PcsSMTmBHJL1nLBeMIG7iWqFbQ3imAopYffBU5Tb5qADYuUx9kOeN4Dnnc6CPGtrSxzmZZOgYbJr-zwN96lmwbHMrQwtKjcCxaypku6-9l8Wsg_pL1mgvpx3nsh8LqQHGFPnuyS/p.jpeg?is_prewarmed=true",
-      description: "Digital macro of a calla lily",
+      description: "Digital macro of a calla lily.",
       tags: ["digital", "macro"],
     });
 

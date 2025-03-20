@@ -7,7 +7,7 @@ const client = new pg.Client(
 );
 
 //Hashing Encryption + Unique Identifier + JWT Imports:
-const uuid = require("uuid");
+// const uuid = require("uuid");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT = process.env.JWT || "shhh";
@@ -110,7 +110,7 @@ const authenticate = async ({ username, password }) => {
 
 // Finding an admin with a token data function:
 const findAdminWithToken = async (token) => {
-  console.log(token);
+  // console.log(token);
   try {
     const tokenVal = token.split(" ")[1];
     // console.log("Token:"+ tokenVal);
@@ -175,7 +175,7 @@ async function createArtPiece({
 async function updateArtPiece(pieceId, fields = {}) {
   // read off the tags & remove that field (they're replaced later)
   const { tags } = fields; // might be undefined
-  console.log (fields);
+       // console.log (fields);
   delete fields.tags;
 
   if (!tags) {
@@ -209,10 +209,10 @@ async function updateArtPiece(pieceId, fields = {}) {
 
     // make any new tags that need to be created
     const tagList = await createTags(tags);
-    console.log(tagList);
+        // console.log(tagList);
 
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
-    console.log(tagListIdString);
+        // console.log(tagListIdString);
 
     // delete any piece_tags from the database which aren't in that tagList
     await client.query(
