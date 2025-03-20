@@ -188,8 +188,8 @@ form button {
   border: 2px solid rgb(43, 2, 58);
   border-radius: 10px;
   width: 300px;
-  padding: 0 15px 15px;
-  margin: 0 10px 10px 0;
+  padding: 15px;
+  margin: 15px;
   background-color: rgb(222, 195, 250);
   position: relative;
   word-wrap: break-word;
