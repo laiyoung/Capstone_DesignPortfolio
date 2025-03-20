@@ -71,6 +71,7 @@ h1 {
 .titlebox {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 1em;
 }
 
 .navbtn {
@@ -137,21 +138,48 @@ form button {
 /* Component Styling */
 .article {
   display: flex;
-  flex-flow: row wrap-reverse;
+  flex-wrap: wrap-reverse;
+  flex-direction: row;
   justify-content: space-evenly;
-  gap: 10px;
+  gap: 2px;
+  align-items: center;
 }
 
-.player-card {
+.piece-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border: 2px solid rgb(3, 5, 103);
+  justify-content: center;
   border-radius: 10px;
   width: 300px;
-  padding: 0 15px 15px;
+  padding: 15px;
   margin: 0 10px 10px 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  height: max-content;
 }
+
+
+.cover {
+  visibility: hidden;
+  /* transition: visibility 0.3s ease, opacity 0.3s ease;  */
+  position: absolute; /* To overlay the image */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.piece-card:hover img {
+  opacity: 0.3; /* Apply opacity change only to the image */
+}
+
+.piece-card:hover .cover {
+  visibility: visible;
+  opacity: 1; 
+}
+
 
 .single-card-view {
   display: flex;
@@ -162,16 +190,16 @@ form button {
   width: 300px;
   padding: 0 15px 15px;
   margin: 0 10px 10px 0;
-  background-color: rgb(229, 208, 251);
+  background-color: rgb(222, 195, 250);
+  position: relative;
 }
 
-img {
-  /* max-width: 50%;
-  max-height: 50%;
-  border-radius: 50%; */
-  text-align: center;
-  margin: auto;
-  padding: 20px;
+
+
+@media (max-width: 768px) {
+  .piece-card, .single-card-view {
+    width: 100%;
+  }
 }
 
 /* Button Styling */

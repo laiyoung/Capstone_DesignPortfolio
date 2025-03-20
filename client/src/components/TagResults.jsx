@@ -36,35 +36,36 @@ export default function TagResults({
     navigate("/");
   }
 
- 
   return (
     <>
-      <div className="article">
+      <div>
         <h2>
           {" "}
           {selectedMedium[0].toUpperCase() +
             selectedMedium.slice(1)} pieces:{" "}
         </h2>
         <button onClick={handleBack}>Back To the Full Gallery</button>
-
+      </div>
+      <div className="article">
         {tagResults.map((filteredPiece) => {
           return (
-          <div key={filteredPiece.id} className="single-card-view">
-            <h3>{filteredPiece.title}</h3> 
-            <img
-              style={imgSmallStyle}
-              src={filteredPiece.image_url}
-              alt={filteredPiece.title}
-            />
-            <p>Date: {filteredPiece.date.split("T")[0]} </p>
-            <p>Description: {filteredPiece.description} </p>
-            {filteredPiece.tags &&
-              filteredPiece.tags.map((tag) => (
-                <button key={tag.id} onClick={() => refreshTagResults(tag)}>
-                  {tag.medium}
-                </button>
-              ))}
-          </div>);
+            <div key={filteredPiece.id} className="single-card-view">
+              <h3>{filteredPiece.title}</h3>
+              <img
+                style={imgSmallStyle}
+                src={filteredPiece.image_url}
+                alt={filteredPiece.title}
+              />
+              <p>Date: {filteredPiece.date.split("T")[0]} </p>
+              <p>Description: {filteredPiece.description} </p>
+              {filteredPiece.tags &&
+                filteredPiece.tags.map((tag) => (
+                  <button key={tag.id} onClick={() => refreshTagResults(tag)}>
+                    {tag.medium}
+                  </button>
+                ))}
+            </div>
+          );
         })}
       </div>
     </>

@@ -80,9 +80,9 @@ export default function SingleArtPiece({
     <div className="single-card-view">
       <h3 style={{ textAlign: "center" }}>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
-      <p style={{ fontWeight: "bold" }}>Date: </p> 
+      <p style={{ fontWeight: "bold" }}>Date: </p>
       <p>{date}</p>
-      <p style={{ fontWeight: "bold" }}>Description: </p> 
+      <p style={{ fontWeight: "bold" }}>Description: </p>
       <p>{piece.description}</p>
       <p style={{ fontWeight: "bold" }}>Tags: </p>
       {tagButtons &&
@@ -102,7 +102,11 @@ export default function SingleArtPiece({
   ) : (
     <div className="piece-card">
       <img src={piece.image_url} alt={piece.title} />
-      <button onClick={() => handleDetails(pieceId)}>Art Piece Details</button>
+      <div className="cover" >
+        <button onClick={() => handleDetails(pieceId)}>
+          Art Piece Details
+        </button>
+      </div>
     </div>
   );
 }

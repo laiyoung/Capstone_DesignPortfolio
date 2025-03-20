@@ -27,6 +27,37 @@ CSS:
   right: 0; 
 }
 
+Old CSS from Book Buddy:
+.article {
+  display: flex;
+  flex-flow: row wrap-reverse;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid rgb(3, 5, 103);
+  border-radius: 10px;
+  width: 300px;
+  padding: 0 15px 15px;
+  margin: 0 10px 10px 0;
+}
+
+.single-card-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid rgb(43, 2, 58);
+  border-radius: 10px;
+  width: 300px;
+  padding: 0 15px 15px;
+  margin: 0 10px 10px 0;
+  background-color: rgb(229, 208, 251);
+}
+
 A useful ternary I didn't need:
 {/* {!token ? (
         <></>
