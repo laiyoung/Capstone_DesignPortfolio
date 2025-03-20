@@ -178,6 +178,75 @@ const getAllPieces = async () => {
   return response.rows;
 };
 
+Trying to fix the patch and failing:
+async function updateArtPiece(pieceId, fields = {}) {
+  // Extract tags and remove that field from fields
+  const { tags } = fields;
+  console.log(fields);
+  delete fields.tags;
+
+  // Build the SET string for the update query using parameterized queries
+  const setKeys = Object.keys(fields);
+  const setValues = Object.values(fields);
+
+  // Check if there are fields to update
+  if (setKeys.length > 0) {
+    const setString = setKeys
+      .map((key, index) => `"${key}"=$${index + 1}`)
+      .join(", ");
+
+    try {
+      // Update fields in the database
+      await client.query(
+        `
+        UPDATE pieces
+        SET ${setString}
+        WHERE id=$${setKeys.length + 1}
+        RETURNING *;
+        `,
+        [...setValues, pieceId] // Use pieceId as the last parameter
+      );
+    } catch (error) {
+      throw new Error("Error updating art piece fields:", error);
+    }
+  }
+
+  // Return early if there are no tags to update
+  if (!tags) {
+    return await getPieceById(pieceId);
+  }
+
+  // Make any new tags that need to be created
+  const tagList = await createTags(tags);
+  // console.log(tagList);
+  if (tagList) {
+    // Join tag IDs into a string for the DELETE query
+    const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
+    console.log(tagListIdString);
+    
+    try {
+      // Delete any piece_tags that are not in the tagList
+      await client.query(
+        `
+        DELETE FROM piece_tags
+        WHERE "tagId" NOT IN (${tagListIdString})
+        AND "pieceId"=$1;
+        `,
+        [pieceId]
+      );
+  
+      // Add the new tags to the piece
+      await addTagsToPiece(pieceId, tagList);
+  
+      return await getPieceById(pieceId);
+    } catch (error) {
+      throw new Error("Error updating tags for art piece:", error);
+    }
+
+  }
+  
+}
+
 // Fetch Pieces by TagName (testDB function):
 async function getPiecesByTagName(tagName) {
   try {
