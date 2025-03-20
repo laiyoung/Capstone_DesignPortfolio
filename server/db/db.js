@@ -173,63 +173,72 @@ async function createArtPiece({
 
 // Updating an art piece data function:
 async function updateArtPiece(pieceId, fields = {}) {
-  // read off the tags & remove that field (they're replaced later)
-  const { tags } = fields; // might be undefined
-  console.log (fields);
+  // Extract tags and remove that field from fields
+  const { tags } = fields;
+  console.log(fields);
   delete fields.tags;
 
-  // build the set string
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(", ");
+  // Build the SET string for the update query using parameterized queries
+  const setKeys = Object.keys(fields);
+  const setValues = Object.values(fields);
 
-  try {
-    // update any fields that need to be updated
-    if (setString.length > 0) {
+  // Check if there are fields to update
+  if (setKeys.length > 0) {
+    const setString = setKeys
+      .map((key, index) => `"${key}"=$${index + 1}`)
+      .join(", ");
+
+    try {
+      // Update fields in the database
       await client.query(
         `
         UPDATE pieces
         SET ${setString}
-        WHERE id=${pieceId}
+        WHERE id=$${setKeys.length + 1}
         RETURNING *;
-      `,
-      // Generating string-keyed property values
-        Object.values(fields)
+        `,
+        [...setValues, pieceId] // Use pieceId as the last parameter
       );
+    } catch (error) {
+      throw new Error("Error updating art piece fields:", error);
     }
+  }
 
-    // return early if there's no tags to update
-    if (tags === undefined) {
-      return await getPieceById(pieceId);
-    }
+  // Return early if there are no tags to update
+  if (!tags) {
+    return await getPieceById(pieceId);
+  }
 
-    // make any new tags that need to be created
-    const tagList = await createTags(tags);
-    console.log(tagList);
-
+  // Make any new tags that need to be created
+  const tagList = await createTags(tags);
+  // console.log(tagList);
+  if (tagList) {
+    // Join tag IDs into a string for the DELETE query
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
     console.log(tagListIdString);
+    
+    try {
+      // Delete any piece_tags that are not in the tagList
+      await client.query(
+        `
+        DELETE FROM piece_tags
+        WHERE "tagId" NOT IN (${tagListIdString})
+        AND "pieceId"=$1;
+        `,
+        [pieceId]
+      );
+  
+      // Add the new tags to the piece
+      await addTagsToPiece(pieceId, tagList);
+  
+      return await getPieceById(pieceId);
+    } catch (error) {
+      throw new Error("Error updating tags for art piece:", error);
+    }
 
-    // delete any piece_tags from the database which aren't in that tagList
-    await client.query(
-      `
-      DELETE FROM piece_tags
-      WHERE "tagId"
-      NOT IN (${tagListIdString})
-      AND "pieceId"=$1;
-    `,
-      [pieceId]
-    );
-
-    // and create piece_tags as necessary
-    await addTagsToPiece(pieceId, tagList);
-
-    return await getPieceById(pieceId);
-  } catch (error) {
-    throw error;
   }
+  
 }
-
 
 // Deleting an art piece data function:
 const destroyArtPiece = async (id) => {

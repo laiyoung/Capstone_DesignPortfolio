@@ -27,7 +27,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
       const result = await response.json();
       // console.log(result);
       setOriginalPiece(result);
-      setTags(result.tags || []);
+      setTags(result.tags || [0]);
       setAdmin(result.author);
     } catch (error) {
       console.error(error);
@@ -61,17 +61,35 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
 
       const result = await response.json();
       // console.log(result);
+      resetForm();
       getSingleArtPiece(id);
+
     } catch (error) {
       console.error(error);
       setError(error);
+
     }
-    event.target.reset();
   }
 
   async function handleClose() {
     navigate("/");
   }
+
+  /** 
+ * Unfortunately, event.target.reset() didn't work for this form. I think it's because the admin
+ * identification is a fixed variable that doesn't reset, so when you try to rest the form
+ * it fails. However, doing a manual reset of the useSate does work:
+*/
+async function resetForm() {
+  setUpdatedPiece({
+    author: admin,
+    title: "",
+    date: "",
+    image_url: "",
+    description: "",
+    tags: [],
+  });
+}
 
   return (
     <>
@@ -85,7 +103,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
         <p>Date: {originalPiece.date} </p>
         <p>Description: {originalPiece.description} </p>
         <p>Tags: </p>
-        {tags?.map((tag) => (
+        {tags && tags.map((tag) => (
           <ul key={tag.id}>{tag.medium}</ul>
         ))}
         <p>Administrative Author: {admin.name} </p>
