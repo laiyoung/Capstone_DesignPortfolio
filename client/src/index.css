@@ -180,14 +180,15 @@ form button {
 .editing-card-view {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border: 2px solid rgb(43, 2, 58);
+  justify-content: flex-start;
   border-radius: 10px;
   width: 300px;
-  padding: 15px;
-  margin: 15px;
-  background-color: rgb(222, 195, 250);
+  padding: 20px;
+  margin: 0 10px 10px 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
+  height: max-content;
+  background-color: #f9f8f9;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -201,7 +202,39 @@ form button {
   hyphenate-limit-chars: 6 3;
 }
 
+.single-card-view {
+  display: flex;
+  flex-direction: row;
+  flex-flow:wrap;
+  justify-content: space-between;
+  align-items: center; 
+  border-radius: 10px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 10px 10px 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  height: max-content;
+  background-color: #f9f8f9;
+}
 
+.single-card-view img {
+  max-width: 40%; 
+  max-height: 75%; 
+  border-radius: 1em;
+  display: block;
+  margin-right: 15px; 
+}
+
+.single-card-view .details {
+  display: flex;
+  flex-direction: column; 
+  flex-grow: 1; 
+  justify-content: flex-start;
+  align-items: flex-start ;  
+  text-align: center;
+}
+ 
 
 
 @media (max-width: 768px) {

@@ -7,12 +7,13 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const imgSmallStyle = {
-    maxWidth: "50%",
-    maxHeight: "50%",
-    borderRadius: "50%",
+    maxWidth: "75%",
+    maxHeight: "75%",
+    borderRadius: "3em",
+    display: "block", 
     textAlign: "center",
     margin: "auto",
-    padding: "20px",
+    padding: "15px",
   };
   const [tags, setTags] = useState([]);
   const [originalPiece, setOriginalPiece] = useState({});

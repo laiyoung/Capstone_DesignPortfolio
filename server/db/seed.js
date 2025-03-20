@@ -99,7 +99,7 @@ async function createInitialAdmins() {
     await createAdmin({
       username: "instructor1",
       password: "grading",
-      name: "Insructor",
+      name: "Instructor",
     });
 
     console.log("Finished creating admins!");

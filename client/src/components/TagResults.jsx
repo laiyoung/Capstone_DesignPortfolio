@@ -11,12 +11,13 @@ export default function TagResults({
 }) {
   const navigate = useNavigate();
   const imgSmallStyle = {
-    maxWidth: "50%",
-    maxHeight: "50%",
-    borderRadius: "50%",
+    maxWidth: "75%",
+    maxHeight: "75%",
+    borderRadius: "3em",
+    display: "block", 
     textAlign: "center",
     margin: "auto",
-    padding: "20px",
+    padding: "15px",
   };
 
   useEffect(() => {
@@ -39,17 +40,19 @@ export default function TagResults({
   return (
     <>
       <div>
-        <h2>
+        <button onClick={handleBack}>
+          Back To the Full Gallery
+        </button>
+        <h2 style={{ textDecorationLine: "underline", paddingLeft: "4em" }}>
           {" "}
           {selectedMedium[0].toUpperCase() +
             selectedMedium.slice(1)} pieces:{" "}
         </h2>
-        <button onClick={handleBack}>Back To the Full Gallery</button>
       </div>
       <div lang="en" className="article">
         {tagResults.map((filteredPiece) => {
           return (
-            <div key={filteredPiece.id} className="single-card-view">
+            <div key={filteredPiece.id} className="editing-card-view">
               <h3>{filteredPiece.title}</h3>
               <img
                 style={imgSmallStyle}

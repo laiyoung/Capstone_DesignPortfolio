@@ -17,12 +17,13 @@ export default function SingleArtPiece({
   const navigate = useNavigate();
 
   const imgSmallStyle = {
-    maxWidth: "50%",
-    maxHeight: "50%",
-    borderRadius: "50%",
-    textAlign: "center",
-    margin: "auto",
-    padding: "20px",
+    maxWidth: "57%",
+    maxHeight: "75%",
+    borderRadius: "3em",
+    display: "block",
+    padding: "15px",
+    marginRight: "15px",
+    flexShrink: 1,
   };
   // console.log(pieceId);
   function handleDetails(pieceId) {
@@ -78,26 +79,28 @@ export default function SingleArtPiece({
 
   return selectedPieceId ? (
     <div lang="en" className="single-card-view">
-      <h3 style={{ textAlign: "center" }}>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
-      <p style={{ fontWeight: "bold" }}>Date: </p>
-      <p>{date}</p>
-      <p style={{ fontWeight: "bold" }}>Description: </p>
-      <p>{piece.description}</p>
-      <p style={{ fontWeight: "bold" }}>Tags: </p>
-      {tagButtons &&
-        tagButtons.map((tag) => (
-          <button key={tag.id} onClick={() => navToTagResults(tag)}>
-            {tag.medium}
-          </button>
-        ))}
-      {token && (
-        <div>
-          <button onClick={handleDelete}> Delete </button>
-          <button onClick={navToEditForm}> Edit Art Piece</button>
-        </div>
-      )}
-      <button onClick={handleClose}>Close Details</button>
+      <div className="details">
+        <h2 style={{ textAlign: "left" }}>{piece.title}</h2>
+        <p style={{ fontWeight: "bold" }}>Date: </p>
+        <p>{date}</p>
+        <p style={{ fontWeight: "bold" }}>Description: </p>
+        <p>{piece.description}</p>
+        <p style={{ fontWeight: "bold" }}>Tags: </p>
+        {tagButtons &&
+          tagButtons.map((tag) => (
+            <button key={tag.id} onClick={() => navToTagResults(tag)}>
+              {tag.medium}
+            </button>
+          ))}
+        {token && (
+          <div>
+            <button onClick={handleDelete}> Delete </button>
+            <button onClick={navToEditForm}> Edit Art Piece</button>
+          </div>
+        )}
+        <button onClick={handleClose}>Close Details</button>
+      </div>
     </div>
   ) : (
     <div className="piece-card">
