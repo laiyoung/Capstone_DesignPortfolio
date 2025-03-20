@@ -1,3 +1,6 @@
+For Adding Hyperlinks for Photos:
+
+
 For Deployment, you'll need to change the script set up, so that you're only running 
 1 script, not 2:
 * concurrently is a framework to do that. Make sure you change the default scripts to
@@ -14,8 +17,7 @@ npm  install concurrently
 
 
 
-Playing with navigation:
-CSS:
+Playing with navigation CSS:
 .navigation {
   position: relative;
   display: none;
@@ -68,8 +70,18 @@ A useful ternary I didn't need:
         </div>
       )} */}
 
+THESE TAGS ARE THE CURRENT BANE OF MY EXISTENCE!!!: 
 A way to check for tags:
 {tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
+
+Trying to make sure this tags array is never null or undefined:
+setTags(result.tags || []); --> this wasn't strong enough
+
+if (result.tags) {
+        result.tags = result.tags.split(", ");
+      } else {
+        result.tags = [];
+      }
 
 Getting pieces useEffect:
  useEffect(() => {

@@ -77,7 +77,7 @@ export default function SingleArtPiece({
   const date = piece.date.split("T")[0];
 
   return selectedPieceId ? (
-    <div className="single-card-view">
+    <div lang="en" className="single-card-view">
       <h3 style={{ textAlign: "center" }}>{piece.title}</h3>
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
       <p style={{ fontWeight: "bold" }}>Date: </p>
@@ -102,7 +102,7 @@ export default function SingleArtPiece({
   ) : (
     <div className="piece-card">
       <img src={piece.image_url} alt={piece.title} />
-      <div className="cover" >
+      <div className="cover">
         <button onClick={() => handleDetails(pieceId)}>
           Art Piece Details
         </button>

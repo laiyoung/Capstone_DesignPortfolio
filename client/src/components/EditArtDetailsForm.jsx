@@ -27,7 +27,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
       const result = await response.json();
       // console.log(result);
       setOriginalPiece(result);
-      setTags(result.tags || [0]);
+      setTags(Array.isArray(result.tags) ? result.tags : []);
       setAdmin(result.author);
     } catch (error) {
       console.error(error);
@@ -49,7 +49,7 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   // PATCH Request:
   async function handleSubmit(event) {
     event.preventDefault();
-    updatedPiece.tags = updatedPiece.tags.split(", ");
+    updatedPiece.tags && (updatedPiece.tags = updatedPiece.tags.split(", "));
     try {
       const response = await fetch(`${API_URL}/pieces/${id}`, {
         method: "PATCH",
@@ -59,38 +59,24 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
         },
         body: JSON.stringify(updatedPiece),
       });
-
       const result = await response.json();
       // console.log(result);
-      resetForm();
+      // resetForm();
+      result.tags = Array.isArray(result.tags)
+        ? result.tags
+        : result.tags
+        ? result.tags.split(", ")
+        : [];
       getSingleArtPiece(id);
-
     } catch (error) {
       console.error(error);
       setError(error);
-
     }
   }
 
   async function handleClose() {
     navigate("/");
   }
-
-  /** 
- * Unfortunately, event.target.reset() didn't work for this form. I think it's because the admin
- * identification is a fixed variable that doesn't reset, so when you try to rest the form
- * it fails. However, doing a manual reset of the useSate does work:
-*/
-async function resetForm() {
-  setUpdatedPiece({
-    author: admin,
-    title: "",
-    date: "",
-    image_url: "",
-    description: "",
-    tags: [],
-  });
-}
 
   return (
     <>
@@ -104,9 +90,7 @@ async function resetForm() {
         <p>Date: {originalPiece.date} </p>
         <p>Description: {originalPiece.description} </p>
         <p>Tags: </p>
-        {tags && tags.map((tag) => (
-          <ul key={tag.id}>{tag.medium}</ul>
-        ))}
+        {tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
         <p>Administrative Author: {admin.name} </p>
       </div>
       <div className="form">

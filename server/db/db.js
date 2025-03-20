@@ -178,6 +178,10 @@ async function updateArtPiece(pieceId, fields = {}) {
   console.log (fields);
   delete fields.tags;
 
+  if (!tags) {
+    tags = [];
+  }
+
   // build the set string
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -199,7 +203,7 @@ async function updateArtPiece(pieceId, fields = {}) {
     }
 
     // return early if there's no tags to update
-    if (tags === undefined) {
+    if (tags.length === 0) {
       return await getPieceById(pieceId);
     }
 

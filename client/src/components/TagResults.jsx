@@ -45,9 +45,8 @@ export default function TagResults({
             selectedMedium.slice(1)} pieces:{" "}
         </h2>
         <button onClick={handleBack}>Back To the Full Gallery</button>
-       
       </div>
-      <div className="article">
+      <div lang="en" className="article">
         {tagResults.map((filteredPiece) => {
           return (
             <div key={filteredPiece.id} className="single-card-view">
