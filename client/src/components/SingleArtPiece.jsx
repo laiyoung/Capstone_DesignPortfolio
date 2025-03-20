@@ -89,17 +89,17 @@ export default function SingleArtPiece({
         <p style={{ fontWeight: "bold" }}>Tags: </p>
         {tagButtons &&
           tagButtons.map((tag) => (
-            <button key={tag.id} onClick={() => navToTagResults(tag)}>
+            <button style={{ marginBottom: "3px" }} key={tag.id} onClick={() => navToTagResults(tag)}>
               {tag.medium}
             </button>
           ))}
         {token && (
-          <div>
-            <button onClick={handleDelete}> Delete </button>
+          <div style={{ margin: "10px", }}>
+            <button style={{ marginRight: "5px"}}onClick={handleDelete}> Delete </button>
             <button onClick={navToEditForm}> Edit Art Piece</button>
           </div>
         )}
-        <button onClick={handleClose}>Close Details</button>
+        <button style={{ margin: "10px" }} onClick={handleClose}>Close Details</button>
       </div>
     </div>
   ) : (
