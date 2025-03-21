@@ -26,6 +26,7 @@ export default function Login({ setToken, setAdmin }) {
       const result = await response.json();
       // console.log(result);
       setToken(result.token);
+      localStorage.setItem("token", result.token);
       setAdmin(result.adminId)
     } catch (error) {
       console.error(error);

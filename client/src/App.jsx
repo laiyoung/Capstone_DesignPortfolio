@@ -19,7 +19,7 @@ function App() {
   const [pieces, setPieces] = useState([]);
   const [tagResults, setTagResults] = useState([]);
   const [selectedMedium, setSelectedMedium] = useState();
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(null);
   const [admin, setAdmin] = useState({});
 
   const navigate = useNavigate();
@@ -33,6 +33,14 @@ function App() {
   useEffect(() => {
     fetchPieces();
   }, [pieces.length]);
+
+// Resetting the token if it exist in local storage and you do a pg refresh
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
   async function handlelogOut() {
     navigate("/");

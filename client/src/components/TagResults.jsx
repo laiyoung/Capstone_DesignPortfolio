@@ -62,6 +62,7 @@ export default function TagResults({
               {filteredPiece.tags &&
                 filteredPiece.tags.map((tag) => (
                   <button
+                    className="light-tag-buttons"
                     style={{ marginBottom: "7px" }}
                     key={tag.id}
                     onClick={() => refreshTagResults(tag)}

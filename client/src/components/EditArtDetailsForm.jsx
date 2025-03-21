@@ -82,17 +82,17 @@ export default function EditArtPieceForm({ setError, token, admin, setAdmin }) {
   return (
     <>
       <div className="editing-card-view">
-        <h3>Title: {originalPiece.title}</h3>
+        <h3>Title| {originalPiece.title}</h3>
         <img
           style={imgSmallStyle}
           src={originalPiece.image_url}
           alt={originalPiece.title}
         />
-        <p>Date: {originalPiece.date} </p>
-        <p>Description: {originalPiece.description} </p>
+        <p>Date| {originalPiece.date} </p>
+        <p>Description| {originalPiece.description} </p>
         <p>Tags: </p>
         {tags && tags.map((tag) => <ul key={tag.id}>{tag.medium}</ul>)}
-        <p>Administrative Author: {admin.name} </p>
+        <p>Administrative Author| {admin.name} </p>
       </div>
       <div className="form">
         <form onSubmit={handleSubmit}>
