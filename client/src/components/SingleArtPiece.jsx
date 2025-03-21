@@ -17,7 +17,7 @@ export default function SingleArtPiece({
   const navigate = useNavigate();
 
   const imgSmallStyle = {
-    maxWidth: "57%",
+    maxWidth: "55%",
     maxHeight: "75%",
     borderRadius: "3em",
     display: "block",
@@ -81,7 +81,15 @@ export default function SingleArtPiece({
     <div lang="en" className="single-card-view">
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
       <div className="details">
-        <h2 style={{ textAlign: "left" }}>{piece.title}</h2>
+        <h2
+          style={{
+            marginLeft: "auto",
+            textAlign: "right",
+            paddingRight: "3em",
+          }}
+        >
+          {piece.title}
+        </h2>
         <p style={{ fontWeight: "bold" }}>Date: </p>
         <p>{date}</p>
         <p style={{ fontWeight: "bold" }}>Description: </p>
@@ -89,17 +97,34 @@ export default function SingleArtPiece({
         <p style={{ fontWeight: "bold" }}>Tags: </p>
         {tagButtons &&
           tagButtons.map((tag) => (
-            <button style={{ marginBottom: "3px" }} key={tag.id} onClick={() => navToTagResults(tag)}>
+            <button
+              className="tag-buttons"
+              style={{ marginBottom: "5px" }}
+              key={tag.id}
+              onClick={() => navToTagResults(tag)}
+            >
               {tag.medium}
             </button>
           ))}
         {token && (
-          <div style={{ margin: "10px", }}>
-            <button style={{ marginRight: "5px"}}onClick={handleDelete}> Delete </button>
-            <button onClick={navToEditForm}> Edit Art Piece</button>
+          <div style={{ margin: "10px" }}>
+            <button
+              className="admin-button"
+              style={{ marginRight: "7px" }}
+              onClick={handleDelete}
+            >
+              {" "}
+              Delete{" "}
+            </button>
+            <button className="admin-button" onClick={navToEditForm}>
+              {" "}
+              Edit Art Piece
+            </button>
           </div>
         )}
-        <button style={{ margin: "10px" }} onClick={handleClose}>Close Details</button>
+        <button style={{ margin: "10px" }} onClick={handleClose}>
+          Close Details
+        </button>
       </div>
     </div>
   ) : (

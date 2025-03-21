@@ -233,6 +233,11 @@ form button {
   justify-content: flex-start;
   align-items: flex-start ;  
   text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: normal;
+  line-break: loose;
 }
  
 
@@ -255,12 +260,19 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-/* Need specific styling for tag buttons */
+/* Specific styling for admin buttons */
+.admin-button{
+  background-color: #9497dd;
+}
+/* Specific styling for admin buttons */
+.tag-buttons{
+  background-color: #b1b3fa;
+}
 
-/* Maybe also specific styling for admin buttons */
 button:hover {
   border-color: #432dbe;
-  outline: 10em;
+  outline: 20em;
+  transform: scale(1.05); 
 }
 
 button:focus,

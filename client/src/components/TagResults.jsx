@@ -14,7 +14,7 @@ export default function TagResults({
     maxWidth: "75%",
     maxHeight: "75%",
     borderRadius: "3em",
-    display: "block", 
+    display: "block",
     textAlign: "center",
     margin: "auto",
     padding: "15px",
@@ -40,9 +40,7 @@ export default function TagResults({
   return (
     <>
       <div>
-        <button onClick={handleBack}>
-          Back To the Full Gallery
-        </button>
+        <button onClick={handleBack}>Back To the Full Gallery</button>
         <h2 style={{ textDecorationLine: "underline", paddingLeft: "4em" }}>
           {" "}
           {selectedMedium[0].toUpperCase() +
@@ -59,11 +57,15 @@ export default function TagResults({
                 src={filteredPiece.image_url}
                 alt={filteredPiece.title}
               />
-              <p>Date: {filteredPiece.date.split("T")[0]} </p>
-              <p>Description: {filteredPiece.description} </p>
+              <p>Date| {filteredPiece.date.split("T")[0]} </p>
+              <p>Description| {filteredPiece.description} </p>
               {filteredPiece.tags &&
                 filteredPiece.tags.map((tag) => (
-                  <button key={tag.id} onClick={() => refreshTagResults(tag)}>
+                  <button
+                    style={{ marginBottom: "7px" }}
+                    key={tag.id}
+                    onClick={() => refreshTagResults(tag)}
+                  >
                     {tag.medium}
                   </button>
                 ))}
