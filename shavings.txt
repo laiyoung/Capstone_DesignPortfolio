@@ -3,10 +3,22 @@ For Adding Hyperlinks for Photos:
 -Copy the "share" link
 -Put that share link into a browser where you're NOT signed into Dropbox
 (ex. Signed in on Chrome...copy the link to Mozilla)
--Grab the "copy image address" from the picture
+-Open the image in a new tab, and copy the URL from the top of the page
+-If you just grab the "copy image address" from the picture inside the Dropbox
+website (even in a broswer where you're not signed in), it won't work.
 -You should end up with a URL that has a set of #s and letters IN FRONT of the
 Dropbox location. That's the link you need! If the Dropbox location comes first,
 the link won't work.
+
+For when I need to add more pic, and don't want to recopy the set-up:
+await createArtPiece({
+      authorId: laiyoung.id,
+      title: "",
+      date: "",
+      image_url: "",
+      description: "",
+      tags: ["", ""],
+    });
 
 For Deployment, you'll need to change the script set up, so that you're only running 
 1 script, not 2:
@@ -22,15 +34,23 @@ npm  install concurrently
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
 
-For when I need to add more pic, and don't want to recopy the set-up:
-await createArtPiece({
-      authorId: laiyoung.id,
-      title: "",
-      date: "",
-      image_url: "",
-      description: "",
-      tags: ["", ""],
-    });
+
+2 Different "Close Details" Buttons:
+-Button on the bottom w/ text:
+{(.......)}
+         <button style={{ margin: "10px" }} onClick={handleClose}>
+           Close Details
+         </button>
+       </div>
+     </div>
+-Button at the top as a universal symbol:
+     <div className="details">
+         <button
+           style={{ margin: "2px", fontWeight: "bold", marginLeft: "auto" }}
+           onClick={handleClose}
+         >
+           &#x2715;
+         </button>
 
 Playing with navigation CSS:
 .navigation {

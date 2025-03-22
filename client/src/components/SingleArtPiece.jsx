@@ -80,6 +80,18 @@ export default function SingleArtPiece({
   return selectedPieceId ? (
     <div lang="en" className="single-card-view">
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
+      <button
+        style={{
+          fontWeight: "bold",
+          position: "absolute",
+          right: "1em",
+          top: "1em",
+          zIndex: 10,
+        }}
+        onClick={handleClose}
+      >
+        &#x2715;
+      </button>
       <div className="details">
         <h2
           style={{
@@ -122,11 +134,6 @@ export default function SingleArtPiece({
             </button>
           </div>
         )}
-        <div>
-          <button style={{ margin: "10px" }} onClick={handleClose}>
-            Close Details
-          </button>
-        </div>
       </div>
     </div>
   ) : (

@@ -238,9 +238,11 @@ form button {
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+  position: relative;
   white-space: normal;
   line-break: loose;
   max-width: 35%;
+  margin-top: 40px;
 }
 
 @media (max-width: 768px) {
