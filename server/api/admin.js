@@ -68,6 +68,7 @@ apiRouter.post("/login", async (req, res, next) => {
         adminId: admin.id,
         token, 
       });
+      // Technically, for sending data other than strings, a res.json is more appropriate than res.send
     } else {
       next({
         name: "IncorrectCredentialsError",
