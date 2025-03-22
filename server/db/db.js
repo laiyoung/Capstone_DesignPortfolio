@@ -1,4 +1,4 @@
-/** Postgres Connection + SQL Interactions */
+/** Postgres Connection + SQL Interaction Models */
 
 // Client set up and pg import:
 const pg = require("pg");

@@ -208,9 +208,9 @@ form button {
   flex-flow: wrap;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 100%;
-  padding: 15px;
+  padding: 5px;
   margin: 0 10px 10px 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
@@ -219,7 +219,7 @@ form button {
 }
 
 .single-card-view img {
-  max-width: 40%;
+  max-width: 50%;
   max-height: 75%;
   border-radius: 1em;
   display: block;
@@ -228,16 +228,19 @@ form button {
 
 .single-card-view .details {
   display: flex;
+  flex-wrap: wrap;
+  text-wrap: wrap;
   flex-direction: column;
   flex-grow: 1;
   justify-content: flex-start;
   align-items: flex-start;
-  text-align: center;
+  text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
   white-space: normal;
   line-break: loose;
+  max-width: 35%;
 }
 
 @media (max-width: 768px) {

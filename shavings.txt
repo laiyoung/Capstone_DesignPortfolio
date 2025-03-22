@@ -22,7 +22,15 @@ npm  install concurrently
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
 
-
+For when I need to add more pic, and don't want to recopy the set-up:
+await createArtPiece({
+      authorId: laiyoung.id,
+      title: "",
+      date: "",
+      image_url: "",
+      description: "",
+      tags: ["", ""],
+    });
 
 Playing with navigation CSS:
 .navigation {

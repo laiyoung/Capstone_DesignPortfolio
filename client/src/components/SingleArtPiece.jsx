@@ -17,7 +17,7 @@ export default function SingleArtPiece({
   const navigate = useNavigate();
 
   const imgSmallStyle = {
-    maxWidth: "55%",
+    maxWidth: "60%",
     maxHeight: "75%",
     borderRadius: "3em",
     display: "block",
@@ -81,12 +81,6 @@ export default function SingleArtPiece({
     <div lang="en" className="single-card-view">
       <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
       <div className="details">
-        <button
-          style={{ margin: "2px", fontWeight: "bold", marginLeft: "auto" }}
-          onClick={handleClose}
-        >
-          &#x2715;
-        </button>
         <h2
           style={{
             marginLeft: "auto",
@@ -128,6 +122,11 @@ export default function SingleArtPiece({
             </button>
           </div>
         )}
+        <div>
+          <button style={{ margin: "10px" }} onClick={handleClose}>
+            Close Details
+          </button>
+        </div>
       </div>
     </div>
   ) : (
