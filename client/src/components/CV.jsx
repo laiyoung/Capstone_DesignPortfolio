@@ -6,6 +6,7 @@ export default function CV() {
     <>
       <div>
         {" "}
+        <p>Add Downloadable CV Link</p>
         <h1 style={{ textDecorationLine: "underline", textAlign: "center" }}>
           Under Construction
         </h1>
