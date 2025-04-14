@@ -307,6 +307,7 @@ async function createProject({
   title,
   location,
   role,
+  thumbnail,
   blurb,
   markers = [],
 }) {
@@ -315,11 +316,11 @@ async function createProject({
       rows: [project],
     } = await client.query(
       `
-      INSERT INTO projects(title, location, role, blurb) 
-      VALUES($1, $2, $3, $4)
+      INSERT INTO projects(title, location, role, thumbnail, blurb) 
+      VALUES($1, $2, $3, $4, $5)
       RETURNING *;
     `,
-      [title, location, role, blurb]
+      [title, location, role, thumbnail, blurb]
     );
     console.log(project);
     const markerList = await createMarkers(markers);

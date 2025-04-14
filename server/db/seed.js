@@ -67,6 +67,7 @@ async function createTables() {
         title VARCHAR(255) NOT NULL,
         location VARCHAR(255) NOT NULL,
         role VARCHAR(255) NOT NULL,
+        thumbnail VARCHAR(2000) NOT NULL,
         blurb TEXT NOT NULL,
         markers TEXT
       );
@@ -149,6 +150,7 @@ async function createInitialProjects() {
         "The Blues Tradition: Building Dialogical Relation within Utopian Imaginaries",
       location: "Liège, Belgium",
       role: "Researcher",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579703/AnnotationsOnADiagram_cqioag.jpg",
       blurb:
         "Working group on imagination within cooperatives and social enterprises in the era of the captitalocene.",
         markers: [
