@@ -377,8 +377,8 @@ const createProjectPhoto = async ({
   image_url,
 }) => {
   const SQL = ` 
-  INSERT INTO project_photos(title, projectId, image_url) 
-  VALUES($1, (SELECT id FROM projects WHERE name =$2), $3)  
+  INSERT INTO project_photos(title, "projectId", image_url) 
+  VALUES($1, $2, $3)  
   RETURNING *`;
 
   const result = await client.query(SQL, [
@@ -386,7 +386,8 @@ const createProjectPhoto = async ({
     projectId,
     image_url,
   ]);
-  return result.rows[0];
+  console.log("Result from createProjectPhoto:", result);
+  return result.rows;
 };
 
 /**
@@ -675,8 +676,15 @@ async function getAllProjects() {
 
 // Fetch Project Photos by Marker (testDB function):
 
-// Fetch Project Photos by ProjectName (testDB function):
-
+// Fetch Project Photos by ProjectId (testDB function):
+const getProjectPhotos = async (projectId) => {
+  const SQL = `
+    SELECT * FROM project_photos
+    WHERE "projectId" = $1
+    `;
+  const result = await client.query(SQL, [projectId]);
+  return result.rows;
+};
 
 
 
@@ -699,6 +707,7 @@ module.exports = {
   getAllPieces,
   getAllTags,
   getAllProjects,
+  getProjectPhotos,
   getPiecesByTagName,
   getPieceById,
 };

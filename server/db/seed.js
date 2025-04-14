@@ -12,6 +12,7 @@ const {
   getAllPieces,
   getAllTags,
   getAllProjects,
+  getProjectPhotos,
   getPiecesByTagName,
   getAdminByUsername,
   getPieceById,
@@ -170,9 +171,55 @@ async function createInitialProjects() {
 }
 
 //Creating initial project photos:
+async function createInitialProjectPhotos() {
+  try {
+    console.log("Starting to create project photos...");
 
-// Creating initial pieces:
-// Requires date format of: yyyy-mm-dd
+    console.log("Project 1 Photos");
+    await createProjectPhoto({
+     title: "Book Notes",
+     projectId: 1,
+     image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579703/AnnotationsOnADiagram_cqioag.jpg" ,
+    });
+
+    // console.log("Project 2 Photos");
+    // await createProjectPhoto({
+     
+    // });
+
+    // console.log("Project 3 Photos");
+    // await createProjectPhoto({
+     
+    // });
+
+    // console.log("Project 4 Photos");
+    // await createProjectPhoto({
+     
+    // });
+
+    // console.log("Project 5 Photos");
+    // await createProjectPhoto({
+     
+    // });
+
+    // console.log("Project 6 Photos");
+    // await createProjectPhoto({
+     
+    // });
+
+    // console.log("Project 7 Photos");
+    // await createProjectPhoto({
+     
+    // });
+
+
+    console.log("Finished creating project photos!");
+  } catch (error) {
+    console.log("Error creating project photos!");
+    throw error;
+  }
+}
+// Creating initial pieces (requires date format of: yyyy-mm-dd):
 async function createInitialPieces() {
   try {
     const [laiyoung, instructor1] = await getAllAdmins();
@@ -489,6 +536,7 @@ async function rebuildDB() {
     await createInitialAdmins();
     await createInitialPieces();
     await createInitialProjects();
+    await createInitialProjectPhotos();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
@@ -528,9 +576,13 @@ async function testDB() {
     const artPiece1 = await getPieceById(1);
     console.log("Result:", artPiece1);
 
-    console.log("Calling getAllProjects ");
+    console.log("Calling getAllProjects");
     const projects = await getAllProjects();
     console.log("Result:", projects);
+
+    console.log("Calling getProjectPhotos");
+    const projectPhotos = await getProjectPhotos(1);
+    console.log("Result:", projectPhotos);
 
     // Add new tests
 
