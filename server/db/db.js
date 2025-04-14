@@ -175,7 +175,7 @@ async function createArtPiece({
 async function updateArtPiece(pieceId, fields = {}) {
   // read off the tags & remove that field (they're replaced later)
   const { tags } = fields; // might be undefined
-       // console.log (fields);
+  // console.log (fields);
   delete fields.tags;
 
   if (!tags) {
@@ -197,7 +197,7 @@ async function updateArtPiece(pieceId, fields = {}) {
         WHERE id=${pieceId}
         RETURNING *;
       `,
-      // Generating string-keyed property values
+        // Generating string-keyed property values
         Object.values(fields)
       );
     }
@@ -209,10 +209,10 @@ async function updateArtPiece(pieceId, fields = {}) {
 
     // make any new tags that need to be created
     const tagList = await createTags(tags);
-        // console.log(tagList);
+    // console.log(tagList);
 
     const tagListIdString = tagList.map((tag) => `${tag.id}`).join(", ");
-        // console.log(tagListIdString);
+    // console.log(tagListIdString);
 
     // delete any piece_tags from the database which aren't in that tagList
     await client.query(
@@ -233,7 +233,6 @@ async function updateArtPiece(pieceId, fields = {}) {
     throw error;
   }
 }
-
 
 // Deleting an art piece data function:
 const destroyArtPiece = async (id) => {
@@ -303,7 +302,213 @@ async function getPieceById(pieceId) {
 /**
  * Project Methods
  */
-// If we get here...LOL
+// Creating a project data function (testDB function):
+async function createProject({
+  title,
+  location,
+  role,
+  blurb,
+  markers = [],
+}) {
+  try {
+    const {
+      rows: [project],
+    } = await client.query(
+      `
+      INSERT INTO projects(title, location, role, blurb) 
+      VALUES($1, $2, $3, $4)
+      RETURNING *;
+    `,
+      [title, location, role, blurb]
+    );
+    console.log(project);
+    const markerList = await createMarkers(markers);
+
+    return await addMarkersToPiece(project.id, markerList);
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Getting a project piece by its ID:
+async function getProjectById(projectId) {
+  try {
+    const {
+      rows: [project],
+    } = await client.query(
+      `
+      SELECT *
+      FROM projects
+      WHERE id=$1;
+    `,
+      [projectId]
+    );
+
+    if (!project) {
+      throw {
+        name: "ProjectNotFoundError",
+        message: "Could not find a project with that projectId",
+      };
+    }
+
+    const { rows: markers } = await client.query(
+      `
+      SELECT markers.*
+      FROM markers
+      JOIN project_markers ON markers.id=project_markers."markerId"
+      WHERE project_markers."projectId"=$1;
+    `,
+      [projectId]
+    );
+
+    project.markers = markers;
+   
+    return project;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Creating a project photo data function (testDB function):
+const createProjectPhoto = async ({
+  title,
+  projectId,
+  image_url,
+}) => {
+  const SQL = ` 
+  INSERT INTO project_photos(title, projectId, image_url) 
+  VALUES($1, (SELECT id FROM projects WHERE name =$2), $3)  
+  RETURNING *`;
+
+  const result = await client.query(SQL, [
+    title,
+    projectId,
+    image_url,
+  ]);
+  return result.rows[0];
+};
+
+/**
+ * Marker Methods
+ */
+// Creating a marker type array:
+markerList = [
+  //Languages & Tools 
+  { title: 'JavaScript', type: 'Languages & Tools' },
+  { title: 'ArcGIS (Spatial Data Analysis)', type: 'Languages & Tools' },
+  { title: 'Adobe Creative Suite', type: 'Languages & Tools' },
+  { title: 'HTML', type: 'Languages & Tools' },
+  { title: 'CSS', type: 'Languages & Tools' },
+  { title: 'Node', type: 'Languages & Tools' },
+  { title: 'GitHub/Git', type: 'Languages & Tools' },
+  { title: 'SQL', type: 'Languages & Tools' },
+  { title: 'Microsoft Office', type: 'Languages & Tools' },
+  { title: 'Figma', type: 'Languages & Tools' },
+  { title: 'PostgreSQL', type: 'Languages & Tools' },
+  { title: 'Express', type: 'Languages & Tools' },
+  { title: 'React', type: 'Languages & Tools' },
+  { title: 'Postman API Development', type: 'Languages & Tools' },
+  { title: 'REST APIs', type: 'Languages & Tools' },
+
+  //Competencies 
+  { title: 'Participant Observation', type: 'Competencies' },
+  { title: 'Social Research', type: 'Competencies' },
+  { title: 'Interviewing', type: 'Competencies' },
+  { title: 'Ethnographic & Network Research', type: 'Competencies' },
+  { title: 'Bioethics', type: 'Competencies' },
+  { title: 'Full Stack Development', type: 'Competencies' },
+  { title: 'Front End Development', type: 'Competencies' },
+  { title: 'Back End Development', type: 'Competencies' },
+
+  //Additional Critical Proficiencies
+  { title: 'Adaptive Problem-Solving', type: 'Additional Critical Proficiencies' },
+  { title: 'Data-Informed Decision Making', type: 'Additional Critical Proficiencies' },
+  { title: 'Active Listening', type: 'Additional Critical Proficiencies' },
+  { title: 'Effective Communication', type: 'Additional Critical Proficiencies' },
+  { title: 'Teamwork', type: 'Additional Critical Proficiencies' },
+  { title: 'Collaboration', type: 'Additional Critical Proficiencies' },
+  { title: 'Relentless Curiosity', type: 'Additional Critical Proficiencies' },
+
+]
+
+// Creating a project marker data function (testDB function):
+//Creating markers:
+async function createMarkers(markerList) {
+  // console.log("markerList in createMarkers", markerList);
+  if (!Array.isArray(markerList)) {
+    markerList = [markerList];
+  }
+
+  if (markerList.length === 0) {
+    return;
+  }
+
+  const values = [];
+  const valuesStringInsert = markerList
+    .map((_, index) => {
+      const offset = index * 2;
+      values.push(markerList[index].title, markerList[index].type);
+      return `($${offset + 1}, $${offset + 2})`;
+    })
+    .join(", ");
+
+  try {
+    await client.query(
+      `
+      INSERT INTO markers(title, type)
+      VALUES ${valuesStringInsert}
+      ON CONFLICT (title) DO NOTHING;
+    `,
+      values
+    );
+
+    const titles = markerList.map((m) => m.title);
+    const valuePlaceholders = titles.map((_, i) => `$${i + 1}`).join(", ");
+
+    const { rows } = await client.query(
+      `
+      SELECT * FROM markers
+      WHERE title IN (${valuePlaceholders});
+    `,
+      titles
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+// Inserting markers into the junction table
+async function createProjectMarkerJunction(pieceId, markerId, type) {
+  try {
+    await client.query(
+      `
+      INSERT INTO project_markers("projectId", "markerId", type)
+      VALUES ($1, $2, $3)
+      ON CONFLICT ("projectId", "markerId") DO NOTHING;
+    `,
+      [pieceId, markerId, type]
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Adding markers to a project
+async function addMarkersToPiece(projectId, markerList) {
+  try {
+    const createProjectMarkerPromises = markerList.map((marker) =>
+      createProjectMarkerJunction(projectId, marker.id, marker.type)
+    );
+
+    await Promise.all(createProjectMarkerPromises);
+
+    return await getProjectById(projectId);
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 /**
  * Tag Methods
@@ -380,6 +585,9 @@ async function addTagsToPiece(pieceId, tagList) {
   }
 }
 
+
+
+
 /**
  * Basic Group-Fetching Data Functions
  */
@@ -443,8 +651,35 @@ async function getPiecesByTagName(tagName) {
   }
 }
 
-// Fetch All Projects:
-// Again, if we get here...LOL
+// Fetch All Projects (testDB function):
+async function getAllProjects() {
+  try {
+    const { rows: projectIds } = await client.query(`
+      SELECT id
+      FROM projects;
+    `);
+    // using getProjectById here allows you to grab the tags along with the project info
+    // the Promise.all batches the calls necessary to make the map
+    const projects = await Promise.all(
+      projectIds.map((project) => getProjectById(project.id))
+    );
+
+    return projects;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Fetch All Markers (testDB function):
+
+// Fetch Project Photos by Marker (testDB function):
+
+// Fetch Project Photos by ProjectName (testDB function):
+
+
+
+
+
 
 // Exporting to the index.js file:
 module.exports = {
@@ -457,9 +692,12 @@ module.exports = {
   createArtPiece,
   updateArtPiece,
   destroyArtPiece,
+  createProject,
+  createProjectPhoto,
   getAllAdmins,
   getAllPieces,
   getAllTags,
+  getAllProjects,
   getPiecesByTagName,
   getPieceById,
 };
