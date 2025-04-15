@@ -10,7 +10,7 @@ website (even in a broswer where you're not signed in), it won't work.
 Dropbox location. That's the link you need! If the Dropbox location comes first,
 the link won't work.
 
-For when I need to add more pic, and don't want to recopy the set-up:
+For when I need to add more pics,projects, or project pics and don't want to recopy the set-up:
 await createArtPiece({
       authorId: laiyoung.id,
       title: "",
@@ -18,6 +18,27 @@ await createArtPiece({
       image_url: "",
       description: "",
       tags: ["", ""],
+    });
+await createProjectPhoto({
+      title: "",
+      projectId: 2,
+      image_url: "" ,
+    });
+await createProject({
+      title:
+        "",
+      location: "",
+      role: "",
+      thumbnail: "",
+      blurb:
+        "",
+        markers: [
+          { title: "", type: "" },
+          { title: "", type: "" },
+          { title: "", type: "" },
+          { title: "", type: "" },
+          { title: "", type: "" },
+        ],
     });
 
 For Deployment, you'll need to change the script set up, so that you're only running 

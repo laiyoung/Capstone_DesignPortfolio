@@ -416,12 +416,14 @@ markerList = [
   { title: 'Participant Observation', type: 'Competencies' },
   { title: 'Social Research', type: 'Competencies' },
   { title: 'Interviewing', type: 'Competencies' },
+  { title: 'Photography', type: 'Competencies' },
   { title: 'Ethnographic & Network Research', type: 'Competencies' },
   { title: 'Bioethics', type: 'Competencies' },
+  { title: 'Collaborative Deliberation', type: 'Competencies' },
   { title: 'Full Stack Development', type: 'Competencies' },
   { title: 'Front End Development', type: 'Competencies' },
   { title: 'Back End Development', type: 'Competencies' },
-
+   
   //Additional Critical Proficiencies
   { title: 'Adaptive Problem-Solving', type: 'Additional Critical Proficiencies' },
   { title: 'Data-Informed Decision Making', type: 'Additional Critical Proficiencies' },
@@ -660,7 +662,7 @@ async function getAllProjects() {
       SELECT id
       FROM projects;
     `);
-    // using getProjectById here allows you to grab the tags along with the project info
+    // using getProjectById here allows you to grab the markerss along with the project info
     // the Promise.all batches the calls necessary to make the map
     const projects = await Promise.all(
       projectIds.map((project) => getProjectById(project.id))
@@ -674,7 +676,7 @@ async function getAllProjects() {
 
 // Fetch All Markers (testDB function):
 
-// Fetch Project Photos by Marker (testDB function):
+// Fetch Projects by Marker (testDB function):
 
 // Fetch Project Photos by ProjectId (testDB function):
 const getProjectPhotos = async (projectId) => {

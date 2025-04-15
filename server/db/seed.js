@@ -162,6 +162,138 @@ async function createInitialProjects() {
           { title: "Social Research", type: "Competencies" },
         ],
     });
+    await createProject({
+      title:
+        "Process Design Innovation with the Vancouver Island Health Authority",
+      location: "Victoria, British Columbia, Canada",
+      role: "Researcher & Senior Analyst",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579770/1DSC_0192_k8e2an.jpg",
+      blurb:
+        "Working with Vancouver Island Health Authority (Island Health) representatives to design more efficient processes for Island Health’s departments and centers.",
+        markers: [
+          { title: 'Adobe Creative Suite', type: 'Languages & Tools' },
+          { title: 'Participant Observation', type: 'Competencies' },
+          { title: 'Interviewing', type: 'Competencies' },
+          { title: 'Ethnographic & Network Research', type: 'Competencies' },
+          { title: 'Bioethics', type: 'Competencies' },
+          { title: 'Collaborative Deliberation', type: 'Competencies' },
+          { title: 'Adaptive Problem-Solving', type: 'Additional Critical Proficiencies' },
+          { title: 'Data-Informed Decision Making', type: 'Additional Critical Proficiencies' },
+          { title: 'Relentless Curiosity', type: 'Additional Critical Proficiencies' },
+          { title: 'Teamwork', type: 'Additional Critical Proficiencies' },
+          { title: 'Active Listening', type: 'Additional Critical Proficiencies' },
+          { title: 'Effective Communication', type: 'Additional Critical Proficiencies' },
+          { title: 'Microsoft Office', type: 'Languages & Tools' },
+        ],
+    });
+    await createProject({
+      title:
+        "Building Community Spaces with The Greater Victoria Placemaking Society & The BC Libraries Cooperative",
+      location: "Victoria, British Columbia, Canada",
+      role: "Consultant & Researcher",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579886/DSC_0053_xdul0f.jpg",
+      blurb:
+        "Laying the foundations for greenspace networks and learning hubs in Victoria, British Columbia.",
+        markers: [
+          { title: 'ArcGIS (Spatial Data Analysis)', type: 'Languages & Tools' },
+          { title: 'Interviewing', type: 'Competencies' },
+          { title: 'Collaborative Deliberation', type: 'Competencies' },
+          { title: 'Data-Informed Decision Making', type: 'Additional Critical Proficiencies' },
+          { title: 'Relentless Curiosity', type: 'Additional Critical Proficiencies' },
+          { title: 'Active Listening', type: 'Additional Critical Proficiencies' },
+          { title: 'Effective Communication', type: 'Additional Critical Proficiencies' },
+          { title: 'Microsoft Office', type: 'Languages & Tools' },
+          { title: 'Social Research', type: 'Competencies' },
+        ],
+    });
+    await createProject({
+      title:
+        "Barbee Farms Assessment for Value-Added Products",
+      location: "Concord, North Carolina, USA",
+      role: "Designer & Senior Analyst",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579939/Picture2_cfwbc8.jpg",
+      blurb:
+        "Cost-benefit analysis for a local family farm considering constructing an industrial kitchen intended to enable the creation of value-added products. ",
+        markers: [
+          { title: 'Adobe Creative Suite', type: 'Languages & Tools' },
+          { title: 'Interviewing', type: 'Competencies' },
+          { title: 'Photography', type: 'Competencies' },
+          { title: 'Adaptive Problem-Solving', type: 'Additional Critical Proficiencies' },
+          { title: 'Data-Informed Decision Making', type: 'Additional Critical Proficiencies' },
+          { title: 'Collaboration', type: 'Additional Critical Proficiencies' },
+          { title: 'Teamwork', type: 'Additional Critical Proficiencies' },
+          { title: 'Active Listening', type: 'Additional Critical Proficiencies' },
+          { title: 'Effective Communication', type: 'Additional Critical Proficiencies' },
+          { title: 'Microsoft Office', type: 'Languages & Tools' },
+        ],
+    });
+    await createProject({
+      title:
+        "Sow Much Good Curriculum Development",
+      location: "Charlotte, North Carolina, USA",
+      role: "Designer & Researcher",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579982/359_zgcomf.jpg",
+      blurb:
+        "Designing educational curriculum and brochures for the Charlotte non-profit Sow Much Good. ",
+        markers: [
+          { title: 'Adobe Creative Suite', type: 'Languages & Tools' },
+          { title: 'Interviewing', type: 'Competencies' },
+          { title: 'Photography', type: 'Competencies' },
+          { title: 'Ethnographic & Network Research', type: 'Competencies' },
+          { title: 'Collaboration', type: 'Additional Critical Proficiencies' },
+          { title: 'Teamwork', type: 'Additional Critical Proficiencies' },
+          { title: 'Active Listening', type: 'Additional Critical Proficiencies' },
+          { title: 'Effective Communication', type: 'Additional Critical Proficiencies' },
+          { title: 'Microsoft Office', type: 'Languages & Tools' },
+        ],
+    });
+    await createProject({
+      title:
+        "The Library App",
+      location: "New York, NY, USA",
+      role: "Front End Developer & UX Designer",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580027/1Homepage_yaieqq.jpg",
+      blurb:
+        "Front end development example for a public library application.",
+        markers: [
+          { title: 'JavaScript', type: 'Languages & Tools' },
+          { title: 'HTML', type: 'Languages & Tools' },
+          { title: 'CSS', type: 'Languages & Tools' },
+          { title: 'Node', type: 'Languages & Tools' },
+          { title: 'GitHub/Git', type: 'Languages & Tools' },
+          { title: 'Figma', type: 'Languages & Tools' },
+          { title: 'Express', type: 'Languages & Tools' },
+          { title: 'React', type: 'Languages & Tools' },
+          { title: 'REST APIs', type: 'Languages & Tools' },
+          { title: 'Front End Development', type: 'Competencies' },
+        ],
+    });
+    await createProject({
+      title:
+        "Design Portfolio ",
+      location: "New York, NY, USA",
+      role: "Full Stack Developer & UX Designer",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744587721/Screenshot_2025-04-13_at_7.38.11_PM_xcn5nq.png",
+      blurb:
+        "Full stack application for a design engineering portfolio.",
+        markers: [
+          { title: 'JavaScript', type: 'Languages & Tools' },
+          { title: 'HTML', type: 'Languages & Tools' },
+          { title: 'CSS', type: 'Languages & Tools' },
+          { title: 'Node', type: 'Languages & Tools' },
+          { title: 'GitHub/Git', type: 'Languages & Tools' },
+          { title: 'SQL', type: 'Languages & Tools' },
+          { title: 'Figma', type: 'Languages & Tools' },
+          { title: 'PostgreSQL', type: 'Languages & Tools' },
+          { title: 'Express', type: 'Languages & Tools' },
+          { title: 'React', type: 'Languages & Tools' },
+          { title: 'Postman API Development', type: 'Languages & Tools' },
+          { title: 'REST APIs', type: 'Languages & Tools' },
+          { title: 'Full Stack Development', type: 'Competencies' },
+          { title: 'Front End Development', type: 'Competencies' },
+          { title: 'Back End Development', type: 'Competencies' },
+        ],
+    });
 
     console.log("Finished creating projects!");
   } catch (error) {
@@ -182,35 +314,172 @@ async function createInitialProjectPhotos() {
      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579703/AnnotationsOnADiagram_cqioag.jpg" ,
     });
 
-    // console.log("Project 2 Photos");
-    // await createProjectPhoto({
-     
-    // });
+    console.log("Project 2 Photos");
+    await createProjectPhoto({
+      title: "Royal Jubilee Hospital",
+      projectId: 2,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579770/1DSC_0192_k8e2an.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Facilities",
+      projectId: 2,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579771/2DSC_0216_kwoniv.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Diabetes Center Flow Diagram",
+      projectId: 2,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579769/InitialApptProtocol_ikzddc.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Alert System UI: Daily appointments are visible to authorized staff and clinicians",
+      projectId: 2,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579768/DailyAppts_b0tevf.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Alert System UI: Only missed appointments are red ",
+      projectId: 2,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579767/MissesAppt_zvfkcl.jpg" ,
+    });
 
-    // console.log("Project 3 Photos");
-    // await createProjectPhoto({
-     
-    // });
+    console.log("Project 3 Photos");
+    await createProjectPhoto({
+      title: "Victoria Inner Harbor from Wharf Street",
+      projectId: 3,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579886/DSC_0053_xdul0f.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Victoria Inner Harbor from Victoria West",
+      projectId: 3,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579887/DSC_0138_i0v4qo.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Cowichan Bay",
+      projectId: 3,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579888/DSC_0178_sya2iz.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Victoria’s Chinatown National Historical Site",
+      projectId: 3,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579889/DSC_0237_zwwynu.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Historic Alley Route",
+      projectId: 3,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579890/DSC_0240_ginmwq.jpg" ,
+    });
 
-    // console.log("Project 4 Photos");
-    // await createProjectPhoto({
-     
-    // });
+    console.log("Project 4 Photos");
+    await createProjectPhoto({
+      title: "Peaches",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579940/010_mxzicj.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Pint of Peppers",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579934/013_o8dv0w.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Trail Through The Fields",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579936/2011Jul17_Oddessey_264_hvfjpu.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Dogwood Flowers",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579937/2012Mar24_Davidson_College_002_cdbpin.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Dogwood Buds",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579938/2012Mar24_Davidson_College_003_skhciq.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Rapeseed Fields",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579939/Picture2_cfwbc8.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Potential Revenue Table",
+      projectId: 4,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579941/Potential_Revenue_zxfsdb.jpg" ,
+    });
 
-    // console.log("Project 5 Photos");
-    // await createProjectPhoto({
-     
-    // });
+    console.log("Project 5 Photos");
+    await createProjectPhoto({
+      title: "Robin Emmons",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579984/291_mlpmze.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Davidson College Volunteers at the New Farm",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579983/304_jrdz4d.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Sow Much Good Produce Truck",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579978/324_eik50y.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Potatoes",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579982/359_zgcomf.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Davidson College Volunteers Clearing Trees at the New Farm",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579985/313_i6btw4.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Ecosystems Brochure Page 1",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579979/Ecosytems_Brochure_pg1_jp8tkh.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Ecosystems Brochure Page 2",
+      projectId: 5,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579980/Ecosytems_Brochure_pg2_witsj0.jpg" ,
+    });
 
-    // console.log("Project 6 Photos");
-    // await createProjectPhoto({
-     
-    // });
+    console.log("Project 6 Photos");
+    await createProjectPhoto({
+      title: "Catalog",
+      projectId: 6,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580027/1Homepage_yaieqq.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Book Status and Description Button",
+      projectId: 6,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580028/2Status_Description_ft8tkj.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Search Results ",
+      projectId: 6,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580029/3SearchResults_uzmvvq.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Account View ",
+      projectId: 6,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580031/4AccountView_vrdxxq.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Returns",
+      projectId: 6,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580032/5Returns_tmcnul.jpg" ,
+    });
+    await createProjectPhoto({
+      title: "Reservations",
+      projectId: 6,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744580033/6Reservations_nkfymh.jpg" ,
+    });
 
-    // console.log("Project 7 Photos");
-    // await createProjectPhoto({
-     
-    // });
+    console.log("Project 7 Photos");
+    await createProjectPhoto({
+      title: "Design Portfolio Navigation",
+      projectId: 7,
+      image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744587721/Screenshot_2025-04-13_at_7.38.11_PM_xcn5nq.png" ,
+    });
 
 
     console.log("Finished creating project photos!");
@@ -581,7 +850,7 @@ async function testDB() {
     console.log("Result:", projects);
 
     console.log("Calling getProjectPhotos");
-    const projectPhotos = await getProjectPhotos(1);
+    const projectPhotos = await getProjectPhotos(3);
     console.log("Result:", projectPhotos);
 
     // Add new tests
