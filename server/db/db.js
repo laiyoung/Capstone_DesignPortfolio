@@ -753,4 +753,5 @@ module.exports = {
   getPiecesByTagName,
   getProjectsByMarkerName,
   getPieceById,
+  getProjectById,
 };

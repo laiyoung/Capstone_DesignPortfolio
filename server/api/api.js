@@ -19,12 +19,14 @@ apiRouter.use("/pieces", art)
 const contact = require("./contact")
 apiRouter.use("/contact", contact)
 
-const project = require("./projects")
-apiRouter.use("/projects", project)
+const projects = require("./projects")
+apiRouter.use("/projects", projects)
 
 const tags = require("./tags")
 apiRouter.use("/tags", tags)
 
+const markers = require("./markers")
+apiRouter.use("/markers", markers)
 
 // Exporting express router to the various api files:
 
