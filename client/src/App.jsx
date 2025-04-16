@@ -8,7 +8,7 @@ import Login from "./components/Login";
 import EditArtDetailsForm from "./components/EditArtDetailsForm";
 import Navigation from "./components/Navigation";
 import CV from "./components/CV";
-import Projects from "./components/Projects";
+import Projects from "./components/MarkerResults";
 
 
 /** API Link */
