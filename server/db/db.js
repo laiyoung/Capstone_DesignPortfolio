@@ -674,8 +674,28 @@ async function getAllProjects() {
   }
 }
 
-// Fetch All Markers (testDB function):
+// Fetch All Markers, organized by marker type (testDB function):
+async function getAllMarkers() {
+  try {
+    const { rows } = await client.query(`
+      SELECT * 
+      FROM markers;
+    `);
 
+    const grouped = rows.reduce((acc, marker) => {
+      const { type } = marker;
+      if (!acc[type]) {
+        acc[type] = [];
+      }
+      acc[type].push(marker);
+      return acc;
+    }, {});
+
+    return grouped;
+  } catch (error) {
+    throw error;
+  }
+}
 // Fetch Projects by Marker (testDB function):
 
 // Fetch Project Photos by ProjectId (testDB function):
@@ -708,6 +728,7 @@ module.exports = {
   getAllAdmins,
   getAllPieces,
   getAllTags,
+  getAllMarkers,
   getAllProjects,
   getProjectPhotos,
   getPiecesByTagName,

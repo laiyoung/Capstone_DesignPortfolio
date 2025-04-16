@@ -11,6 +11,7 @@ const {
   getAdminById,
   getAllPieces,
   getAllTags,
+  getAllMarkers,
   getAllProjects,
   getProjectPhotos,
   getPiecesByTagName,
@@ -849,9 +850,13 @@ async function testDB() {
     const projects = await getAllProjects();
     console.log("Result:", projects);
 
-    console.log("Calling getProjectPhotos");
-    const projectPhotos = await getProjectPhotos(3);
-    console.log("Result:", projectPhotos);
+    console.log("Calling getProjectPhotos with project 3");
+    const project3Photos = await getProjectPhotos(3);
+    console.log("Result:", project3Photos);
+
+    console.log("Calling getAllMarkers");
+    const allMarkers = await getAllMarkers();
+    console.log("Result:", allMarkers);
 
     // Add new tests
 
