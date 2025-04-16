@@ -663,7 +663,7 @@ async function getAllProjects() {
       FROM projects;
     `);
     // using getProjectById here allows you to grab the markerss along with the project info
-    // the Promise.all batches the calls necessary to make the map
+    // the Promise.all batches the calls necessary to make the map 
     const projects = await Promise.all(
       projectIds.map((project) => getProjectById(project.id))
     );
@@ -681,7 +681,10 @@ async function getAllMarkers() {
       SELECT * 
       FROM markers;
     `);
-
+// The reduce() is making an accumulator to track the instances of each marker type and 
+// logging 1st encounters
+// The Id for reflect the # the instance has in the full list of all project markers
+// (that's why some of the resulting Ids are quite high)
     const grouped = rows.reduce((acc, marker) => {
       const { type } = marker;
       if (!acc[type]) {
@@ -697,6 +700,22 @@ async function getAllMarkers() {
   }
 }
 // Fetch Projects by Marker (testDB function):
+async function getProjectsByMarkerName(markerName) {
+  try {
+    const projectIds = await client.query(
+      `
+      SELECT *
+      FROM project_markers
+      WHERE "markerId"=(SELECT markers.id FROM markers WHERE markers.title=$1);
+    `,
+      [markerName]
+    );
+
+    return projectIds.rows;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // Fetch Project Photos by ProjectId (testDB function):
 const getProjectPhotos = async (projectId) => {
@@ -732,5 +751,6 @@ module.exports = {
   getAllProjects,
   getProjectPhotos,
   getPiecesByTagName,
+  getProjectsByMarkerName,
   getPieceById,
 };

@@ -15,6 +15,7 @@ const {
   getAllProjects,
   getProjectPhotos,
   getPiecesByTagName,
+  getProjectsByMarkerName,
   getAdminByUsername,
   getPieceById,
 } = require("./db");
@@ -858,7 +859,9 @@ async function testDB() {
     const allMarkers = await getAllMarkers();
     console.log("Result:", allMarkers);
 
-    // Add new tests
+    console.log("Calling getProjectsByMarkerName with Teamwork");
+    const projectsWithTeamwork = await getProjectsByMarkerName("Teamwork");
+    console.log("Result:", projectsWithTeamwork);
 
     console.log("Finished database tests!");
   } catch (error) {
