@@ -3,7 +3,11 @@ const express = require("express");
 const apiRouter = express.Router();
 
 // Function imports:
-const { getAllProjects, getProjectById } = require("../db/db");
+const {
+  getAllProjects,
+  getProjectById,
+  getProjectPhotos,
+} = require("../db/db");
 
 // Get all projects:
 apiRouter.get("/", async (req, res, next) => {
@@ -23,6 +27,14 @@ apiRouter.get("/:projectId", async (req, res, next) => {
   }
 });
 
+// Get project photos:
+apiRouter.get("/:projectId/photos", async (req, res, next) => {
+  try {
+    res.send(await getProjectPhotos(req.params.projectId));
+  } catch (ex) {
+    next(ex);
+  }
+});
 
 /** Project API Routes that Require a Token */
 // These will be the same as the 1s for the art pieces,if I ever add admin capability to this
