@@ -133,7 +133,7 @@ form button {
   width: 100%;
 }
 
-/* Component Styling */
+/* Art Component Styling */
 .article {
   display: flex;
   flex-wrap: wrap-reverse;
@@ -251,6 +251,88 @@ form button {
     width: 100%;
   }
 }
+/* Project Component Styling */
+.all-projects {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 16px;
+  align-items: center;
+  padding: 1em
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  width: 97%;
+  padding: 15px;
+  margin: 0 10px 10px 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+  height: max-content;
+  background-color: #f9f9f9;
+}
+.project-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.project-card img {
+  width: 97%;
+  max-height: 100%;
+  border-radius: 1em;
+  display: block;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.project-title {
+  margin-bottom: 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.project-image-wrapper {
+  flex: 0 0 450px;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1; 
+}
+
+@media (max-width: 768px) {
+  .project-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .project-image-wrapper {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  .project-info {
+    width: 100%;
+    margin-top: 1em;
+  }
+  .project-card {
+    padding: 1em 0.5em;
+  }
+}
+/* CV Component Styling */
 
 /* Button Styling */
 button {

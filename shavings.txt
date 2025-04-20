@@ -1,4 +1,9 @@
-For Adding Hyperlinks for Photos:
+If you're struggling to find the relative file path. You can use the command line to 
+find file paths (zsh):
+find . -name 'Button.jsx'
+
+
+For Adding Hyperlinks for Photos from Dropbox:
 -Use Dropbox
 -Copy the "share" link
 -Put that share link into a browser where you're NOT signed into Dropbox

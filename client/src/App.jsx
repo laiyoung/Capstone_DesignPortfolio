@@ -8,8 +8,8 @@ import Login from "./components/Login";
 import EditArtDetailsForm from "./components/EditArtDetailsForm";
 import Navigation from "./components/Navigation";
 import CV from "./components/CV";
-import Projects from "./components/MarkerResults";
-
+import AllProjects from "./components/Projects/AllProjects";
+import MarkerResults from "./components/MarkerResults";
 
 /** API Link */
 export const API_URL = `http://localhost:3000/api`;
@@ -21,20 +21,21 @@ function App() {
   const [selectedMedium, setSelectedMedium] = useState();
   const [token, setToken] = useState(null);
   const [admin, setAdmin] = useState({});
+  const [selectedMarker, setSelectedMarker] = useState();
 
   const navigate = useNavigate();
 
-    async function fetchPieces() {
-      const response = await fetch(`${API_URL}/pieces`);
-      const allPieceData = await response.json();
-      setPieces(allPieceData);
-    }
+  async function fetchPieces() {
+    const response = await fetch(`${API_URL}/pieces`);
+    const allPieceData = await response.json();
+    setPieces(allPieceData);
+  }
 
   useEffect(() => {
     fetchPieces();
   }, [pieces.length]);
 
-// Resetting the token if it exist in local storage and you do a pg refresh
+  // Resetting the token if it exist in local storage and you do a pg refresh
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -59,8 +60,8 @@ function App() {
       <div>{error && <p>{error.error}</p>}</div>
       <div className="titlebox">
         <div>
-        <h1>Design Portfolio</h1>
-        <h2>Laigha Young</h2>
+          <h1>Design Portfolio</h1>
+          <h2>Laigha Young</h2>
         </div>
         <Navigation token={token} setToken={setToken} />
       </div>
@@ -100,6 +101,7 @@ function App() {
               />
             }
           />
+          <Route path="/marker-results" element={<MarkerResults />} />
           <Route
             path="/:id"
             element={
@@ -116,13 +118,15 @@ function App() {
             path="/login"
             element={<Login setToken={setToken} setAdmin={setAdmin} />}
           />
-          <Route
-            path="/cv"
-            element={<CV />}
-          />
+          <Route path="/cv" element={<CV />} />
           <Route
             path="/projects"
-            element={<Projects />}
+            element={
+              <AllProjects
+                setSelectedMarker={setSelectedMarker}
+                selectedMarker={selectedMarker}
+              />
+            }
           />
         </Routes>
       </div>
