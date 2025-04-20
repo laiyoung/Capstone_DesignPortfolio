@@ -10,6 +10,15 @@ import Navigation from "./components/Navigation";
 import CV from "./components/CV";
 import AllProjects from "./components/Projects/AllProjects";
 import MarkerResults from "./components/MarkerResults";
+import {
+  ProjectOne,
+  ProjectTwo,
+  ProjectThree,
+  ProjectFour,
+  ProjectFive,
+  ProjectSix,
+  ProjectSeven,
+} from "./components/Projects/index.js";
 
 /** API Link */
 export const API_URL = `http://localhost:3000/api`;
@@ -128,6 +137,13 @@ function App() {
               />
             }
           />
+          <Route path="/project-one" element={<ProjectOne />} />
+          <Route path="/project-two" element={<ProjectTwo />} />
+          <Route path="/project-three" element={<ProjectThree />} />
+          <Route path="/project-four" element={<ProjectFour />} />
+          <Route path="/project-five" element={<ProjectFive />} />
+          <Route path="/project-six" element={<ProjectSix />} />
+          <Route path="/project-seven" element={<ProjectSeven />} />
         </Routes>
       </div>
     </>

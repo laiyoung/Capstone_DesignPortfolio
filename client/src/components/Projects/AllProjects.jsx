@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import  {API_URL} from "../../App";
 import SingleProjectCard from "./SingleProjectCard";
 
+
 export default function AllProjects({ setError, setSelectedMarker }) {
   const [projects, setProjects] = useState([]);
+
+
 
   useEffect(() => {
     async function fetchAllProjects() {
@@ -22,6 +25,8 @@ export default function AllProjects({ setError, setSelectedMarker }) {
     }
     fetchAllProjects();
   }, []);
+
+
 
   return (
     <>
