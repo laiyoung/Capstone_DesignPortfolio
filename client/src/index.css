@@ -331,9 +331,25 @@ form button {
 }
 .project-paragraphs {
   margin-bottom: 1em;
-
   width: 100%;
 }
+.hero-image-wrapper{
+  position: relative;
+  width: 100%;
+  max-height: 300px; 
+  overflow: hidden;
+  
+}
+.hero-image {
+  width: 100%;
+  object-fit: cover;
+  max-height: 300px; 
+  display: block;
+  position: relative;
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
 
 @media (max-width: 768px) {
   .project-content {

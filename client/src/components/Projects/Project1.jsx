@@ -1,9 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
+import { Link } from "react-router-dom";
 
 export default function ProjectOne() {
   const [projectOne, setProjectOne] = useState({});
+  const [markerButtons, setMarkerButtons] = useState([]);
 
   useEffect(() => {
     async function fetchProjectOne() {
@@ -15,6 +17,7 @@ export default function ProjectOne() {
         });
         const result = await response.json();
         setProjectOne(result);
+        setMarkerButtons(result.markers);
       } catch (err) {
         console.log(err);
       }
@@ -22,9 +25,24 @@ export default function ProjectOne() {
     fetchProjectOne();
   }, []);
 
+  function navToMarkerResults(marker) {
+    setSelectedMarker(marker.title);
+    // console.log(marker.title);
+    navigate("/marker-results");
+  }
+
   return (
     <>
       <div className="project-details-view">
+        <div
+          className="hero-image-wrapper"
+          style={{
+            marginLeft: "auto",
+            textAlign: "right",
+          }}
+        >
+          <img src={projectOne.thumbnail} alt={projectOne.title} className="hero-image" />
+        </div>
         <h2
           className="project-title"
           style={{
@@ -53,8 +71,8 @@ export default function ProjectOne() {
           and Cooperative Economy (CIRIEC)
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Individual
-          Project
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span>
+          Individual Project
         </p>
         <p className="project-paragraphs">
           A working group Social Solidarity Economy (SSE), Utopias, and
@@ -90,9 +108,50 @@ export default function ProjectOne() {
         </p>
         <h4>
           <span style={{ fontWeight: "bold" }}>Deliverables:</span>
-          <button>Chapter Link</button>
+          <Link
+            to={
+              "https://www.ciriec.uliege.be/wp-content/uploads/2025/02/CSS6-CHAP7.pdf"
+            }
+          >
+            <button>Chapter Link</button>
+          </Link>
         </h4>
-        
+        <h4>
+          <span style={{ fontWeight: "bold" }}>Links:</span>
+          <Link to={"https://www.ciriec.uliege.be/en/ "}>
+            <button>CIRIEC</button>
+          </Link>
+          <Link
+            to={
+              "https://www.ciriec.uliege.be/en/publications/ouvrages/imagine-studying-the-relationship-between-social-and-solidarity-economy-sse-and-imaginary-in-the-era-of-capitalocene-alexandrine-lapoutte-timothee-duverger-eric-dacheux-eds-2024/ "
+            }
+          >
+            <button>Working Group (Studies Series 6)</button>
+          </Link>
+        </h4>
+        <div className="project-title">
+          <h4
+            style={{
+              marginLeft: "auto",
+              textAlign: "left",
+              paddingRight: "3em",
+              fontWeight: "bold",
+            }}
+          >
+            Methods
+          </h4>
+          {markerButtons &&
+            markerButtons.map((marker) => (
+              <button
+                className=""
+                style={{ marginBottom: "5px" }}
+                key={marker.id}
+                onClick={() => navToMarkerResults(marker)}
+              >
+                {marker.title}
+              </button>
+            ))}
+        </div>
       </div>
     </>
   );
