@@ -153,7 +153,7 @@ async function createInitialProjects() {
         "The Blues Tradition: Building Dialogical Relation within Utopian Imaginaries",
       location: "Liège, Belgium",
       role: "Researcher",
-      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579703/AnnotationsOnADiagram_cqioag.jpg",
+      thumbnail: "https://res.cloudinary.com/duk7xkc40/image/upload/v1745267650/3Utopian_Assemblage_Matrix_yzw7c9.jpg",
       blurb:
         "Working group on imagination within cooperatives and social enterprises in the era of the captitalocene.",
         markers: [
@@ -313,7 +313,7 @@ async function createInitialProjectPhotos() {
     await createProjectPhoto({
      title: "Book Notes",
      projectId: 1,
-     image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1744579703/AnnotationsOnADiagram_cqioag.jpg" ,
+     image_url: "https://res.cloudinary.com/duk7xkc40/image/upload/v1745267650/3Utopian_Assemblage_Matrix_yzw7c9.jpg" ,
     });
 
     console.log("Project 2 Photos");
