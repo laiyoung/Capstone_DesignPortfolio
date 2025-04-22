@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
+import { projectsRoutes } from "./Projects/index.js";
 
 export default function MarkerResults({
   markerResults,
@@ -10,16 +11,6 @@ export default function MarkerResults({
 }) {
   const [currentProjects, setCurrentProjects] = useState([]);
   const navigate = useNavigate();
-
-  const projectsRoutes = [
-    { id: 1, route: "/project-one" },
-    { id: 2, route: "/project-two" },
-    { id: 3, route: "/project-three" },
-    { id: 4, route: "/project-four" },
-    { id: 5, route: "/project-five" },
-    { id: 6, route: "/project-six" },
-    { id: 7, route: "/project-seven" },
-  ];
 
   // Add "Back to All Projects" button
   useEffect(() => {
@@ -50,15 +41,16 @@ export default function MarkerResults({
   function refreshMarkerResults(marker) {
     setSelectedMarker(marker.title);
   }
-  function handleDetails() {
+
+  function handleDetails(projectId) {
     const selectedRoute = projectsRoutes.find(
-      (route) => route.id === filteredProject.id
+      (route) => route.id === projectId
     );
 
     if (selectedRoute) {
       navigate(selectedRoute.route);
     } else {
-      console.warn(`No route found for project ID: ${project.id}`);
+      console.warn(`No route found for project ID: ${projectId}`);
     }
   }
 
@@ -70,7 +62,7 @@ export default function MarkerResults({
     <>
       <div>
         <button onClick={handleBack}>Back To Full Project List</button>
-        <h2 style={{ textDecorationLine: "underline", paddingLeft: "4em" }}>
+        <h2 style={{ textDecorationLine: " overline underline", paddingLeft: "4em", }}>
           {" "}
           {selectedMarker} Projects:{" "}
         </h2>
@@ -80,7 +72,7 @@ export default function MarkerResults({
           return (
             <div key={filteredProject.id} className="project-card">
               <div className="project-title">
-                <h2 style={{ textDecorationLine: "underline" }}>
+                <h2 style={{ }}>
                   {filteredProject.title}
                 </h2>
               </div>
@@ -102,7 +94,9 @@ export default function MarkerResults({
                     {filteredProject.role}
                   </h4>
                   <p>{filteredProject.blurb}</p>
-                  <button onClick={handleDetails}>Details</button>
+                  <button onClick={() => handleDetails(filteredProject.id)}>
+                    Details
+                  </button>
                 </div>
               </div>
               <div className="project-title">

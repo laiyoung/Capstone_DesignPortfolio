@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { projectsRoutes } from "../Projects/index.js";
 
 export default function ProjectOne({ setSelectedMarker }) {
   const [projectOne, setProjectOne] = useState({});
@@ -56,6 +57,7 @@ export default function ProjectOne({ setSelectedMarker }) {
             marginLeft: "auto",
             textAlign: "right",
             paddingRight: "3em",
+            paddingTop: "1em",
           }}
         >
           {projectOne.title}
