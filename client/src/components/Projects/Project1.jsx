@@ -2,10 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function ProjectOne() {
+export default function ProjectOne({ setSelectedMarker }) {
   const [projectOne, setProjectOne] = useState({});
   const [markerButtons, setMarkerButtons] = useState([]);
+   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProjectOne() {
@@ -33,6 +35,7 @@ export default function ProjectOne() {
 
   return (
     <>
+    
       <div className="project-details-view">
         <div
           className="hero-image-wrapper"
@@ -41,7 +44,11 @@ export default function ProjectOne() {
             textAlign: "right",
           }}
         >
-          <img src={projectOne.thumbnail} alt={projectOne.title} className="hero-image" />
+          <img
+            src={projectOne.thumbnail}
+            alt={projectOne.title}
+            className="hero-image"
+          />
         </div>
         <h2
           className="project-title"
@@ -138,7 +145,7 @@ export default function ProjectOne() {
               fontWeight: "bold",
             }}
           >
-            Methods
+            Methods:
           </h4>
           {markerButtons &&
             markerButtons.map((marker) => (

@@ -31,6 +31,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [admin, setAdmin] = useState({});
   const [selectedMarker, setSelectedMarker] = useState();
+  const [markerResults, setMarkerResults] = useState([]);
 
   const navigate = useNavigate();
 
@@ -110,7 +111,17 @@ function App() {
               />
             }
           />
-          <Route path="/marker-results" element={<MarkerResults />} />
+          <Route
+            path="/marker-results"
+            element={
+              <MarkerResults
+                markerResults={markerResults}
+                setMarkerResults={setMarkerResults}
+                selectedMarker={selectedMarker}
+                setSelectedMarker={setSelectedMarker}
+              />
+            }
+          />
           <Route
             path="/:id"
             element={
@@ -127,23 +138,42 @@ function App() {
             path="/login"
             element={<Login setToken={setToken} setAdmin={setAdmin} />}
           />
-          <Route path="/cv" element={<CV />} />
+          <Route
+            path="/cv"
+            element={<CV setSelectedMarker={setSelectedMarker} />}
+          />
           <Route
             path="/projects"
-            element={
-              <AllProjects
-                setSelectedMarker={setSelectedMarker}
-                selectedMarker={selectedMarker}
-              />
-            }
+            element={<AllProjects setSelectedMarker={setSelectedMarker} />}
           />
-          <Route path="/project-one" element={<ProjectOne />} />
-          <Route path="/project-two" element={<ProjectTwo />} />
-          <Route path="/project-three" element={<ProjectThree />} />
-          <Route path="/project-four" element={<ProjectFour />} />
-          <Route path="/project-five" element={<ProjectFive />} />
-          <Route path="/project-six" element={<ProjectSix />} />
-          <Route path="/project-seven" element={<ProjectSeven />} />
+          <Route
+            path="/project-one"
+            element={<ProjectOne setSelectedMarker={setSelectedMarker} />}
+          />
+          <Route
+            path="/project-two"
+            element={<ProjectTwo setSelectedMarker={setSelectedMarker} />}
+          />
+          <Route
+            path="/project-three"
+            element={<ProjectThree setSelectedMarker={setSelectedMarker} />}
+          />
+          <Route
+            path="/project-four"
+            element={<ProjectFour setSelectedMarker={setSelectedMarker} />}
+          />
+          <Route
+            path="/project-five"
+            element={<ProjectFive setSelectedMarker={setSelectedMarker} />}
+          />
+          <Route
+            path="/project-six"
+            element={<ProjectSix setSelectedMarker={setSelectedMarker} />}
+          />
+          <Route
+            path="/project-seven"
+            element={<ProjectSeven setSelectedMarker={setSelectedMarker} />}
+          />
         </Routes>
       </div>
     </>

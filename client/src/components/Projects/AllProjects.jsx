@@ -4,9 +4,9 @@ import  {API_URL} from "../../App";
 import SingleProjectCard from "./SingleProjectCard";
 
 
-export default function AllProjects({ setError, setSelectedMarker }) {
-  const [projects, setProjects] = useState([]);
 
+export default function AllProjects({ setSelectedMarker, selectedMarker }) {
+  const [projects, setProjects] = useState([]);
 
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function AllProjects({ setError, setSelectedMarker }) {
         const result = await response.json();
         setProjects(result);
       } catch (err) {
-        setError(err.message);
+        console.log (err);
       }
     }
     fetchAllProjects();
@@ -37,8 +37,8 @@ export default function AllProjects({ setError, setSelectedMarker }) {
             key={project.id}
             projectId={project.id}
             project={project}
-            setError={setError}
             setSelectedMarker={setSelectedMarker}
+            selectedMarker={selectedMarker}
           />
         ))}
       </div>

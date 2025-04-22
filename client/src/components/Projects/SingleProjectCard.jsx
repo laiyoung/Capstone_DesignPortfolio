@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function SingleProjectCard({ project }) {
+export default function SingleProjectCard({ project, setSelectedMarker }) {
   const navigate = useNavigate();
 
   const projectsRoutes = [
@@ -22,6 +22,12 @@ export default function SingleProjectCard({ project }) {
     } else {
       console.warn(`No route found for project ID: ${project.id}`);
     }
+  }
+
+  function navToMarkerResults(marker) {
+    setSelectedMarker(marker.title);
+    // console.log(marker.title);
+    navigate("/marker-results");
   }
 
   return (
@@ -49,6 +55,28 @@ export default function SingleProjectCard({ project }) {
           <button onClick={handleDetails}>Details</button>
         </div>
       </div>
+      <div className="project-title">
+                <h4
+                  style={{
+                    marginLeft: "auto",
+                    textAlign: "left",
+                    paddingRight: "3em",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Methods:
+                </h4>
+                {project.markers &&
+                  project.markers.map((marker) => (
+                    <button
+                      style={{ marginBottom: "7px" }}
+                      key={marker.id}
+                      onClick={() => navToMarkerResults(marker)}
+                    >
+                      {marker.title}
+                    </button>
+                  ))}
+              </div>
     </div>
   );
 }

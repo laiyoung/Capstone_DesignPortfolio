@@ -336,6 +336,7 @@ form button {
 .hero-image-wrapper{
   position: relative;
   width: 100%;
+  /* Controls how much of the photo shows */
   max-height: 400px; 
   overflow: hidden;
   
@@ -343,6 +344,7 @@ form button {
 .hero-image {
   width: 100%;
   object-fit: cover;
+   /* Controls how much of the photo shows */
   max-height: 400px; 
   display: block;
   position: relative;
