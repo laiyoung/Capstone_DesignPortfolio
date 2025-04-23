@@ -114,7 +114,7 @@ export default function ProjectSeven({ setSelectedMarker }) {
           N/A
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span>
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span> {" "}
           Individual Project
         </p>
         <p className="project-paragraphs">
