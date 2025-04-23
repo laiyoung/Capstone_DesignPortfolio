@@ -15,8 +15,20 @@ export default function Navigation() {
 
   return (
     <>
-      <button className={`navbtn ${isOpen ? 'open' : ''}`} onClick={toggleMenu} > ☰ Explore</button>
-      <div className={`navigation ${isOpen ? 'open' : ''}`} style={{ color: "white" }}>
+      <button
+        className={`navbtn-tall ${isOpen ? "open" : ""}`}
+        onClick={toggleMenu}
+        style={{
+          fontSize: "1.2em",
+        }}
+      >
+        {" "}
+        ☰ Explore
+      </button>
+      <div
+        className={`navigation ${isOpen ? "open" : ""}`}
+        style={{ color: "white" }}
+      >
         <Link to={"/"}>
           {" "}
           <h2>Art</h2>

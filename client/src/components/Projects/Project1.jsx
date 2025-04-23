@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { projectsRoutes } from "../Projects/index.js";
+import { getNextProject, getPreviousProject } from "../Projects/index.js";
 
 export default function ProjectOne({ setSelectedMarker }) {
   const [projectOne, setProjectOne] = useState({});
   const [markerButtons, setMarkerButtons] = useState([]);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProjectOne() {
@@ -34,9 +34,45 @@ export default function ProjectOne({ setSelectedMarker }) {
     navigate("/marker-results");
   }
 
+  function handleNext() {
+    const next = getNextProject(projectOne.id);
+    if (next) {
+      navigate(next.route);
+    }
+  }
+
+  function handlePrevious() {
+    const prev = getPreviousProject(projectOne.id);
+    if (prev) {
+      navigate(prev.route);
+    }
+  }
+
   return (
     <>
-    
+      <div className="titlebox">
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+           
+          }}
+          onClick={handlePrevious}
+        >
+          &#x21D0; Previous Project
+        </button>
+        
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            
+          }}
+          onClick={handleNext}
+        >
+          Next Project &#x21D2;
+        </button>
+      </div>
       <div className="project-details-view">
         <div
           className="hero-image-wrapper"
@@ -161,6 +197,18 @@ export default function ProjectOne({ setSelectedMarker }) {
               </button>
             ))}
         </div>
+      </div>
+      <div>
+      <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+           
+          }}
+          onClick={() => navigate("/projects")}
+        >
+          Back to All Projects
+        </button>
       </div>
     </>
   );
