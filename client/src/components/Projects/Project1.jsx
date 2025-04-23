@@ -91,7 +91,7 @@ export default function ProjectOne({ setSelectedMarker }) {
           className="project-title"
           style={{
             marginLeft: "auto",
-            textAlign: "right",
+            textAlign: "center",
             paddingRight: "3em",
             paddingTop: "1em",
           }}

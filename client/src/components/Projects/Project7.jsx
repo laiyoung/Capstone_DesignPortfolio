@@ -89,7 +89,7 @@ export default function ProjectSeven({ setSelectedMarker }) {
           className="project-title"
           style={{
             marginLeft: "auto",
-            textAlign: "right",
+            textAlign: "center",
             paddingRight: "3em",
             paddingTop: "1em",
           }}
@@ -134,38 +134,30 @@ export default function ProjectSeven({ setSelectedMarker }) {
           challenging aspect of the project. I had to be particularly mindful of
           which array methods were used to manipulate this attribute, as well as
           how certain display methods could affect necessary functionality
-          downstream. Because of the complexity of the data structures, SQL
-          interaction models were created for processing inputs, and middleware
-          was included for encrypting administrator passwords, as well as for
-          administrator authentication. Managing data flow was another
-          challenging aspect of this project. During front end development a few
-          API route responses required modification so that certain information
-          could be provided for data manipulations within React components.
-          Clear documentation and annotations proved key to quickly addressing
-          these necessary modifications.
+          downstream.
+        </p>
+        <p className="project-paragraphs">
+          Because of the complexity of the data structures, SQL interaction
+          models were created for processing inputs, and middleware was included
+          for encrypting administrator passwords, as well as for administrator
+          authentication. Managing data flow was another challenging aspect of
+          this project. During front end development a few API route responses
+          required modification so that certain information could be provided
+          for data manipulations within React components. Clear documentation
+          and annotations proved key to quickly addressing these necessary
+          modifications.
         </p>
 
         <h4>
           <span style={{ fontWeight: "bold" }}>Deliverables:</span>
-          <Link
-            to={
-              "https://www.ciriec.uliege.be/wp-content/uploads/2025/02/CSS6-CHAP7.pdf"
-            }
-          >
-            <button>Chapter Link</button>
+          <Link to={"https://github.com/laiyoung/Capstone_DesignPortfolio"}>
+            <button>GitHub Link</button>
           </Link>
         </h4>
         <h4>
           <span style={{ fontWeight: "bold" }}>Links:</span>
-          <Link to={"https://www.ciriec.uliege.be/en/ "}>
-            <button>CIRIEC</button>
-          </Link>
-          <Link
-            to={
-              "https://www.ciriec.uliege.be/en/publications/ouvrages/imagine-studying-the-relationship-between-social-and-solidarity-economy-sse-and-imaginary-in-the-era-of-capitalocene-alexandrine-lapoutte-timothee-duverger-eric-dacheux-eds-2024/ "
-            }
-          >
-            <button>Working Group (Studies Series 6)</button>
+          <Link to={""}>
+            <button>Deployment Link</button>
           </Link>
         </h4>
         <div className="project-title">
