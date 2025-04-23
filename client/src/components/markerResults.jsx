@@ -54,14 +54,20 @@ export default function MarkerResults({
     }
   }
 
-  async function handleBack() {
-    navigate("/projects");
-  }
 
   return (
     <>
       <div>
-        <button onClick={handleBack}>Back To Full Project List</button>
+      <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            padding: ".5em",
+          }}
+          onClick={() => navigate("/projects")}
+        >
+          Back to Full Project List
+        </button>
         <h2 style={{ textDecorationLine: " overline underline", paddingLeft: "4em", }}>
           {" "}
           {selectedMarker} Projects:{" "}

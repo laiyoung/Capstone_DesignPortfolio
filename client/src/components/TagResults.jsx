@@ -40,7 +40,16 @@ export default function TagResults({
   return (
     <>
       <div>
-        <button onClick={handleBack}>Back To the Full Gallery</button>
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            padding: ".5em",
+          }}
+          onClick={handleBack}
+        >
+          Back To the Full Gallery
+        </button>
         <h2 style={{ textDecorationLine: "underline", paddingLeft: "4em" }}>
           {" "}
           {selectedMedium[0].toUpperCase() +

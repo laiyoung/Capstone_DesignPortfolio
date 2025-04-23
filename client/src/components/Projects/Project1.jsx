@@ -203,11 +203,11 @@ export default function ProjectOne({ setSelectedMarker }) {
           className="navbtn-long"
           style={{
             fontSize: "1.2em",
-           
+            padding: ".5em",
           }}
           onClick={() => navigate("/projects")}
         >
-          Back to All Projects
+          Back to Full Project List
         </button>
       </div>
     </>
