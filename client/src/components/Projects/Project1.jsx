@@ -174,7 +174,7 @@ export default function ProjectOne({ setSelectedMarker }) {
             <button>Working Group (Studies Series 6)</button>
           </Link>
         </h4>
-        <div className="project-title">
+        <div className="project-methods">
           <h4
             style={{
               marginLeft: "auto",

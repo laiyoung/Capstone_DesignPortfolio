@@ -160,7 +160,7 @@ export default function ProjectSeven({ setSelectedMarker }) {
             <button>Deployment Link</button>
           </Link>
         </h4>
-        <div className="project-title">
+        <div className="project-methods">
           <h4
             style={{
               marginLeft: "auto",

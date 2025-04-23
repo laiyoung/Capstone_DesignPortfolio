@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getNextProject, getPreviousProject } from "../Projects/index.js";
 
-export default function ProjectSeven({ setSelectedMarker }) {
+export default function ProjectTwo({ setSelectedMarker }) {
   const [projectTwo, setProjectTwo] = useState({});
   const [markerButtons, setMarkerButtons] = useState([]);
+  /** Photo Carousel */
+  const [projectTwoPhotos, setProjectTwoPhotos] = useState([]);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,10 +31,40 @@ export default function ProjectSeven({ setSelectedMarker }) {
     fetchProjectTwo();
   }, []);
 
+  useEffect(() => {
+    async function fetchProjectTwoPhotos() {
+      try {
+        const response = await fetch(`${API_URL}/projects/2/photos`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setProjectTwoPhotos(result);
+        // console.log(result);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchProjectTwoPhotos();
+  }, []);
+
   function navToMarkerResults(marker) {
     setSelectedMarker(marker.title);
     // console.log(marker.title);
     navigate("/marker-results");
+  }
+
+  function goToNextPhoto() {
+    setCurrentPhotoIndex((prevIndex) =>
+      prevIndex === projectTwoPhotos.length - 1 ? 0 : prevIndex + 1
+    );
+  }
+
+  function goToPreviousPhoto() {
+    setCurrentPhotoIndex((prevIndex) =>
+      prevIndex === 0 ? projectTwoPhotos.length - 1 : prevIndex - 1
+    );
   }
 
   function handleNext() {
@@ -196,22 +229,34 @@ export default function ProjectSeven({ setSelectedMarker }) {
           </span>
         </h4>
         <div>
-          <Link to={"https://www.islandhealth.ca/news/stories/everyday-innovators-hatch-new-solutions-health-care-fifth-code-hack "}>
+          <Link
+            to={
+              "https://www.islandhealth.ca/news/stories/everyday-innovators-hatch-new-solutions-health-care-fifth-code-hack "
+            }
+          >
             <button style={{ margin: ".5em" }}>Island Health Innovation</button>
           </Link>
-          <Link to={"https://www.islandhealth.ca/news/stories/safer-care-through-evidence-based-design"}>
+          <Link
+            to={
+              "https://www.islandhealth.ca/news/stories/safer-care-through-evidence-based-design"
+            }
+          >
             <button style={{ margin: ".5em" }}>
               Island Health Evidence-Based Design Initiatives
             </button>
           </Link>
-          <Link to={"https://www.islandhealth.ca/our-services/diabetes-services/diabetes-education-services "}>
+          <Link
+            to={
+              "https://www.islandhealth.ca/our-services/diabetes-services/diabetes-education-services "
+            }
+          >
             <button style={{ margin: ".5em" }}>
               Island Health Diabetes Education Services
             </button>
           </Link>
         </div>
 
-        <div className="project-title">
+        <div className="project-methods">
           <h4
             style={{
               marginLeft: "auto",
@@ -233,20 +278,39 @@ export default function ProjectSeven({ setSelectedMarker }) {
                 {marker.title}
               </button>
             ))}
-          <div
-            className="sliding-carousel"
-            style={{
-              marginLeft: "auto",
-              textAlign: "right",
-            }}
-          >
-            <img
-              src={projectTwo.thumbnail}
-              alt={projectTwo.title}
-              className="slider-image"
-            />
-          </div>
         </div>
+
+        <div className="sliding-carousel" style={{ marginTop: "3em", }}>
+          <button onClick={goToPreviousPhoto} style={{}}>
+            &#8592; Previous
+          </button>
+
+          <div className="carousel-container">
+            {projectTwoPhotos.length > 0 && (
+              <>
+                <img
+                  src={projectTwoPhotos[currentPhotoIndex].image_url}
+                  alt={projectTwoPhotos[currentPhotoIndex].title}
+                  className="slider-image"
+                  style={{
+                    width: "100%",
+                    maxWidth: "600px",
+                    height: "auto",
+                    borderRadius: "10px",
+                    marginBottom: "1em",
+                  }}
+                />
+              </>
+            )}
+          </div>
+
+          <button onClick={goToNextPhoto}>Next &#8594;</button>
+        </div>
+        {projectTwoPhotos.length > 0 && (
+          <h3 className="image-title">
+            {projectTwoPhotos[currentPhotoIndex].title}
+          </h3>
+        )}
       </div>
       <div>
         <button

@@ -263,6 +263,7 @@ form button {
     width: 100%;
   }
 }
+
 /* Project Component Styling */
 .all-projects {
   display: flex;
@@ -341,8 +342,15 @@ form button {
   height: max-content;
   background-color: #f9f9f9;
 }
+
 .project-paragraphs {
   margin-bottom: 1em;
+  width: 100%;
+}
+
+.project-methods {
+  margin-bottom: 1em;
+  text-align: center;
   width: 100%;
 }
 .hero-image-wrapper{
@@ -364,8 +372,52 @@ form button {
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
-/* sliding-carousel */
-/* slider-image */
+.sliding-carousel {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-container {
+  position: relative;
+  display: inline-block;
+  max-width: 600px;
+  width: 100%;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+.image-title{
+  text-align: center;
+  width: 100%;
+  margin-top: .03em;
+}
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.carousel-button.left {
+  left: 10px;
+}
+
+.carousel-button.right {
+  right: 10px;
+}
+
 
 @media (max-width: 768px) {
   .project-content {
@@ -385,6 +437,8 @@ form button {
     padding: 1em 0.5em;
   }
 }
+
+
 /* CV Component Styling */
 
 /* Button Styling */
