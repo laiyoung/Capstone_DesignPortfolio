@@ -270,7 +270,7 @@ export default function ProjectTwo({ setSelectedMarker }) {
           {markerButtons &&
             markerButtons.map((marker) => (
               <button
-                className=""
+                className={`button ${markerTypeToClass[marker.type] || ""}`}
                 style={{ marginBottom: "5px" }}
                 key={marker.id}
                 onClick={() => navToMarkerResults(marker)}
