@@ -50,7 +50,7 @@ export default function TagResults({
         >
           Back To the Full Gallery
         </button>
-        <h2 style={{ textDecorationLine: "underline", paddingLeft: "4em" }}>
+        <h2 style={{ textDecorationLine: " overline underline", paddingLeft: "4em" }}>
           {" "}
           {selectedMedium[0].toUpperCase() +
             selectedMedium.slice(1)} pieces:{" "}
