@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getNextProject, getPreviousProject } from "../Projects/index.js";
+import { getNextProject, getPreviousProject, markerTypeToClass } from "../Projects/index.js";
 
 export default function ProjectTwo({ setSelectedMarker }) {
   const [projectTwo, setProjectTwo] = useState({});

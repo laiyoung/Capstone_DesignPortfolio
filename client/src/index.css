@@ -457,13 +457,26 @@ button {
 .admin-button {
   background-color: #9497dd;
 }
-/* Specific styling for admin buttons */
+/* Specific styling for tag buttons */
 .dark-tag-buttons {
   background-color: #b1b3fa;
 }
 .light-tag-buttons {
   background-color: #c0c3fd;
 }
+/* Specific styling for marker buttons */
+.lang-tools {
+  background-color: #9497dd; 
+}
+
+.competencies {
+  background-color: #a2a5f8; 
+}
+
+.additional-critical {
+  background-color: #cfd1fa; 
+}
+
 
 button:hover {
   border-color: #432dbe;
@@ -475,6 +488,8 @@ button:focus,
 button:focus-visible {
   outline: 8px auto -webkit-focus-ring-color;
 }
+
+
 
 @media (prefers-color-scheme: light) {
   :root {

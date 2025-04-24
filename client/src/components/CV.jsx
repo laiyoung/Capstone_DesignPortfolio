@@ -1,5 +1,5 @@
-/* This will be built out later **/
 import React from "react";
+import { projectsRoutes, markerTypeToClass } from "./Projects/index.js";
 
 export default function CV() {
   return (

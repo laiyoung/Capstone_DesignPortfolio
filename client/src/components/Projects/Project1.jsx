@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getNextProject, getPreviousProject } from "../Projects/index.js";
+import {
+  getNextProject,
+  getPreviousProject,
+  markerTypeToClass,
+} from "../Projects/index.js";
 
 export default function ProjectOne({ setSelectedMarker }) {
   const [projectOne, setProjectOne] = useState({});
@@ -55,18 +59,16 @@ export default function ProjectOne({ setSelectedMarker }) {
           className="navbtn-long"
           style={{
             fontSize: "1.2em",
-           
           }}
           onClick={handlePrevious}
         >
           &#x21D0; Previous Project
         </button>
-        
+
         <button
           className="navbtn-long"
           style={{
             fontSize: "1.2em",
-            
           }}
           onClick={handleNext}
         >
@@ -116,8 +118,8 @@ export default function ProjectOne({ setSelectedMarker }) {
           and Cooperative Economy (CIRIEC)
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span> {" "}
-          Individual Project
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Individual
+          Project
         </p>
         <p className="project-paragraphs">
           A working group Social Solidarity Economy (SSE), Utopias, and
@@ -188,7 +190,7 @@ export default function ProjectOne({ setSelectedMarker }) {
           {markerButtons &&
             markerButtons.map((marker) => (
               <button
-                className=""
+                className={`button ${markerTypeToClass[marker.type] || ""}`}
                 style={{ marginBottom: "5px" }}
                 key={marker.id}
                 onClick={() => navToMarkerResults(marker)}
@@ -199,7 +201,7 @@ export default function ProjectOne({ setSelectedMarker }) {
         </div>
       </div>
       <div>
-      <button
+        <button
           className="navbtn-long"
           style={{
             fontSize: "1.2em",

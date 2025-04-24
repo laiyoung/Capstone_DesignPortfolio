@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { projectsRoutes } from "../Projects/index.js";
+import { projectsRoutes, markerTypeToClass } from "../Projects/index.js";
 
 export default function SingleProjectCard({ project, setSelectedMarker }) {
   const navigate = useNavigate();
 
-
-
   function handleDetails() {
-    const selectedRoute = projectsRoutes.find(route => route.id === project.id);
+    const selectedRoute = projectsRoutes.find(
+      (route) => route.id === project.id
+    );
 
     if (selectedRoute) {
       navigate(selectedRoute.route);
@@ -26,7 +26,7 @@ export default function SingleProjectCard({ project, setSelectedMarker }) {
   return (
     <div className="project-card">
       <div className="project-title">
-        <h2 style={{ }}>{project.title}</h2>
+        <h2 style={{}}>{project.title}</h2>
       </div>
       <div className="project-content">
         <div className="project-image-wrapper">
@@ -49,27 +49,28 @@ export default function SingleProjectCard({ project, setSelectedMarker }) {
         </div>
       </div>
       <div className="project-title">
-                <h4
-                  style={{
-                    marginLeft: "auto",
-                    textAlign: "left",
-                    paddingRight: "3em",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Methods:
-                </h4>
-                {project.markers &&
-                  project.markers.map((marker) => (
-                    <button
-                      style={{ marginBottom: "7px" }}
-                      key={marker.id}
-                      onClick={() => navToMarkerResults(marker)}
-                    >
-                      {marker.title}
-                    </button>
-                  ))}
-              </div>
+        <h4
+          style={{
+            marginLeft: "auto",
+            textAlign: "left",
+            paddingRight: "3em",
+            fontWeight: "bold",
+          }}
+        >
+          Methods:
+        </h4>
+        {project.markers &&
+          project.markers.map((marker) => (
+            <button
+              className={`button ${markerTypeToClass[marker.type] || ""}`}
+              style={{ marginBottom: "7px" }}
+              key={marker.id}
+              onClick={() => navToMarkerResults(marker)}
+            >
+              {marker.title}
+            </button>
+          ))}
+      </div>
     </div>
   );
 }

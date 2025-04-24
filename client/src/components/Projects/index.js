@@ -7,7 +7,7 @@ export { default as ProjectFive } from "./Project5.jsx";
 export { default as ProjectSix } from "./Project6.jsx";
 export { default as ProjectSeven } from "./Project7.jsx";
 
-/** Establishing Project Routes */
+/** Array Map for Establishing Project Routes */
 export const projectsRoutes = [
   { id: 1, route: "/project-one" },
   { id: 2, route: "/project-two" },
@@ -17,6 +17,13 @@ export const projectsRoutes = [
   { id: 6, route: "/project-six" },
   { id: 7, route: "/project-seven" },
 ];
+
+/** Object Map for Converting Project Marker Types to CSS Classes */
+export const markerTypeToClass = {
+  "Languages & Tools": "lang-tools",
+  "Competencies": "competencies",
+  "Additional Critical Proficiencies": "additional-critical",
+};
 
 /** Search Utillity for Next or Previous Project */
 export function getNextProject(currentId) {
