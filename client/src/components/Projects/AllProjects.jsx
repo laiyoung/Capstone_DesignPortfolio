@@ -1,13 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import  {API_URL} from "../../App";
+import { API_URL } from "../../App";
 import SingleProjectCard from "./SingleProjectCard";
-
-
 
 export default function AllProjects({ setSelectedMarker, selectedMarker }) {
   const [projects, setProjects] = useState([]);
-
 
   useEffect(() => {
     async function fetchAllProjects() {
@@ -20,13 +17,11 @@ export default function AllProjects({ setSelectedMarker, selectedMarker }) {
         const result = await response.json();
         setProjects(result);
       } catch (err) {
-        console.log (err);
+        console.log(err);
       }
     }
     fetchAllProjects();
   }, []);
-
-
 
   return (
     <>

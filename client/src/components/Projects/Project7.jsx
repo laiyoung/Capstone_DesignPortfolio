@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getNextProject, getPreviousProject, markerTypeToClass } from "../Projects/index.js";
+import {
+  getNextProject,
+  getPreviousProject,
+  markerTypeToClass,
+} from "../Projects/index.js";
 
 export default function ProjectSeven({ setSelectedMarker }) {
   const [projectSeven, setProjectSeven] = useState({});
@@ -114,8 +118,8 @@ export default function ProjectSeven({ setSelectedMarker }) {
           N/A
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span> {" "}
-          Individual Project
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Individual
+          Project
         </p>
         <p className="project-paragraphs">
           The beginning of this project was used as the capstone for my software

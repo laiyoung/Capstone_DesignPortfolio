@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getNextProject, getPreviousProject, markerTypeToClass } from "../Projects/index.js";
+import {
+  getNextProject,
+  getPreviousProject,
+  markerTypeToClass,
+} from "../Projects/index.js";
 
 export default function ProjectTwo({ setSelectedMarker }) {
   const [projectTwo, setProjectTwo] = useState({});
@@ -133,9 +137,9 @@ export default function ProjectTwo({ setSelectedMarker }) {
           Vancouver Island Health Authority (Island Health)
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Guy Evans,
-          Cindy Li, Alyssa Koniuk, Leon Li, Linden Querengesser, Judy Yu, Lauren
-          Zeleschuk, Billy Li, and Dian Zhang
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span>
+          Guy Evans,Cindy Li, Alyssa Koniuk, Leon Li, Linden Querengesser, Judy
+          Yu, Lauren Zeleschuk, Billy Li, and Dian Zhang
         </p>
         <p className="project-paragraphs">
           The Vancouver Island Health Authority (Island Health) is responsible
@@ -280,7 +284,7 @@ export default function ProjectTwo({ setSelectedMarker }) {
             ))}
         </div>
 
-        <div className="sliding-carousel" style={{ marginTop: "3em", }}>
+        <div className="sliding-carousel" style={{ marginTop: "3em" }}>
           <button onClick={goToPreviousPhoto} style={{}}>
             &#8592; Previous
           </button>
