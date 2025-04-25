@@ -7,15 +7,17 @@ import {
   getNextProject,
   getPreviousProject,
   markerTypeToClass,
+  usePreloadAdjacentImages,
 } from "../Projects/index.js";
 
 export default function ProjectFour({ setSelectedMarker }) {
   const [projectFour, setProjectFour] = useState({});
   const [markerButtons, setMarkerButtons] = useState([]);
+  const navigate = useNavigate();
   /** Photo Carousel */
   const [projectFourPhotos, setProjectFourPhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     async function fetchProjectFour() {
@@ -52,6 +54,7 @@ export default function ProjectFour({ setSelectedMarker }) {
     }
     fetchProjectFourPhotos();
   }, []);
+   usePreloadAdjacentImages(projectFourPhotos, currentPhotoIndex);
 
   function navToMarkerResults(marker) {
     setSelectedMarker(marker.title);
@@ -71,14 +74,14 @@ export default function ProjectFour({ setSelectedMarker }) {
     );
   }
 
-  function handleNext() {
+  function handleNextProject() {
     const next = getNextProject(projectFour.id);
     if (next) {
       navigate(next.route);
     }
   }
 
-  function handlePrevious() {
+  function handlePreviousProject() {
     const prev = getPreviousProject(projectFour.id);
     if (prev) {
       navigate(prev.route);
@@ -93,7 +96,7 @@ export default function ProjectFour({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handlePrevious}
+          onClick={handlePreviousProject}
         >
           &#x21D0; Previous Project
         </button>
@@ -103,7 +106,7 @@ export default function ProjectFour({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handleNext}
+          onClick={handleNextProject}
         >
           Next Project &#x21D2;
         </button>
@@ -121,7 +124,7 @@ export default function ProjectFour({ setSelectedMarker }) {
           {projectFour.title}
         </h2>
         <h4>
-          <span style={{ fontWeight: "bold" }}>Year:</span> {2017}
+          <span style={{ fontWeight: "bold" }}>Year:</span> {2014}
         </h4>
         <h4>
           <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
@@ -190,9 +193,7 @@ export default function ProjectFour({ setSelectedMarker }) {
         </h4>
         <div>
           <Link to={"https://www.barbeefarms.net/"}>
-            <button style={{ margin: ".5em" }}>
-              Barbee Farms
-            </button>
+            <button style={{ margin: ".5em" }}>Barbee Farms</button>
           </Link>
         </div>
 

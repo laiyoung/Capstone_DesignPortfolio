@@ -38,14 +38,14 @@ export default function ProjectSeven({ setSelectedMarker }) {
     navigate("/marker-results");
   }
 
-  function handleNext() {
+  function handleNextProject() {
     const next = getNextProject(projectSeven.id);
     if (next) {
       navigate(next.route);
     }
   }
 
-  function handlePrevious() {
+  function handlePreviousProject() {
     const prev = getPreviousProject(projectSeven.id);
     if (prev) {
       navigate(prev.route);
@@ -60,7 +60,7 @@ export default function ProjectSeven({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handlePrevious}
+          onClick={handlePreviousProject}
         >
           &#x21D0; Previous Project
         </button>
@@ -70,7 +70,7 @@ export default function ProjectSeven({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handleNext}
+          onClick={handleNextProject}
         >
           Next Project &#x21D2;
         </button>

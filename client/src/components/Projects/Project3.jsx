@@ -7,15 +7,16 @@ import {
   getNextProject,
   getPreviousProject,
   markerTypeToClass,
+  usePreloadAdjacentImages,
 } from "../Projects/index.js";
 
 export default function ProjectThree({ setSelectedMarker }) {
   const [projectThree, setProjectThree] = useState({});
   const [markerButtons, setMarkerButtons] = useState([]);
+  const navigate = useNavigate();
   /** Photo Carousel */
   const [projectThreePhotos, setProjectThreePhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProjectThree() {
@@ -52,6 +53,7 @@ export default function ProjectThree({ setSelectedMarker }) {
     }
     fetchProjectThreePhotos();
   }, []);
+  usePreloadAdjacentImages(projectThreePhotos, currentPhotoIndex);
 
   function navToMarkerResults(marker) {
     setSelectedMarker(marker.title);
@@ -71,14 +73,14 @@ export default function ProjectThree({ setSelectedMarker }) {
     );
   }
 
-  function handleNext() {
+  function handleNextProject() {
     const next = getNextProject(projectThree.id);
     if (next) {
       navigate(next.route);
     }
   }
 
-  function handlePrevious() {
+  function handlePreviousProject() {
     const prev = getPreviousProject(projectThree.id);
     if (prev) {
       navigate(prev.route);
@@ -93,7 +95,7 @@ export default function ProjectThree({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handlePrevious}
+          onClick={handlePreviousProject}
         >
           &#x21D0; Previous Project
         </button>
@@ -103,7 +105,7 @@ export default function ProjectThree({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handleNext}
+          onClick={handleNextProject}
         >
           Next Project &#x21D2;
         </button>

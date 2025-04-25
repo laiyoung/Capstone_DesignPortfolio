@@ -7,15 +7,16 @@ import {
   getNextProject,
   getPreviousProject,
   markerTypeToClass,
+  usePreloadAdjacentImages,
 } from "../Projects/index.js";
 
 export default function ProjectTwo({ setSelectedMarker }) {
   const [projectTwo, setProjectTwo] = useState({});
   const [markerButtons, setMarkerButtons] = useState([]);
+  const navigate = useNavigate();
   /** Photo Carousel */
   const [projectTwoPhotos, setProjectTwoPhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProjectTwo() {
@@ -52,6 +53,7 @@ export default function ProjectTwo({ setSelectedMarker }) {
     }
     fetchProjectTwoPhotos();
   }, []);
+  usePreloadAdjacentImages(projectTwoPhotos, currentPhotoIndex);
 
   function navToMarkerResults(marker) {
     setSelectedMarker(marker.title);
@@ -71,14 +73,14 @@ export default function ProjectTwo({ setSelectedMarker }) {
     );
   }
 
-  function handleNext() {
+  function handleNextProject() {
     const next = getNextProject(projectTwo.id);
     if (next) {
       navigate(next.route);
     }
   }
 
-  function handlePrevious() {
+  function handlePreviousProject() {
     const prev = getPreviousProject(projectTwo.id);
     if (prev) {
       navigate(prev.route);
@@ -93,7 +95,7 @@ export default function ProjectTwo({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handlePrevious}
+          onClick={handlePreviousProject}
         >
           &#x21D0; Previous Project
         </button>
@@ -103,7 +105,7 @@ export default function ProjectTwo({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
           }}
-          onClick={handleNext}
+          onClick={handleNextProject}
         >
           Next Project &#x21D2;
         </button>
@@ -284,7 +286,10 @@ export default function ProjectTwo({ setSelectedMarker }) {
             ))}
         </div>
 
-        <div className="sliding-carousel" style={{ marginTop: "3em" }}>
+        <div
+          className="sliding-carousel"
+          style={{ marginTop: "3em" }}
+        >
           <button onClick={goToPreviousPhoto} style={{}}>
             &#8592; Previous
           </button>

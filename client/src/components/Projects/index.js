@@ -1,3 +1,6 @@
+/** Imports for Helper Functions */
+import { useEffect } from "react";
+
 /** Project Links */
 export { default as ProjectOne } from "./Project1.jsx";
 export { default as ProjectTwo } from "./Project2.jsx";
@@ -40,4 +43,30 @@ export function getPreviousProject(currentId) {
 
   const prevIndex = (index - 1 + projectsRoutes.length) % projectsRoutes.length;
   return projectsRoutes[prevIndex];
+}
+
+/** 
+ * Custom Hook Helper Function to Preload the Next and Previous Image in a Project 
+ * Image Carousel (loads 1 image ahead to prevent lagging) 
+ * */
+export function usePreloadAdjacentImages(images = [], currentIndex = 0) {
+  useEffect(() => {
+    if (!images || images.length === 0) return;
+
+    const preloadImage = (url) => {
+      const img = new Image();
+      img.src = url;
+    };
+
+    const nextIndex = (currentIndex + 1) % images.length;
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+
+    if (images[nextIndex]?.image_url) {
+      preloadImage(images[nextIndex].image_url);
+    }
+
+    if (images[prevIndex]?.image_url) {
+      preloadImage(images[prevIndex].image_url);
+    }
+  }, [images, currentIndex]);
 }
