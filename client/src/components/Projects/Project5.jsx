@@ -17,7 +17,6 @@ export default function ProjectFive({ setSelectedMarker }) {
   /** Photo Carousel */
   const [projectFivePhotos, setProjectFivePhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  
 
   useEffect(() => {
     async function fetchProjectFive() {
@@ -141,9 +140,8 @@ export default function ProjectFive({ setSelectedMarker }) {
           Sow Much Good (SMG)
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span>
-          Christiane Repenning & Courtney Reed; SMG Executive Director: Robin
-          Emmons
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Christiane
+          Repenning & Courtney Reed; SMG Executive Director: Robin Emmons
         </p>
         <p className="project-paragraphs">
           Food insecurity is a significant problem in the metropolitan area of

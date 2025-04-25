@@ -141,8 +141,8 @@ export default function ProjectThree({ setSelectedMarker }) {
           Placemaking Society
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span>
-          Patricia Mckenna
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Patricia
+          Mckenna
         </p>
         <p className="project-paragraphs">
           Working with the facilitator and senior analyst Patricia Mckenna of

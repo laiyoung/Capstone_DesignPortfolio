@@ -18,7 +18,6 @@ export default function ProjectFour({ setSelectedMarker }) {
   const [projectFourPhotos, setProjectFourPhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
-
   useEffect(() => {
     async function fetchProjectFour() {
       try {
@@ -54,7 +53,7 @@ export default function ProjectFour({ setSelectedMarker }) {
     }
     fetchProjectFourPhotos();
   }, []);
-   usePreloadAdjacentImages(projectFourPhotos, currentPhotoIndex);
+  usePreloadAdjacentImages(projectFourPhotos, currentPhotoIndex);
 
   function navToMarkerResults(marker) {
     setSelectedMarker(marker.title);
@@ -141,8 +140,8 @@ export default function ProjectFour({ setSelectedMarker }) {
           Barbee Farms
         </p>
         <p className="project-paragraphs">
-          <span style={{ fontWeight: "bold" }}>Collaborators:</span>
-          Lucy Sexton, Drew Glenn, Emma Krause, and Paul Henderson
+          <span style={{ fontWeight: "bold" }}>Collaborators:</span> Lucy
+          Sexton, Drew Glenn, Emma Krause, and Paul Henderson
         </p>
         <p className="project-paragraphs">
           Barbee Farms is a 3rd generation family farm in Concord, North
