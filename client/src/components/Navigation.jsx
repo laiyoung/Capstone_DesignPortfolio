@@ -25,18 +25,15 @@ export default function Navigation() {
         {" "}
         ☰ Explore
       </button>
-      <div
-        className={`navigation ${isOpen ? "open" : ""}`}
-        style={{ color: "white" }}
-      >
-        <Link to={"/"}>
+      <div className={`navigation ${isOpen ? "open" : ""}`}>
+        <Link style={{ color: "#eaebf9" }} to={"/"}>
           {" "}
           <h2>Art</h2>
         </Link>
-        <Link to={"/projects"}>
+        <Link style={{ color: "#eaebf9" }} to={"/projects"}>
           <h2>Projects</h2>
         </Link>
-        <Link to={"/cv"}>
+        <Link style={{ color: "#eaebf9" }} to={"/cv"}>
           {" "}
           <h2>CV</h2>
         </Link>

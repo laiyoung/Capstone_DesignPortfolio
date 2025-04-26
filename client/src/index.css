@@ -38,7 +38,6 @@ li.favorite {
 
 a {
   font-weight: 500;
-  color: #eaebf9;
   text-decoration: inherit;
 }
 a:hover {
@@ -272,7 +271,7 @@ form button {
   justify-content: space-evenly;
   gap: 16px;
   align-items: center;
-  padding: 1em
+  padding: 1em;
 }
 
 .project-card {
@@ -324,7 +323,7 @@ form button {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  flex: 1; 
+  flex: 1;
 }
 
 .project-details-view {
@@ -353,19 +352,18 @@ form button {
   text-align: center;
   width: 100%;
 }
-.hero-image-wrapper{
+.hero-image-wrapper {
   position: relative;
   width: 100%;
   /* Controls how much of the photo shows */
-  max-height: 400px; 
+  max-height: 400px;
   overflow: hidden;
-  
 }
 .hero-image {
   width: 100%;
   object-fit: cover;
-   /* Controls how much of the photo shows */
-  max-height: 400px; 
+  /* Controls how much of the photo shows */
+  max-height: 400px;
   display: block;
   position: relative;
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
@@ -393,10 +391,10 @@ form button {
   display: block;
 }
 
-.image-title{
+.image-title {
   text-align: center;
   width: 100%;
-  margin-top: .03em;
+  margin-top: 0.03em;
 }
 .carousel-button {
   position: absolute;
@@ -418,7 +416,6 @@ form button {
   right: 10px;
 }
 
-
 @media (max-width: 768px) {
   .project-content {
     flex-direction: column;
@@ -438,15 +435,31 @@ form button {
   }
 }
 
-
 /* CV Component Styling */
+.cv-project {
+  margin-bottom: 1em;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.cv-project:hover {
+  background-color: #f0f0f5;
+}
+.cv-project.link {
+  color: #9497dd;
+  text-decoration: underline;
+}
+.cv-project.link:hover {
+  color: #3521a1;
+  text-decoration: underline;
+}
 
 /* Button Styling */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  margin: .3em ;
+  margin: 0.3em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -466,17 +479,16 @@ button {
 }
 /* Specific styling for marker buttons */
 .lang-tools {
-  background-color: #9497dd; 
+  background-color: #9497dd;
 }
 
 .competencies {
-  background-color: #cfd1fa; 
+  background-color: #cfd1fa;
 }
 
 .additional-critical {
-  background-color: #a2a5f8; 
+  background-color: #a2a5f8;
 }
-
 
 button:hover {
   border-color: #432dbe;
@@ -488,8 +500,6 @@ button:focus,
 button:focus-visible {
   outline: 8px auto -webkit-focus-ring-color;
 }
-
-
 
 @media (prefers-color-scheme: light) {
   :root {
