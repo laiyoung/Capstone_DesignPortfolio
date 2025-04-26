@@ -54,33 +54,24 @@ export default function MarkerResults({
     }
   }
 
-
   return (
     <>
-      <div>
-      <button
-          className="navbtn-long"
-          style={{
-            fontSize: "1.2em",
-            padding: ".5em",
-          }}
-          onClick={() => navigate("/projects")}
-        >
-          Back to Full Project List
-        </button>
-        <h2 style={{ textDecorationLine: " overline underline", paddingLeft: "4em", }}>
-          {" "}
-          {selectedMarker} Projects:{" "}
-        </h2>
-      </div>
+      <h2
+        style={{
+          textDecorationLine: " overline underline",
+          paddingLeft: "4em",
+        }}
+      >
+        {" "}
+        {selectedMarker} Projects:{" "}
+      </h2>
+
       <div lang="en" className="all-projects">
         {markerResults.map((filteredProject) => {
           return (
             <div key={filteredProject.id} className="project-card">
               <div className="project-title">
-                <h2 style={{ }}>
-                  {filteredProject.title}
-                </h2>
+                <h2 style={{}}>{filteredProject.title}</h2>
               </div>
               <div className="project-content">
                 <div className="project-image-wrapper">
@@ -130,6 +121,28 @@ export default function MarkerResults({
             </div>
           );
         })}
+      </div>
+      <div className="titlebox">
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            padding: ".5em",
+          }}
+          onClick={() => navigate("/projects")}
+        >
+          Back to Full Project List
+        </button>
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            padding: ".5em",
+          }}
+          onClick={() => navigate("/cv")}
+        >
+          Back to CV
+        </button>
       </div>
     </>
   );
