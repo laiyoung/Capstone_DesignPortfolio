@@ -173,29 +173,25 @@ export default function ProjectFour({ setSelectedMarker }) {
           and fruit butters.
         </p>
         <h4>
-          <span style={{ fontWeight: "bold" }}>Deliverables:</span>
-          Summary portfolio of central findings, as well as more detailed
-          calculations and information on utilized formulas, for any necessary
-          further analysis once CSA expansion was completed.
+          <span style={{ fontWeight: "bold" }}>Deliverables:</span> Summary
+          portfolio of central findings, as well as more detailed calculations
+          and information on utilized formulas, for any necessary further
+          analysis once CSA expansion was completed.
         </h4>
         <h4>
           <span
             style={{
               marginLeft: "auto",
               textAlign: "left",
-              paddingRight: "3em",
               fontWeight: "bold",
             }}
           >
             Links:
           </span>
-        </h4>
-        <div>
           <Link to={"https://www.barbeefarms.net/"}>
             <button style={{ margin: ".5em" }}>Barbee Farms</button>
           </Link>
-        </div>
-
+        </h4>
         <div className="project-methods">
           <h4
             style={{

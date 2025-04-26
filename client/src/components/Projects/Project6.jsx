@@ -168,14 +168,11 @@ export default function ProjectSix({ setSelectedMarker }) {
             style={{
               marginLeft: "auto",
               textAlign: "left",
-              paddingRight: "3em",
               fontWeight: "bold",
             }}
           >
             Links:
           </span>
-        </h4>
-        <div>
           <Link
             to={
               "https://67ef42c09bbe6355ddf358b6--rad-seahorse-bc769a.netlify.app/"
@@ -183,7 +180,7 @@ export default function ProjectSix({ setSelectedMarker }) {
           >
             <button style={{ margin: ".5em" }}>Deployment Link</button>
           </Link>
-        </div>
+        </h4>
 
         <div className="project-methods">
           <h4

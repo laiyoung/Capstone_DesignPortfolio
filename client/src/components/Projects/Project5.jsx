@@ -176,19 +176,16 @@ export default function ProjectFive({ setSelectedMarker }) {
             style={{
               marginLeft: "auto",
               textAlign: "left",
-              paddingRight: "3em",
               fontWeight: "bold",
             }}
           >
             Links:
           </span>
-        </h4>
-        <div>
           <Link to={"https://www.facebook.com/SowMuchGood/ "}>
             <button style={{ margin: ".5em" }}>Sow Much Good</button>
           </Link>
-        </div>
-
+        </h4>
+        
         <div className="project-methods">
           <h4
             style={{
