@@ -332,8 +332,85 @@ export default function CV({ setSelectedMarker }) {
                 July/2013 - January/2016
               </span>
             </h3>
-            
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ textDecorationLine: "underline" }}>
+                Patient Escort
+              </span>
+              :
+              <div>
+                &#9642; Served as first point of contact for patients upon
+                arrival at the hospital
+              </div>
+              <div>
+                &#9642; Employed Epic EMR software to manage patient
+                appointments
+              </div>
+              <div>
+                &#9642; Facilitated communication between patients and medical
+                professionals to create a seamless experience pre and post
+                appointment
+              </div>
+              <div>
+                &#9642; Coordinated movement and discharge of up to 20 patients
+                per day
+              </div>
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ textDecorationLine: "underline" }}>
+                Circulator
+              </span>
+              :
+              <div>
+                &#9642; Assisted laboratory practitioners in collecting blood
+                samples, performing centrifugation, and processing X-rays
+              </div>
+              <div>
+                &#9642; Aided cardiovascular and neonatal ICU nurses for 8 to 12
+                hours weekly
+              </div>
+              <div>
+                &#9642; Accommodated any patient needs not addressed by medical
+                staff
+              </div>
+            </li>
           </div>
+          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>
+                Laboratory Manager & Technician
+              </span>{" "}
+              | <span style={{ fontStyle: "italic" }}>Davidson Chemistry</span>{" "}
+              | Davidson, NC, USA |{" "}
+              <span style={{ fontWeight: "bold" }}>August/2011 - May/2011</span>
+            </h3>
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ textDecorationLine: "underline" }}>
+                Lab Preparation
+              </span>
+              : Workshopped and constructed laboratory procedures; Manufactured
+              reagents; Processed students’ gels for PCR and gel
+              electrophoresis; Prepared bacterial cultures for study
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ textDecorationLine: "underline" }}>
+                Lab Management
+              </span>
+              : Biochemistry; Environmental Chemistry; Principles of Chemistry;
+              Chemistry of Art and Artifacts; Organic Chemistry 1 and 2;
+              Introduction to Analytical, Experiential, and Physical Chemistry;
+              Chemistry of Society
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              {" "}
+              Assisted with chemical and equipment inventory and distribution
+            </li>
+          </div>
+        </div>
+        <div className="project-card">
+          <h2 style={{ textDecorationLine: "overline underline" }}>
+            Education
+          </h2>
+          
         </div>
       </div>
     </>

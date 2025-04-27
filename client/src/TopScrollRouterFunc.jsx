@@ -10,6 +10,7 @@ const ScrollToTop = () => {
   useEffect(() => {
         // Delay the scroll to ensure the new component has mounted
         requestAnimationFrame(() => {
+          // The actual scroll feature
           window.scrollTo({ top: 1, left: 0, behavior: "smooth" });
         });
       }, [pathname]);
