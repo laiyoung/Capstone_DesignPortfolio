@@ -521,7 +521,56 @@ export default function CV({ setSelectedMarker }) {
           <h2 style={{ textDecorationLine: "overline underline" }}>
             Publications & Presentations
           </h2>
-
+          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>Works In Progress:</span>
+            </h3>
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ fontWeight: "bold" }}>Young, L.</span> and Byrne,
+              N. 2025. ‘Development Assemblages of the Lower Mississippi Delta:
+              Comparing Extractive and Cooperative Ontologies’,{" "}
+              <span style={{ fontWeight: "bold" }}>indicative target: </span>
+              Global Cooperative Economics & Movements.
+            </li>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>
+                Selected Publications and Presentations:
+              </span>
+            </h3>
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ fontWeight: "bold" }}>Young, L.</span> 2021.
+              ‘Alternative Forms of Development in the Lower Mississippi Delta:
+              Building Inclusive and Sustainable Futures’. International
+              Scientific Conference: Solidarity Social Economy and the 2030
+              Agenda. International Center of Research and Information on the
+              Public, Social and Cooperative Economy (CIRIEC International).
+              UNED (Distance State University) - Costa Rica.
+            </li>
+            <li
+              className="cv-project-item"
+              onClick={() => navigate("/project-four")}
+            >
+              <span style={{ fontWeight: "bold" }}>Young, L.</span>, Sexton, L.,
+              Glenn, D., Henderson, P., Krause, E. 2014. ‘Value Addition and
+              Development – Barbee Farms’. Student Symposium for Community Based
+              Learning – Davidson College, Davidson, NC
+            </li>
+            <li
+              className="cv-project-item"
+              onClick={() => navigate("/project-five")}
+            >
+              Reed, C.,<span style={{ fontWeight: "bold" }}> Young, L.</span>,
+              Reppening, C. 2013. ‘Environmental Conservation Education for
+              Children – Sow Much Good Community Gardens’. Student Symposium for
+              Community Based Learning – Davidson College, Davidson, NC.
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Shatz, P., Kurtzman, G.,{" "}
+              <span style={{ fontWeight: "bold" }}>Young, L.</span> ,
+              Silverstein, L. 2011. ‘Soft Tissue Augmentation with Allografts’,
+              Journal of Clinical and Practical Oral Implantology, 2(1): 6 - 13.
+            </li>
+          </div>
         </div>
       </div>
     </>
