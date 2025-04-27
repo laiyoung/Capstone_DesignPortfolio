@@ -44,17 +44,8 @@ export default function CV({ setSelectedMarker }) {
         </h2>
         <h3>
           +1(404)384-0303 | l.d.young@outlook.com | Atlanta, GA, USA |{" "}
-          <Link
-            to={"https://www.linkedin.com/in/young-laigha/"}
-          >
-            LinkedIn
-          </Link>{" "}
-          |{" "}
-          <Link
-            to={"https://github.com/laiyoung"}
-          >
-            GitHub
-          </Link>
+          <Link to={"https://www.linkedin.com/in/young-laigha/"}>LinkedIn</Link>{" "}
+          | <Link to={"https://github.com/laiyoung"}>GitHub</Link>
         </h3>
         <p>
           Organizational scientist and artist with over 5 years of experience in
@@ -68,7 +59,9 @@ export default function CV({ setSelectedMarker }) {
       </div>
       <div className="all-projects">
         <div className="project-card">
-          <h2 style={{}}>Technical Skills</h2>
+          <h2 style={{ textDecorationLine: "overline underline" }}>
+            Technical Skills
+          </h2>
           <h3>
             <span
               style={{ fontWeight: "bold", textDecorationLine: "underline" }}
@@ -131,10 +124,15 @@ export default function CV({ setSelectedMarker }) {
           </div>
         </div>
         <div className="project-card">
-          <h2>Technical Projects</h2>
-          <div className="project-paragraph" style={{ marginBottom: "1em"}} >
+          <h2 style={{ textDecorationLine: "overline underline" }}>
+            Technical Projects
+          </h2>
+          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
             <h3 style={{ fontWeight: "bold" }}>Recent Paper(s):</h3>
-            <li className="cv-project-item" onClick={() => navigate("/project-one")}>
+            <li
+              className="cv-project-item"
+              onClick={() => navigate("/project-one")}
+            >
               <span style={{ fontWeight: "bold" }}>YOUNG, LAIGHA</span> “Chapter
               7: The Blues Tradition: Building Dialogical Relation within
               Utopian Imaginaries”. LAPOUTTE, Alexandrine, DUVERGER, Timothée
@@ -151,9 +149,7 @@ export default function CV({ setSelectedMarker }) {
                 Front End Developer
               </span>{" "}
               | January/2025 |{" "}
-              <Link
-                to={"https://github.com/laiyoung/The_Library_App"}
-              >
+              <Link to={"https://github.com/laiyoung/The_Library_App"}>
                 GitHub Link
               </Link>{" "}
               |{" "}
@@ -187,51 +183,158 @@ export default function CV({ setSelectedMarker }) {
               React, CSS, HTML, Node, Figma
             </li>
           </div>
-          <div className="cv-project" onClick={() => navigate("/project-seven")}>
+          <div
+            className="cv-project"
+            onClick={() => navigate("/project-seven")}
+          >
             <h3>
               <span style={{ fontWeight: "bold" }}>Design Portfolio</span> |{" "}
               <span style={{ textDecorationLine: "underline" }}>
-                Front End Developer
+                Full Stack Developer
               </span>{" "}
-              | January/2025 |{" "}
-              <Link
-                to={"https://github.com/laiyoung/The_Library_App"}
-              >
+              | May/2025 |{" "}
+              <Link to={"https://github.com/laiyoung/Capstone_DesignPortfolio"}>
                 GitHub Link
               </Link>{" "}
-              |{" "}
-              <Link
-                to={
-                  "https://67ef42c09bbe6355ddf358b6--rad-seahorse-bc769a.netlify.app/"
-                }
-              >
-                Deployment Link
-              </Link>
+              | <Link to={""}>Deployment Link</Link>
             </h3>
             <li style={{ marginLeft: "2em" }}>
-              Front end development example for a public library app
+              Full stack design engineering portfolio
             </li>
             <li style={{ marginLeft: "2em" }}>
-              Establishing API connections to allow users to access catalog
-              information and their account information
+              Building a backend environment with API routes for moving data
+              between the client and server
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Including SQL interaction models for processing inputs from the
+              front end, along with middleware for encryption
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Creating front end API connections to allow users to view gallery
+              information and for administrators to alter project informatio
             </li>
             <li style={{ marginLeft: "2em" }}>
               Utilizing React components, props, event listeners, and routers to
-              manage user experience and control interactions – including
-              catalog searches, information pulls, book reservations, and book
-              returns
+              manage user and administrator experience and control interactions
+              – including gallery searches using dynamic tag filters.
             </li>
             <li style={{ marginLeft: "2em" }}>
-              Building a system for user authentication, with dynamic interface
-              elements
+              Building a system for administrator authentication, with dynamic
+              interface elements
             </li>
             <li style={{ marginLeft: "2em" }}>
               <span style={{ fontWeight: "bold" }}>Key Tools:</span> JavaScript,
-              React, CSS, HTML, Node, Figma
+              React, CSS, HTML, Postman API Development, Node
             </li>
           </div>
         </div>
-
+        <div className="project-card">
+          <h2 style={{ textDecorationLine: "overline underline" }}>
+            Experience
+          </h2>
+          <div className="cv-project" onClick={() => navigate("/project-one")}>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>Researcher</span> |{" "}
+              <span style={{ fontStyle: "italic" }}>
+                Co-operative College: Early Researchers Network
+              </span>{" "}
+              | Manchester, UK |{" "}
+              <span style={{ fontWeight: "bold" }}>March/2017 - Present</span>
+            </h3>
+            <li style={{ marginLeft: "2em" }}>
+              Collaborate with 50 social scientists, entrepreneurs, and
+              changemakers to improve economic access for disadvantaged
+              communities in 17 countries, across 4 continents
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Working with community organizations, like Cooperation Jackson, to
+              scale sustainability frameworks for increased market control,
+              racial equity, and community engagement in large cooperative
+              networks
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Including SQL interaction models for processing inputs from the
+              front end, along with middleware for encryption
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Research the cooperative model as a comprehensive mechanism for
+              communities of color to generate self-sustaining economic
+              ecosystems, using business-to-business collaboration processes
+            </li>
+          </div>
+          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>Researcher & Designer</span>{" "}
+              |{" "}
+              <span style={{ fontStyle: "italic" }}>
+                University of Victoria
+              </span>{" "}
+              | Victoria, BC, Canada |{" "}
+              <span style={{ fontWeight: "bold" }}>
+                August/2016 - January/2017
+              </span>
+            </h3>
+            <li
+              className="cv-project-item"
+              onClick={() => navigate("/project-two")}
+            >
+              <span style={{ textDecorationLine: "underline" }}>
+                Vancouver Island Health Authority
+              </span>
+              :
+              <div>
+                &#9642; Developed interface to streamline 20 pathologists’
+                process for assessing cancer risks in 350 patients daily
+              </div>
+              <div>
+                &#9642; Designed radiology patient management system to increase
+                efficiency in appointment creation and reduce caseload from 120%
+                to 80%
+              </div>
+              <div>
+                &#9642; Modernized diabetes team’s approach to patient care
+                through simplified software and relationship building programs
+                between nurses and patients, improving patient retention rates
+                by 27%
+              </div>
+            </li>
+            <li
+              className="cv-project-item"
+              onClick={() => navigate("/project-three")}
+            >
+              <span style={{ textDecorationLine: "underline" }}>
+                Victoria Placemaking Society and BC Libraries Cooperative
+              </span>
+              :
+              <div>
+                &#9642; Advised a group of 30 project personnel on best plan of
+                implementation for $20 million urban development project
+              </div>
+              <div>
+                &#9642; Conducted research in downtown Victoria to assess the
+                feasibility of a 10-mile BeltLine connecting the city’s core
+                neighborhoods through green spaces and trails
+              </div>
+              <div>
+                &#9642; Formulated methods to better connect library patrons of
+                200 institutions in the BC Libraries Cooperative network
+              </div>
+            </li>
+          </div>
+          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>
+                Circulator and Patient Escort
+              </span>{" "}
+              | <span style={{ fontStyle: "italic" }}>Piedmont Healthcare</span>{" "}
+              | Atlanta, GA, USA |{" "}
+              <span style={{ fontWeight: "bold" }}>
+                July/2013 - January/2016
+              </span>
+            </h3>
+            
+          </div>
+        </div>
       </div>
     </>
   );

@@ -58,7 +58,7 @@ export default function MarkerResults({
     <>
       <h2
         style={{
-          textDecorationLine: " overline underline",
+          textDecorationLine: "overline underline",
           paddingLeft: "4em",
         }}
       >
@@ -138,6 +138,7 @@ export default function MarkerResults({
           style={{
             fontSize: "1.2em",
             padding: ".5em",
+            marginRight: "1.5em",
           }}
           onClick={() => navigate("/cv")}
         >
