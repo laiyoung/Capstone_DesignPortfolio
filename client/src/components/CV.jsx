@@ -1,13 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { API_URL } from "../App";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { projectsRoutes, markerTypeToClass } from "./Projects/index.js";
+import { markerTypeToClass } from "./Projects/index.js";
 
 export default function CV({ setSelectedMarker }) {
   const [markers, setMarkers] = useState({});
+  const labManagementRef = useRef(null);
+  const customerServiceRef = useRef(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     async function fetchMarkers() {
       try {
@@ -31,6 +35,10 @@ export default function CV({ setSelectedMarker }) {
     // console.log(marker.title);
     navigate("/marker-results");
   }
+
+  const scrollToRef = (ref) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <>
@@ -86,7 +94,7 @@ export default function CV({ setSelectedMarker }) {
             <button
               style={{ marginLeft: ".5em" }}
               className="lang-tools"
-              onClick={() => navToMarkerResults()}
+              onClick={() => scrollToRef(labManagementRef)}
             >
               Laboratory Preparation & Management
             </button>
@@ -104,7 +112,7 @@ export default function CV({ setSelectedMarker }) {
             <button
               style={{ marginLeft: ".5em" }}
               className="competencies"
-              onClick={() => navToMarkerResults()}
+              onClick={() => scrollToRef(customerServiceRef)}
             >
               Customer Service
             </button>
@@ -321,7 +329,11 @@ export default function CV({ setSelectedMarker }) {
               </div>
             </li>
           </div>
-          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
+          <div
+            className="project-paragraph"
+            ref={customerServiceRef}
+            style={{ marginBottom: "1em" }}
+          >
             <h3>
               <span style={{ fontWeight: "bold" }}>
                 Circulator and Patient Escort
@@ -374,14 +386,18 @@ export default function CV({ setSelectedMarker }) {
               </div>
             </li>
           </div>
-          <div className="project-paragraph" style={{ marginBottom: "1em" }}>
+          <div
+            className="project-paragraph"
+            ref={labManagementRef}
+            style={{ marginBottom: "1em" }}
+          >
             <h3>
               <span style={{ fontWeight: "bold" }}>
                 Laboratory Manager & Technician
               </span>{" "}
               | <span style={{ fontStyle: "italic" }}>Davidson Chemistry</span>{" "}
               | Davidson, NC, USA |{" "}
-              <span style={{ fontWeight: "bold" }}>August/2011 - May/2011</span>
+              <span style={{ fontWeight: "bold" }}>August/2011 - May/2015</span>
             </h3>
             <li style={{ marginLeft: "2em" }}>
               <span style={{ textDecorationLine: "underline" }}>
@@ -410,7 +426,102 @@ export default function CV({ setSelectedMarker }) {
           <h2 style={{ textDecorationLine: "overline underline" }}>
             Education
           </h2>
-          
+          <h3 style={{ marginBottom: ".3em" }}>
+            <span style={{ fontWeight: "bold" }}>
+              Fullstack Academy: Grace Hopper Program
+            </span>{" "}
+            | <span style={{ fontStyle: "italic" }}>New York, NY, USA</span> |{" "}
+            <span style={{ fontWeight: "bold" }}>March/2025</span>
+          </h3>
+          <li style={{ marginLeft: "2em", fontWeight: "bold" }}>
+            {" "}
+            Software Engineering Certificate
+          </li>
+          <li style={{ marginLeft: "2em" }}>
+            {" "}
+            Full Stack Javascript Web Development Immersive
+          </li>
+          <h3 style={{ marginBottom: ".3em" }}>
+            <span style={{ fontWeight: "bold" }}>
+              University College Cork: College of Business & Law
+            </span>{" "}
+            | <span style={{ fontStyle: "italic" }}>Cork, Ireland</span> |{" "}
+            <span style={{ fontWeight: "bold" }}>April/2022</span>
+          </h3>
+          <li style={{ marginLeft: "2em", fontWeight: "bold" }}>
+            {" "}
+            Master of Science (First Class Honors) in Co-operative and Social
+            Enterprise
+          </li>
+          <li style={{ marginLeft: "2em" }}>
+            {" "}
+            <span style={{ fontWeight: "bold" }}>Dissertation:</span> Community
+            Economies at the Margins: Towards a Theory of Co-operative Economics
+          </li>
+          <li style={{ marginLeft: "2em" }}>
+            {" "}
+            <span style={{ fontWeight: "bold" }}>Select Coursework:</span>{" "}
+            Education and Marketing; Leadership and Change Management; People
+            Management in Member-Based Organizations; Research Methodology;
+            Community Co-operatives and Social Enterprises; Cooperative and
+            Social Enterprise Governance; Social and Co-operative
+            Entrepreneurship
+          </li>
+          <li style={{ marginLeft: "2em" }}>
+            {" "}
+            <span style={{ fontWeight: "bold" }}>
+              Additional Certification:
+            </span>{" "}
+            <span style={{ textDecorationLine: "underline" }}>
+              Theory U Leadership
+            </span>{" "}
+            | Inclusive Sustainability and Ethical Finance
+          </li>
+          <h3 style={{ marginBottom: ".3em" }}>
+            <span style={{ fontWeight: "bold" }}>Davidson College</span> |{" "}
+            <span style={{ fontStyle: "italic" }}>Davidson, NC, USA</span> |{" "}
+            <span style={{ fontWeight: "bold" }}>May/2015</span>
+          </h3>
+          <li style={{ marginLeft: "2em", fontWeight: "bold" }}>
+            {" "}
+            Bachelor of Art (High Honors) in Sociocultural Anthropology
+          </li>
+          <li style={{ marginLeft: "2em" }}>
+            {" "}
+            <span style={{ fontWeight: "bold" }}>Select Coursework:</span>{" "}
+            Social Movements; Politics, Society, and Culture; Molecules, Genes,
+            and Cells (+lab); Principles of Chemistry (+lab); Theory in
+            Anthropology; Organisms, Evolution, and Ecosystems (+lab);
+            Development and Sustainability; Imaging the Earth: ArcGIS for Social
+            Science Analysis
+          </li>
+          <li style={{ marginLeft: "2em" }}>
+            {" "}
+            <span style={{ fontWeight: "bold" }}>
+              Additional Quantitative Coursework:
+            </span>{" "}
+            <div>
+              &#9642;{" "}
+              <span style={{ textDecorationLine: "underline" }}>
+                Kennesaw State University
+              </span>{" "}
+              | Calculus 1; Statistics; Organic Chemistry 1 (+lab); Microbiology
+              (+lab)
+            </div>
+            <div>
+              &#9642;{" "}
+              <span style={{ textDecorationLine: "underline" }}>
+                Oxford University
+              </span>{" "}
+              | Bioethics
+            </div>
+          </li>
+        </div>
+        <div className="project-card">
+          <h2 style={{ textDecorationLine: "overline underline" }}>
+            Publications & Presentations
+          </h2>
+
         </div>
       </div>
     </>
