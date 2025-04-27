@@ -244,7 +244,7 @@ export default function ProjectFive({ setSelectedMarker }) {
           </h3>
         )}
       </div>
-      <div>
+      <div className="titlebox">
         <button
           className="navbtn-long"
           style={{
@@ -254,6 +254,16 @@ export default function ProjectFive({ setSelectedMarker }) {
           onClick={() => navigate("/projects")}
         >
           Back to Full Project List
+        </button>
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            padding: ".5em",
+          }}
+          onClick={() => navigate("/cv")}
+        >
+          Back to CV
         </button>
       </div>
     </>

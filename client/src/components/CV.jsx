@@ -144,7 +144,7 @@ export default function CV({ setSelectedMarker }) {
               6), pp. 107-131.{" "}
             </li>
           </div>
-          <div className="cv-project">
+          <div className="cv-project" onClick={() => navigate("/project-six")}>
             <h3>
               <span style={{ fontWeight: "bold" }}>The Library App</span> |{" "}
               <span style={{ textDecorationLine: "underline" }}>
@@ -153,7 +153,6 @@ export default function CV({ setSelectedMarker }) {
               | January/2025 |{" "}
               <Link
                 to={"https://github.com/laiyoung/The_Library_App"}
-                // style={{ color: "#9497dd",  }}
               >
                 GitHub Link
               </Link>{" "}
@@ -162,7 +161,49 @@ export default function CV({ setSelectedMarker }) {
                 to={
                   "https://67ef42c09bbe6355ddf358b6--rad-seahorse-bc769a.netlify.app/"
                 }
-                // style={{ color: "#9497dd", }}
+              >
+                Deployment Link
+              </Link>
+            </h3>
+            <li style={{ marginLeft: "2em" }}>
+              Front end development example for a public library app
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Establishing API connections to allow users to access catalog
+              information and their account information
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Utilizing React components, props, event listeners, and routers to
+              manage user experience and control interactions – including
+              catalog searches, information pulls, book reservations, and book
+              returns
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              Building a system for user authentication, with dynamic interface
+              elements
+            </li>
+            <li style={{ marginLeft: "2em" }}>
+              <span style={{ fontWeight: "bold" }}>Key Tools:</span> JavaScript,
+              React, CSS, HTML, Node, Figma
+            </li>
+          </div>
+          <div className="cv-project" onClick={() => navigate("/project-seven")}>
+            <h3>
+              <span style={{ fontWeight: "bold" }}>Design Portfolio</span> |{" "}
+              <span style={{ textDecorationLine: "underline" }}>
+                Front End Developer
+              </span>{" "}
+              | January/2025 |{" "}
+              <Link
+                to={"https://github.com/laiyoung/The_Library_App"}
+              >
+                GitHub Link
+              </Link>{" "}
+              |{" "}
+              <Link
+                to={
+                  "https://67ef42c09bbe6355ddf358b6--rad-seahorse-bc769a.netlify.app/"
+                }
               >
                 Deployment Link
               </Link>
@@ -190,6 +231,7 @@ export default function CV({ setSelectedMarker }) {
             </li>
           </div>
         </div>
+
       </div>
     </>
   );
