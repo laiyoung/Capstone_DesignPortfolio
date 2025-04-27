@@ -104,6 +104,7 @@ export default function ProjectFive({ setSelectedMarker }) {
           className="navbtn-long"
           style={{
             fontSize: "1.2em",
+            marginRight: "1.5em",
           }}
           onClick={handleNextProject}
         >
@@ -260,6 +261,7 @@ export default function ProjectFive({ setSelectedMarker }) {
           style={{
             fontSize: "1.2em",
             padding: ".5em",
+            marginRight: "1.5em",
           }}
           onClick={() => navigate("/cv")}
         >
