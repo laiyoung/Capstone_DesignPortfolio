@@ -441,6 +441,8 @@ form button {
   width: 100%;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  border-radius: 8px;
+  padding: .3em;
 }
 .cv-project:hover {
   background-color: #f0f0f5;
@@ -453,6 +455,17 @@ form button {
   color: #3521a1;
   text-decoration: underline;
 }
+.cv-project-item {
+  margin-left: 2em;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: .3em;
+}
+.cv-project-item:hover {
+  background-color: #f0f0f5;
+}
+
+
 
 /* Button Styling */
 button {

@@ -1,5 +1,6 @@
 /** Imports for Helper Functions */
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 /** Project Links */
 export { default as ProjectOne } from "./Project1.jsx";

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AllArtPieces from "./components/AllArtPieces";
@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import CV from "./components/CV";
 import AllProjects from "./components/Projects/AllProjects";
 import MarkerResults from "./components/MarkerResults";
+import ScrollToTop from "./TopScrollRouterFunc.jsx";
 import {
   ProjectOne,
   ProjectTwo,
@@ -77,6 +78,7 @@ function App() {
       </div>
 
       <div>
+        <ScrollToTop />
         <Routes>
           <Route
             path="/"

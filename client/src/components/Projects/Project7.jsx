@@ -76,6 +76,17 @@ export default function ProjectSeven({ setSelectedMarker }) {
         </button>
       </div>
       <div className="project-details-view">
+        <h2
+          className="project-title"
+          style={{
+            marginLeft: "auto",
+            textAlign: "center",
+            paddingRight: "3em",
+            paddingTop: "1em",
+          }}
+        >
+          {projectSeven.title}
+        </h2>
         <div
           className="hero-image-wrapper"
           style={{
@@ -89,17 +100,6 @@ export default function ProjectSeven({ setSelectedMarker }) {
             className="hero-image"
           />
         </div>
-        <h2
-          className="project-title"
-          style={{
-            marginLeft: "auto",
-            textAlign: "center",
-            paddingRight: "3em",
-            paddingTop: "1em",
-          }}
-        >
-          {projectSeven.title}
-        </h2>
         <h4>
           <span style={{ fontWeight: "bold" }}>Year:</span> {2025}
         </h4>
@@ -188,7 +188,7 @@ export default function ProjectSeven({ setSelectedMarker }) {
             ))}
         </div>
       </div>
-      <div>
+      <div className="titlebox">
         <button
           className="navbtn-long"
           style={{
@@ -198,6 +198,16 @@ export default function ProjectSeven({ setSelectedMarker }) {
           onClick={() => navigate("/projects")}
         >
           Back to Full Project List
+        </button>
+        <button
+          className="navbtn-long"
+          style={{
+            fontSize: "1.2em",
+            padding: ".5em",
+          }}
+          onClick={() => navigate("/cv")}
+        >
+          Back to CV
         </button>
       </div>
     </>

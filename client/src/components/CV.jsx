@@ -131,10 +131,10 @@ export default function CV({ setSelectedMarker }) {
           </div>
         </div>
         <div className="project-card">
-          <h2 style={{}}>Technical Projects</h2>
-          <div className="project-paragraph">
+          <h2>Technical Projects</h2>
+          <div className="project-paragraph" style={{ marginBottom: "1em"}} >
             <h3 style={{ fontWeight: "bold" }}>Recent Paper(s):</h3>
-            <li className="cv-project" style={{ marginLeft: "2em" }}>
+            <li className="cv-project-item" onClick={() => navigate("/project-one")}>
               <span style={{ fontWeight: "bold" }}>YOUNG, LAIGHA</span> “Chapter
               7: The Blues Tradition: Building Dialogical Relation within
               Utopian Imaginaries”. LAPOUTTE, Alexandrine, DUVERGER, Timothée
