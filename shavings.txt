@@ -5,6 +5,36 @@ find . -name 'Button.jsx'
 Very cool image attribute I didn't know existed:
 onLoad={() => setImageLoaded(true)}
 
+Scroll Function Designed for Project Routes only: 
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { projectsRoutes } from "./components/Projects/index.js";
+
+/** Utillity Component for Overriding the React Router Default Page
+ * Location (Changes Default to the top of the page)
+ */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const isProjectRoute = projectsRoutes.some((project) =>
+      pathname.startsWith(project.route)
+    );
+
+    // Only scroll on project routes
+    if (!isProjectRoute) return;
+    // Delay the scroll to ensure the new component has mounted
+    requestAnimationFrame(() => {
+      // The actual scroll feature (set to 80px from the actual top of the pg)
+      window.scrollTo({ top: 80, left: 0, behavior: "smooth" });
+    });
+  }, [pathname]);
+
+  return null;
+};
+
+export default ScrollToTop;
+
 
 For Adding Hyperlinks for Photos from Dropbox:
 -Use Dropbox

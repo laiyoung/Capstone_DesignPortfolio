@@ -12,7 +12,6 @@ export default function AllArtPieces({
   setSelectedMedium,
   fetchPieces,
 }) {
-  
   useEffect(() => {
     fetchPieces();
   }, []);

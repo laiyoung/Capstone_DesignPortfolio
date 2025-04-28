@@ -25,6 +25,18 @@ export default function SingleArtPiece({
     marginRight: "15px",
     flexShrink: 1,
   };
+
+   // Setting "Gallery Details" View:
+   useEffect(() => {
+    if (selectedPieceId) {
+      // Scroll the pop-out container or window
+      const details = document.querySelector(".single-card-view");
+      if (details) {
+        details.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [selectedPieceId]);
+
   // console.log(pieceId);
   function handleDetails(pieceId) {
     async function getSingleArtPiece() {

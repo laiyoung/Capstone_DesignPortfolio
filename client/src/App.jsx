@@ -54,6 +54,7 @@ function App() {
     }
   }, []);
 
+
   async function handlelogOut() {
     navigate("/");
     setToken(null);
