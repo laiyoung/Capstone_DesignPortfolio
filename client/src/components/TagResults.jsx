@@ -20,6 +20,12 @@ export default function TagResults({
     padding: "15px",
   };
 
+  // Setting "Tag Results" View:
+  useEffect(() => {
+      // Scroll the top of the list
+      window.scrollTo({ top: 80, left: 0, behavior: "smooth", });
+  }, [tagResults]);
+
   useEffect(() => {
     fetchPieces();
     setTagResults(
@@ -50,7 +56,12 @@ export default function TagResults({
         >
           Back To the Full Gallery
         </button>
-        <h2 style={{ textDecorationLine: " overline underline", paddingLeft: "4em" }}>
+        <h2
+          style={{
+            textDecorationLine: " overline underline",
+            paddingLeft: "4em",
+          }}
+        >
           {" "}
           {selectedMedium[0].toUpperCase() +
             selectedMedium.slice(1)} pieces:{" "}

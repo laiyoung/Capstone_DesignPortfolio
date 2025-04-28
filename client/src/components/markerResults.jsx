@@ -12,7 +12,6 @@ export default function MarkerResults({
   const [currentProjects, setCurrentProjects] = useState([]);
   const navigate = useNavigate();
 
-  // Add "Back to All Projects" button
   useEffect(() => {
     async function fetchAllProjects() {
       try {
@@ -29,6 +28,12 @@ export default function MarkerResults({
     }
     fetchAllProjects();
   }, []);
+
+    // Setting "Tag Results" View:
+    useEffect(() => {
+        // Scroll the top of the list
+        window.scrollTo({ top: 80, left: 0, behavior: "smooth", });
+    }, [markerResults]);
 
   useEffect(() => {
     setMarkerResults(
@@ -131,7 +136,7 @@ export default function MarkerResults({
           }}
           onClick={() => navigate("/projects")}
         >
-          Back to Full Project List
+          &#x21D0; Full Project List
         </button>
         <button
           className="navbtn-long"
@@ -142,7 +147,7 @@ export default function MarkerResults({
           }}
           onClick={() => navigate("/cv")}
         >
-          Back to CV
+          CV &#x21D2;
         </button>
       </div>
     </>

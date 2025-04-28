@@ -210,7 +210,7 @@ export default function ProjectOne({ setSelectedMarker }) {
           }}
           onClick={() => navigate("/projects")}
         >
-          Back to Full Project List
+          &#x21D0; Full Project List
         </button>
         <button
           className="navbtn-long"
@@ -221,7 +221,7 @@ export default function ProjectOne({ setSelectedMarker }) {
           }}
           onClick={() => navigate("/cv")}
         >
-          Back to CV
+          CV &#x21D2;
         </button>
       </div>
     </>

@@ -186,7 +186,7 @@ export default function ProjectFive({ setSelectedMarker }) {
             <button style={{ margin: ".5em" }}>Sow Much Good</button>
           </Link>
         </h4>
-        
+
         <div className="project-methods">
           <h4
             style={{
@@ -254,7 +254,7 @@ export default function ProjectFive({ setSelectedMarker }) {
           }}
           onClick={() => navigate("/projects")}
         >
-          Back to Full Project List
+          &#x21D0; Full Project List
         </button>
         <button
           className="navbtn-long"
@@ -265,7 +265,7 @@ export default function ProjectFive({ setSelectedMarker }) {
           }}
           onClick={() => navigate("/cv")}
         >
-          Back to CV
+          CV &#x21D2;
         </button>
       </div>
     </>
