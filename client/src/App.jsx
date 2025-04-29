@@ -1,3 +1,4 @@
+import React from 'react'; 
 import { useState, useEffect } from "react";
 import { Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -22,7 +23,7 @@ import {
 } from "./components/Projects/index.js";
 
 /** API Link */
-export const API_URL = `http://localhost:3000/api`;
+export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 function App() {
   const [error, setError] = useState(null);
