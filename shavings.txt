@@ -2,6 +2,7 @@ If you're struggling to find the relative file path. You can use the command lin
 find file paths (zsh):
 find . -name 'Button.jsx'
 
+
 Very cool image attribute I didn't know existed:
 onLoad={() => setImageLoaded(true)}
 
