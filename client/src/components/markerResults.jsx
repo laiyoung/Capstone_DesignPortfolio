@@ -13,15 +13,6 @@ export default function MarkerResults({
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("test - MarkerResults component mounted");
-
-    // Optionally log again if marker results change
-    return () => {
-      console.log("test - MarkerResults component unmounted");
-    };
-  }, []); 
-
-  useEffect(() => {
     async function fetchAllProjects() {
       try {
         const response = await fetch(`${API_URL}/projects`, {
