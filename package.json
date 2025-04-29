@@ -1,7 +1,10 @@
 {
   "name": "capstone_designportfolio",
   "private": true,
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "version": "1.0.0",
   "description": "Fullstack Software Engineering Bootcamp Final Project",
   "main": "index.js",
@@ -73,7 +76,6 @@
     "fresh": "^0.5.2",
     "fs-minipass": "^2.1.0",
     "fs.realpath": "^1.0.0",
-    "fsevents": "^2.1.3",
     "gauge": "^3.0.2",
     "get-stream": "^4.1.0",
     "glob": "^7.2.3",
@@ -192,8 +194,8 @@
     "signal-exit": "^3.0.3",
     "split": "^1.0.1",
     "statuses": "^1.5.0",
-    "string-width": "^4.2.3",
     "string_decoder": "^1.3.0",
+    "string-width": "^4.2.3",
     "strip-ansi": "^5.2.0",
     "strip-json-comments": "^2.0.1",
     "supports-color": "^5.5.0",
@@ -227,9 +229,9 @@
     "xtend": "^4.0.2",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build --workspace=client && npm run build --workspace=server"
   },
   "repository": {
     "type": "git",
@@ -241,5 +243,8 @@
   "bugs": {
     "url": "https://github.com/laiyoung/Capstone_DesignPortfolio/issues"
   },
-  "homepage": "https://github.com/laiyoung/Capstone_DesignPortfolio#readme"
+  "homepage": "https://github.com/laiyoung/Capstone_DesignPortfolio#readme",
+  "overrides": {
+    "fsevents": "npm:noop3"
+  }
 }
