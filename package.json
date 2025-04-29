@@ -246,5 +246,8 @@
   "homepage": "https://github.com/laiyoung/Capstone_DesignPortfolio#readme",
   "overrides": {
     "fsevents": "npm:noop3"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
