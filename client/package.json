@@ -6,7 +6,7 @@
   "scripts": {
     "dev:c9": "vite --port 8081",
     "dev": "vite",
-    "build": "vite build",
+    "build": "echo NODE_ROLLUP_NO_NATIVE=$NODE_ROLLUP_NO_NATIVE && exit 1",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
