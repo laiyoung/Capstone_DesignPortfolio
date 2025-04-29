@@ -7,15 +7,6 @@ const client = new pg.Client({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
-client.connect()
-  .then(() => {
-    console.log("✅ Connected to PostgreSQL database successfully!");
-  })
-  .catch((err) => {
-    console.error("❌ Failed to connect to PostgreSQL database:", err);
-    process.exit(1); // optional: stop the server if DB fails to connect
-  });
-
 //Hashing Encryption + Unique Identifier + JWT Imports:
 // const uuid = require("uuid");
 const bcrypt = require("bcrypt");
