@@ -3,6 +3,9 @@
 // Functon imports:
 const { client } = require("./db/db.js");
 
+// Env import: 
+require('dotenv').config(); 
+
 // Express imports:
 const express = require("express");
 const app = express();
@@ -53,7 +56,7 @@ app.use((err, req, res, next) => {
 // Init function declaration:
 const init = async () => {
   // Client connection and port creation:
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || process.env.LOCAL_PORT || 3000;
   await client.connect();
   console.log("connected to database");
 
