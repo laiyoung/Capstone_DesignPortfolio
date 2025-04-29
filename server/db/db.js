@@ -1,10 +1,13 @@
 /** Postgres Connection + SQL Interaction Models */
 
 // Client set up and pg import:
-const pg = require("pg");
-const client = new pg.Client({
+const { Client } = require('pg');
+
+const useSSL = process.env.DATABASE_URL?.includes('sslmode=require');
+
+const client = new Client({
   connectionString: process.env.DATABASE_URL || "postgres://localhost/design_portfolio_db",
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  ssl: useSSL ? { rejectUnauthorized: false } : false
 });
 
 //Hashing Encryption + Unique Identifier + JWT Imports:
