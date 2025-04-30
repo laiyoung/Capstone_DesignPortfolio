@@ -11,19 +11,11 @@ export default defineConfig({
   build: {
     outDir: "../dist",
     emptyOutDir: true,
-    rollupOptions: {
-      external: ["@components"],
-    },
   },
   server: {
     proxy: {
       "/api": `http://localhost:${serverPort}`,
     },
   },
-  resolve: {
-    alias: {
-      "@components": path.resolve(__dirname, "client/src/components"),
-    },
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
-  },
+
 });
