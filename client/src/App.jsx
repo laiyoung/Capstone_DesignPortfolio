@@ -10,7 +10,7 @@ import EditArtDetailsForm from "./components/EditArtDetailsForm";
 import Navigation from "./components/Navigation";
 import CV from "./components/CV";
 import AllProjects from "./components/Projects/AllProjects";
-import MarkerResults from "./components/MarkerResults.jsx";
+import MarkerResults from "./components/MarkerResults";
 import ScrollToTop from "./TopScrollRouterFunc.jsx";
 import {
   ProjectOne,
