@@ -231,7 +231,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build --workspace=client && npm run build --workspace=server"
+    "build": "echo \"No server build step needed\""
   },
   "repository": {
     "type": "git",
