@@ -2,6 +2,10 @@ If you're struggling to find the relative file path. You can use the command lin
 find file paths (zsh):
 find . -name 'Button.jsx'
 
+For Northflank deploys, you'll need an advanced build command: 
+npm start --workspace=server
+For the seed job you'll need an advanced build command as well:
+cd server && npm install && npm run seed
 
 Very cool image attribute I didn't know existed:
 onLoad={() => setImageLoaded(true)}
