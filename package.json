@@ -231,7 +231,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build --workspace=client"
+    "build": "npm run build --workspace=client",
+    "dev": "concurrently \"npm run start:dev -w server\" \"npm run dev -w client\""
   },
   "repository": {
     "type": "git",
@@ -249,5 +250,8 @@
   },
   "engines": {
     "node": "20.x"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
