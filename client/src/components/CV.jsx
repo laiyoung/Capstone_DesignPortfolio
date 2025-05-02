@@ -44,7 +44,7 @@ export default function CV({ setSelectedMarker }) {
     <>
       <div>
         {" "}
-        <Link to={""}>
+        <Link to={"https://res.cloudinary.com/duk7xkc40/image/upload/v1746227016/CV-Sci_layoung2025_ffrcls.pdf"}>
           <button>CV in PDF Format</button>
         </Link>
         <h2 style={{ fontStyle: "italic", fontWeight: "bold" }}>
@@ -204,7 +204,12 @@ export default function CV({ setSelectedMarker }) {
               <Link to={"https://github.com/laiyoung/Capstone_DesignPortfolio"}>
                 GitHub Link
               </Link>{" "}
-              | <Link to={""}>Deployment Link</Link>
+              |{" "}
+              <Link
+                to={"https://site--design-portfolio--kqgwt5c4vxwz.code.run/"}
+              >
+                Deployment Link
+              </Link>
             </h3>
             <li style={{ marginLeft: "2em" }}>
               Full stack design engineering portfolio
