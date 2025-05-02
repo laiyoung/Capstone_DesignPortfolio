@@ -14,6 +14,7 @@ export default function SingleArtPiece({
 }) {
   const [tagButtons, setTagButtons] = useState([]);
   const [selectedPieceId, setSelectedPieceId] = useState(null);
+  const [imageLoading, setImageLoading] = useState(true);
   const navigate = useNavigate();
 
   const imgSmallStyle = {
@@ -26,8 +27,8 @@ export default function SingleArtPiece({
     flexShrink: 1,
   };
 
-   // Setting "Gallery Details" View:
-   useEffect(() => {
+  // Setting "Gallery Details" View:
+  useEffect(() => {
     if (selectedPieceId) {
       // Scroll the pop-out container or window
       const details = document.querySelector(".single-card-view");
@@ -36,6 +37,16 @@ export default function SingleArtPiece({
       }
     }
   }, [selectedPieceId]);
+
+  // Skeleton loading delay for images:
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setImageLoading(false);
+      // Delay duration for fetch
+    }, 2000);
+    // Clear timeout if component unmounts
+    return () => clearTimeout(timer);
+  }, []);
 
   // console.log(pieceId);
   function handleDetails(pieceId) {
@@ -91,7 +102,11 @@ export default function SingleArtPiece({
 
   return selectedPieceId ? (
     <div lang="en" className="single-card-view">
-      <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
+      {imageLoading ? (
+        <div className="skeleton" style={imgSmallStyle}></div>
+      ) : (
+        <img style={imgSmallStyle} src={piece.image_url} alt={piece.title} />
+      )}
       <button
         style={{
           fontWeight: "bold",
@@ -150,7 +165,11 @@ export default function SingleArtPiece({
     </div>
   ) : (
     <div className="piece-card">
-      <img src={piece.image_url} alt={piece.title} />
+      {imageLoading ? (
+        <div className="skeleton"></div>
+      ) : (
+        <img src={piece.image_url} alt={piece.title} />
+      )}
       <div className="cover">
         <button onClick={() => handleDetails(pieceId)}>
           Art Piece Details
