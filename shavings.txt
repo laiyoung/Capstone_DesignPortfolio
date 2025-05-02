@@ -1,3 +1,4 @@
+Dev command (runs with concurrently): npm run dev
 If you're struggling to find the relative file path. You can use the command line to 
 find file paths (zsh):
 find . -name 'Button.jsx'
