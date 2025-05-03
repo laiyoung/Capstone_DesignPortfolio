@@ -89,7 +89,7 @@ export default function ProjectThree({ setSelectedMarker }) {
 
   return (
     <>
-      <div className="titlebox">
+      <div className="topbox">
         <button
           className="navbtn-long"
           style={{
@@ -277,7 +277,7 @@ export default function ProjectThree({ setSelectedMarker }) {
           </h3>
         )}
       </div>
-      <div className="titlebox">
+      <div className="topbox">
         <button
           className="navbtn-long"
           style={{

@@ -89,7 +89,7 @@ export default function ProjectSix({ setSelectedMarker }) {
 
   return (
     <>
-      <div className="titlebox">
+      <div className="topbox">
         <button
           className="navbtn-long"
           style={{
@@ -241,7 +241,7 @@ export default function ProjectSix({ setSelectedMarker }) {
           </h3>
         )}
       </div>
-      <div className="titlebox">
+      <div className="topbox">
         <button
           className="navbtn-long"
           style={{

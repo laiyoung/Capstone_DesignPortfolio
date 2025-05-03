@@ -72,6 +72,19 @@ h1 {
   justify-content: space-between;
   padding-bottom: 1em;
 }
+@media (max-width: 768px) {
+  .titlebox {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 150px;
+  }
+}
+.topbox{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1em;
+}
 
 .navbtn-tall {
   background-color: #333333;
@@ -85,6 +98,11 @@ h1 {
 
 .navbtn-tall.open {
   transform: translateX(-250px); /* Move the button */
+}
+@media (max-width: 768px) {
+  .navbtn-tall {
+    display: none;
+  }
 }
 
 .navbtn-long {
@@ -105,7 +123,7 @@ h1 {
   text-align: center;
   color: white;
   position: absolute;
-  z-index: 1;
+  z-index: 100;
   top: 0;
   right: 0;
   background-color: #333333;
@@ -116,6 +134,26 @@ h1 {
 
 .navigation.open {
   width: 250px; /* Width when open */
+}
+@media (max-width: 768px) {
+  .navigation {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    padding-top: 1em;
+  }
+  .navigation.open {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    padding-top: 1em;
+  }
 }
 
 /* Form styling */
@@ -153,6 +191,14 @@ form button {
   gap: 2px;
   align-items: center;
 }
+@media (max-width: 768px) {
+  .article {
+    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
 
 .piece-card {
   display: flex;
@@ -165,6 +211,11 @@ form button {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
   height: max-content;
+}
+@media (max-width: 768px) {
+  .piece-card {
+    margin: 10px 0;
+  }
 }
 
 .cover {
@@ -266,7 +317,7 @@ form button {
 /* Loading Skeleton */
 .skeleton {
   width: 100%;
-  height: 250px;  
+  height: 250px;
   background-color: #ecedfb;
   opacity: 0.6;
   border-radius: 10px;
@@ -450,8 +501,12 @@ form button {
     margin-top: 1em;
   }
   .project-card {
-    padding: 1em 0.5em;
+    padding: 1em;
   }
+  .project-card button:hover {
+    transform: scale(1.02);
+  }
+
 }
 
 /* CV Component Styling */
@@ -461,7 +516,7 @@ form button {
   cursor: pointer;
   transition: background-color 0.2s ease;
   border-radius: 8px;
-  padding: .3em;
+  padding: 0.3em;
 }
 .cv-project:hover {
   background-color: #f0f0f5;
@@ -478,12 +533,14 @@ form button {
   margin-left: 2em;
   cursor: pointer;
   border-radius: 8px;
-  padding: .3em;
+  padding: 0.3em;
 }
 .cv-project-item:hover {
   background-color: #f0f0f5;
 }
-
+@media (max-width: 768px) {
+  
+}
 
 
 /* Button Styling */
@@ -498,6 +555,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 /* Specific styling for admin buttons */
 .admin-button {
   background-color: #9497dd;

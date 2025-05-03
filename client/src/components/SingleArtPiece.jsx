@@ -43,7 +43,7 @@ export default function SingleArtPiece({
     const timer = setTimeout(() => {
       setImageLoading(false);
       // Delay duration for fetch
-    }, 2000);
+    }, 2100);
     // Clear timeout if component unmounts
     return () => clearTimeout(timer);
   }, []);
